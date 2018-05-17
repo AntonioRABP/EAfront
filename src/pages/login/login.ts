@@ -14,8 +14,8 @@ import {HomePage} from '../home/home';
 })
 export class LoginPage {
 
-	typeLogin = "login";
-	user = {username: '', password: ''};
+	typeLogin = "login"; //TIPO DE VISTA QUE SE MOSTRARA (PUEDE SER LOGIN O REGISTRO)
+	user = {username: '', password: ''}; //VALORES PARA EL FORM DE LOGIN
 
   constructor(public navCtrl: NavController, 
   				public navParams: NavParams,
@@ -29,17 +29,21 @@ export class LoginPage {
   }
 
   isLogin(){
+    //CONSULTAMOS EL SERVICIO PARA OBTENER LA SESION
   	let res = this.serviceLogin.getSession(this.user);
- 
+    
+    //NOS SUSCRIBIMOS AL SERVICIO
     res.subscribe(
       value => {
-
+        //SI DEVUELVE TRUE ES POR QUE NOS HEMOS LOGUEADO CORRECTAMENTE
         if (value.success) {
-          console.log("Welcome!" + value.data.session_id + value.data.expires_at);
+          console.log("Welcome!");
+          //GUARDAMOS LOS VALORES EN LA BD DEL FRONT
           this.storage.set("session_id" , value.data.session_id);
           this.storage.set("expires_at" , value.data.expires_at);
-          this.navCtrl.setRoot(HomePage);
+          this.navCtrl.setRoot(HomePage);//REDIRIGIMOS AL HOME
         }else{
+          //SI NO NOS HEMOS LOGUEADO LANZAMOS UNA ALERTA
           console.log("Contraseña Equivocada");
           let alert = this.alertCtrl.create({
             title: 'Sin Acceso! :(',
@@ -50,8 +54,16 @@ export class LoginPage {
         }
 
       },
-      err => {console.log('Error: ' + err)},
+      err => {console.log('Error: ' + err)},//CONTROLAMOS LOS ERRORES
       () => console.log('this is the end')
     );
+  }
+  //CAMBIAMOS EL PARAMETRO PARA MOSTRAR EL REGISTRO
+  goRegister(){
+    this.typeLogin = 'register';
+  }
+  //CAMBIAMOS EL PARAMETRO PARA MOSTRAR EL LOGIN
+  goLogin(){
+    this.typeLogin = 'login';
   }
 }
