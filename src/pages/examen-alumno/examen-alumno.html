@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-navbar color="default">
+    <ion-title>EXAMENES</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+<div [ngSwitch]="partExamen">
+  <div *ngSwitchCase = "'Inicio'">
+
+    <div padding>
+      <ion-segment [(ngModel)]="examen">
+        <ion-segment-button value="exam-pendiente">
+          Examenes Pendientes
+        </ion-segment-button>
+        <ion-segment-button value="exam-pasados">
+          Examenes Pasados
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+    <div [ngSwitch]="examen">
+      <ion-list *ngSwitchCase="'exam-pendiente'">
+        <ion-item><button ion-button (click)="rendirExamen()">EXAMEN PENDIENTE 1</button></ion-item>
+        <ion-item><button ion-button (click)="rendirExamen()">EXAMEN PENDIENTE 2</button></ion-item>
+        <ion-item><button ion-button (click)="rendirExamen()">EXAMEN PENDIENTE 3</button></ion-item>
+      </ion-list>
+
+      <ion-list *ngSwitchCase="'exam-pasados'">
+        <ion-item>EXAMEN PASADOS 1</ion-item>
+        <ion-item>EXAMEN PASADOS 2</ion-item>
+        <ion-item>EXAMEN PASADOS 3</ion-item>
+      </ion-list>
+    </div>
+
+  </div>
+  <div *ngSwitchCase = "'Preguntas'">
+    <ion-footer>
+      <ion-navbar color="secondary">
+        00:00:00
+        <!--<timer [timeInSeconds]="duracionExamen"></timer>-->
+      </ion-navbar>
+    </ion-footer>
+    <ion-slides>
+      <ion-slide *ngFor="let pregunta of preguntas">
+        <ion-card>
+          <ion-card-content>
+          <ion-card-header>
+            Primera Practica KM
+          </ion-card-header>
+            {{pregunta.id}} 
+          <br> 
+          <br>
+            {{pregunta.texto}}
+          <br>
+          <br>
+          Marcar las alternativas correctas.
+          <br>
+          <br>
+
+          <ion-item *ngFor="let alternativa of pregunta.alternativas">
+            <ion-label>{{alternativa.texto}}</ion-label>
+            <ion-checkbox color="dark" checked="true"></ion-checkbox>
+          </ion-item>
+
+          </ion-card-content>
+          <div>
+            <button ion-button color="light" icon-only><ion-icon name="ios-arrow-back"></ion-icon></button>
+            <button ion-button color="light" icon-only><ion-icon name="ios-arrow-forward" ></ion-icon></button>
+          </div>
+        </ion-card>
+        <button ion-button (click)="verResultados()">Terminar Examen</button>
+      </ion-slide>
+    </ion-slides>
+  </div>
+  <div *ngSwitchCase = "'Resultados'">
+    <ion-card>
+      <ion-card-content>
+        ESTOS SON TU RESULTADOS:
+        <br>
+        <br>
+        PREGUNTAS RESPONDIDAS CORRECTAMENTE: 7
+        <br>
+        PREGUNTAS EQUIVOCADAS: 7
+        <br>
+        <br>
+        NOTO FINAL: JALADO PAPU :v
+      </ion-card-content>
+    </ion-card>
+    <button ion-button color="default" (click)="irExamen()">Ir a Examanes</button>
+  </div>
+</div>
+</ion-content>

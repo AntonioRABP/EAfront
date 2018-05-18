@@ -6,6 +6,7 @@ import { IonicPage, NavController, NavParams, AlertController  } from 'ionic-ang
 import { LoginServiceProvider } from '../../providers/login-service/login-service';
 
 import {HomePage} from '../home/home';
+import { ExamenAlumnoPage } from '../examen-alumno/examen-alumno';
 
 @IonicPage()
 @Component({
@@ -41,7 +42,7 @@ export class LoginPage {
           //GUARDAMOS LOS VALORES EN LA BD DEL FRONT
           this.storage.set("session_id" , value.data.session_id);
           this.storage.set("expires_at" , value.data.expires_at);
-          this.navCtrl.setRoot(HomePage);//REDIRIGIMOS AL HOME
+          this.navCtrl.setRoot(ExamenAlumnoPage);//HomePage);//REDIRIGIMOS AL HOME
         }else{
           //SI NO NOS HEMOS LOGUEADO LANZAMOS UNA ALERTA
           console.log("Contraseña Equivocada");

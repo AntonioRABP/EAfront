@@ -11,6 +11,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+import { ExamenAlumnoPage } from '../pages/examen-alumno/examen-alumno';
 
 import { LoginServiceProvider } from '../providers/login-service/login-service';
 
@@ -18,7 +19,8 @@ import { LoginServiceProvider } from '../providers/login-service/login-service';
   declarations: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    ExamenAlumnoPage
   ],
   imports: [
     BrowserModule,
@@ -33,7 +35,8 @@ import { LoginServiceProvider } from '../providers/login-service/login-service';
   entryComponents: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    ExamenAlumnoPage
   ],
   providers: [
     StatusBar,

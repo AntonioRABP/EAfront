@@ -39,4 +39,8 @@ export class LoginServiceProvider {
     
     return observable;
   }
+
+  setRegister(){
+    
+  }
 }
