@@ -18,25 +18,45 @@
         </ion-segment-button>
       </ion-segment>
     </div>
+    <!--ESTE ES LA VISTA DE EXAMENES-->
     <div [ngSwitch]="examen">
-      <ion-list *ngSwitchCase="'exam-pendiente'">
-        <ion-item><button ion-button (click)="rendirExamen()">EXAMEN PENDIENTE 1</button></ion-item>
-        <ion-item><button ion-button (click)="rendirExamen()">EXAMEN PENDIENTE 2</button></ion-item>
-        <ion-item><button ion-button (click)="rendirExamen()">EXAMEN PENDIENTE 3</button></ion-item>
-      </ion-list>
+      <div *ngSwitchCase="'exam-pendiente'">
+        <ion-list *ngFor="let exam_pendiente of exam_pendientes">
+          <ion-item>
+          <ion-card>
+          <ion-grid>
+            <ion-row>
+              <ion-col>{{exam_pendiente.nombre}}</ion-col>
+              <ion-col><button ion-button (click)="rendirExamen()">Rendir Examen</button></ion-col>
+            </ion-row>
+          </ion-grid>
+          </ion-card>
+          </ion-item>
+        </ion-list>
+      </div>
 
-      <ion-list *ngSwitchCase="'exam-pasados'">
-        <ion-item>EXAMEN PASADOS 1</ion-item>
-        <ion-item>EXAMEN PASADOS 2</ion-item>
-        <ion-item>EXAMEN PASADOS 3</ion-item>
-      </ion-list>
+      <div *ngSwitchCase="'exam-pasados'">
+        <ion-list *ngFor="let exam_pasado of exam_pasados">
+          <ion-item>
+          <ion-card>
+          <ion-grid>
+            <ion-row>
+              <ion-col>{{exam_pasado.nombre}}</ion-col>
+              <ion-col><button ion-button >Ver nota</button></ion-col>
+            </ion-row>
+          </ion-grid>
+          </ion-card>
+          </ion-item>
+        </ion-list>
+      </div>
     </div>
 
   </div>
+  <!--ESTE ES LA VISTA PARA REALIZAR PREGUNTAS-->
   <div *ngSwitchCase = "'Preguntas'">
     <ion-footer>
       <ion-navbar color="secondary">
-        00:00:00
+        <ion-icon name="timer"> &nbsp; 00 min 00 seg </ion-icon>
         <!--<timer [timeInSeconds]="duracionExamen"></timer>-->
       </ion-navbar>
     </ion-footer>
@@ -47,8 +67,6 @@
           <ion-card-header>
             Primera Practica KM
           </ion-card-header>
-            {{pregunta.id}} 
-          <br> 
           <br>
             {{pregunta.texto}}
           <br>
@@ -59,7 +77,7 @@
 
           <ion-item *ngFor="let alternativa of pregunta.alternativas">
             <ion-label>{{alternativa.texto}}</ion-label>
-            <ion-checkbox color="dark" checked="true"></ion-checkbox>
+            <ion-checkbox color="dark" checked="false"></ion-checkbox>
           </ion-item>
 
           </ion-card-content>
@@ -83,7 +101,7 @@
         PREGUNTAS EQUIVOCADAS: 7
         <br>
         <br>
-        NOTO FINAL: JALADO PAPU :v
+        NOTA FINAL: DESAPROBADO
       </ion-card-content>
     </ion-card>
     <button ion-button color="default" (click)="irExamen()">Ir a Examanes</button>

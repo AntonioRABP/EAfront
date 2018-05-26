@@ -59,6 +59,9 @@ export class LoginPage {
       () => console.log('this is the end')
     );
   }
+  isRegister(){
+    
+  }
   //CAMBIAMOS EL PARAMETRO PARA MOSTRAR EL REGISTRO
   goRegister(){
     this.typeLogin = 'register';
