@@ -20,6 +20,7 @@ export class ExamenAlumnoPage {
 	duracionExamen: number = 0;
 	inicioExamen;
 	finExamen;
+	endExamen = false;
 	dataExamenAlumno = new DataExamenAlumno();
 	//variables globales
 	partExamen = 'Inicio';
@@ -116,21 +117,23 @@ export class ExamenAlumnoPage {
 	finalizo(){
 
 		setTimeout(() => {
-				if (!this.timer.hasFinished()) {
+				if (!this.timer.hasFinished() && !this.endExamen ) {
 					this.finalizo();
 				}
 				else {
 					console.log('fin examen');
 					this.finExamen = new Date();
 
+					if(!this.endExamen){
+						const alert01 = this.alertCtrl.create({
+					      title: 'Termino el Examen!',
+					      subTitle: 'Puedes consultar tus notas!',
+					      buttons: ['OK']
+					    });
 
-					const alert01 = this.alertCtrl.create({
-				      title: 'Termino el Examen!',
-				      subTitle: 'Puedes consultar tus notas!',
-				      buttons: ['OK']
-				    });
+						alert01.present();
+					}
 
-					alert01.present();
 
 					this.partExamen = 'Resultados';
 
@@ -155,7 +158,7 @@ export class ExamenAlumnoPage {
 	      	{
 	        	text: 'Seguro',
 	        	handler: () => {
-					this.partExamen = 'Resultados';
+					this.endExamen = true;
 	          		console.log('Ver resultados');
 	        	}
 	      	}
