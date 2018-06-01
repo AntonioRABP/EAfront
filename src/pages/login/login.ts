@@ -8,6 +8,7 @@ import { LoginServiceProvider } from '../../providers/login-service/login-servic
 import {HomePage} from '../home/home';
 import { ExamenAlumnoPage } from '../examen-alumno/examen-alumno';
 
+
 @IonicPage()
 @Component({
   selector: 'page-login',
@@ -17,6 +18,7 @@ export class LoginPage {
 
 	typeLogin = "login"; //TIPO DE VISTA QUE SE MOSTRARA (PUEDE SER LOGIN O REGISTRO)
 	user = {username: '', password: ''}; //VALORES PARA EL FORM DE LOGIN
+  listExamenes = {};
 
   constructor(public navCtrl: NavController, 
   				public navParams: NavParams,
@@ -26,13 +28,13 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
-   	console.log('ionViewDidLoad LoginPage');
+   	console.log('Carga LoginPage');
   }
 
   isLogin(){
     //CONSULTAMOS EL SERVICIO PARA OBTENER LA SESION
-  	let res = this.serviceLogin.getSession(this.user);
-    
+    let res = this.serviceLogin.getSession(this.user);
+
     //NOS SUSCRIBIMOS AL SERVICIO
     res.subscribe(
       value => {
@@ -40,8 +42,14 @@ export class LoginPage {
         if (value.success) {
           console.log("Welcome!");
           //GUARDAMOS LOS VALORES EN LA BD DEL FRONT
+          this.storage.remove("session_id");
           this.storage.set("session_id" , value.data.session_id);
           this.storage.set("expires_at" , value.data.expires_at);
+          console.log('Primer Token: ',value.data.session_id);
+
+          window.localStorage.setItem("s-session", value.data.session_id);
+
+          console.log('Redirigimos a la vista de examenes');
           this.navCtrl.setRoot(ExamenAlumnoPage);//HomePage);//REDIRIGIMOS AL HOME
         }else{
           //SI NO NOS HEMOS LOGUEADO LANZAMOS UNA ALERTA
@@ -59,6 +67,8 @@ export class LoginPage {
       () => console.log('this is the end')
     );
   }
+
+
   isRegister(){
     
   }

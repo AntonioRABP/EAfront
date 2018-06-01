@@ -1,13 +1,12 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component,ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, AlertController  } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+import { ExamenServiceProvider } from '../../providers/examen-service/examen-service';
 
-//import { TimerComponent } from '../timer/timer'
-/**
- * Generated class for the ExamenAlumnoPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { TimerPage } from '../timer/timer'
+
+//borrar data fake
+import {DataExamenAlumno} from './data-examen-alumno'
 
 @IonicPage()
 @Component({
@@ -15,171 +14,105 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'examen-alumno.html',
 })
 export class ExamenAlumnoPage {
+
+	@ViewChild(TimerPage) timer: TimerPage;
+
+	duracionExamen: number = 0;
+
+	dataExamenAlumno = new DataExamenAlumno();
 	//variables globales
 	partExamen = 'Inicio';
 	//variables para el inicio
 	examen = 'exam-pendiente';
-	exam_pendientes = [
-		{
-			id: 1,
-			nombre: 'Examen Parcial KM'
-		},
-		{
-			id: 2,
-			nombre: 'Tercera practica KM'
-		},
-		{
-			id: 3,
-			nombre: 'Cuarta practica KM'
-		},
-		{
-			id: 4,
-			nombre: 'Examen Final KM'
-		}
-	];
-	exam_pasados = [
-		{
-			id: 5,
-			nombre: 'Primera practica KM'
-		},
-		{
-			id: 6,
-			nombre: 'Segunda practica KM'
-		}
-	];
+	exam_pendientes = this.dataExamenAlumno.exam_pendientes;
+	exam_pasados = this.dataExamenAlumno.exam_pasados;
 	//variables para las preguntas
-	duracionExamen: number = 0;
-	preguntas = [
-		{
-			id: 1, 
-			texto: '1. Una vez firmado, un contrato es legalmente vinculante a menos que',
-			alternativas:[
-				{
-					id: 1,
-					texto: 'A. Una parte sea incapaz de ejecutarlo'
-				},
-				{
-					id: 2,
-					texto: 'B. Una parte sea incapaz de financiar su parte del trabajo.'
-				},
-				{
-					id: 3,
-					texto: 'C. Esté violando una ley aplicable'
-				},
-				{
-					id: 3,
-					texto: 'D. Se declare nulo y sin efecto por el representante legal de cualquiera de las partes'
-				}
-			]	
-		},
-		{
-			id: 2, 
-			texto: '2. Con un enunciado del trabajo de las adquisiciones claro, un vendedor completa su trabajo según lo especificado, pero el comprador no está satisfecho con los resultados. El contrato se considera:',
-			alternativas:[
-				{
-					id: 1,
-					texto: 'A. Nulo y sin efecto'
-				},
-				{
-					id: 2,
-					texto: 'B. Incompleto'
-				},
-				{
-					id: 3,
-					texto: 'C. Completo,.'
-				},
-				{
-					id: 4,
-					texto: 'D. Suspendido'
-				}
-			]	
-		},
-		{
-			id: 3, 
-			texto: '3. Todos los siguientes enunciados con respecto a los documentos de adquisición son incorrectos EXCEPTO',
-			alternativas:[
-				{
-					id: 1,
-					texto: 'A. Los documentos de adquisición bien diseñados pueden simplificar la comparación de las respuestas.'
-				},
-				{
-					id: 2,
-					texto: 'B. Los documentos de adquisición deben ser rigurosos e inflexibles para no permitir consideraciones a las sugerencias del vendedor.'
-				},
-				{
-					id: 3,
-					texto: 'C. En general, los documentos de adquisición no deben incluir criterios de selección.'
-				},
-				{
-					id: 4,
-					texto: 'D. Los documentos de adquisición bien diseñados no incluyen un enunciado del trabajo de las adquisiciones'
-				}
-			]	
-		},
-		{
-			id: 4, 
-			texto: '4. Un director de proyectos por parte del vendedor es informado por medio de su gerencia que el proyecto debe hacer todo lo posible para que les sean otorgados incentivos monetarios. El objetivo principal de las cláusulas de incentivos en un contrato es:',
-			alternativas:[
-				{
-					id: 1,
-					texto: 'A. Reducir los costos para el comprador'
-				},
-				{
-					id: 2,
-					texto: 'B. Ayudar al vendedor a controlar los costos'
-				},
-				{
-					id: 3,
-					texto: 'C. Sincronizar los objetivos.'
-				},
-				{
-					id: 4,
-					texto: 'D. Reducir los riesgos para el vendedor transfiriendo los riesgos al comprador'
-				}
-			]	
-		},
-		{
-			id: 5, 
-			texto: '5. Todas las declaraciones siguientes sobre control de cambios son incorrectas EXCEPTO:',
-			alternativas:[
-				{
-					id: 1,
-					texto: 'A. Un contrato de precio fijo va a minimizar la necesidad de control de cambios'
-				},
-				{
-					id: 2,
-					texto: 'B. Los cambios raras veces proporcionan beneficios reales al proyecto.'
-				},
-				{
-					id: 3,
-					texto: 'C. Los contratos deben incluir procedimientos para adaptar los cambios.'
-				},
-				{
-					id: 4,
-					texto: 'D. Las especificaciones más detalladas eliminan las causas de los cambios'
-				}
-			]	
-		}
-	];
+	preguntas = this.dataExamenAlumno.preguntas;
 	//variables para el resultado
 
-	constructor(public navCtrl: NavController, public navParams: NavParams) {
+	constructor(public navCtrl: NavController, 
+		public navParams: NavParams,
+		public examenServiceProvider: ExamenServiceProvider,
+		private alertCtrl: AlertController,
+  		private storage: Storage) {
 	}
 
 	ionViewDidLoad() {
-	    console.log('ionViewDidLoad ExamenAlumnoPage');
-	    console.log(this.preguntas);
+	    console.log('Inicializando ExamenAlumnoPage');
+
 	}
 
-	rendirExamen(){
-		this.partExamen = 'Preguntas';
+	ionViewWillEnter(){
+
+		let res = this.examenServiceProvider.getListExam();
+
+	    res.subscribe(
+	      value => {
+	        //SI DEVUELVE TRUE ES POR QUE NOS HEMOS LOGUEADO CORRECTAMENTE
+	        console.log(value);
+
+	      },
+	      err => {console.log('Error: ' + err)},//CONTROLAMOS LOS ERRORES
+	      () => console.log('this is the end')
+	    );
 	}
-	verResultados(){
-		
-		this.partExamen = 'Resultados';
-	}
+
+	//FUNCIONES PARA VISTA DE EXAMENES
 	irExamen(){
+
 		this.partExamen = 'Inicio';
+	}
+	//FUNCIONES PARA RENDIR EXAMEN
+	rendirExamen(id){
+		let alert = this.alertCtrl.create({
+	    	title: 'Rendir Examen',
+	    	message: 'El examen durará',
+	    	buttons: [
+	      	{
+	        	text: 'Cancelar',
+	        	role: 'cancel',
+	        	handler: () => {
+	          		console.log('Cancel clicked');
+	        	}
+	      	},
+	      	{
+	        	text: 'Ir a la prueba',
+	        	handler: () => {
+					this.partExamen = 'Preguntas';
+	          		console.log('Buy clicked');
+	        	}
+	      	}
+	    	
+	    	]
+	  	});
+
+	  	alert.present();
+		//pedir las preguntas al servidor a traves del id
+	}
+	//FUNCIONES PARA VER RESULTADDOS
+	verResultados(){
+		let alert = this.alertCtrl.create({
+	    	title: 'Confirmar',
+	    	message: 'Seguro que desesa terminar el examen?',
+	    	buttons: [
+	      	{
+	        	text: 'Cancelar',
+	        	role: 'cancel',
+	        	handler: () => {
+	          		console.log('Cancel clicked');
+	        	}
+	      	},
+	      	{
+	        	text: 'Seguro',
+	        	handler: () => {
+					this.partExamen = 'Resultados';
+	          		console.log('Ver resultados');
+	        	}
+	      	}
+	    			]
+	  	});
+	  	alert.present();		
+		
 	}
 
 }

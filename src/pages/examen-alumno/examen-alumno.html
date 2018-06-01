@@ -27,8 +27,17 @@
           <ion-grid>
             <ion-row>
               <ion-col>{{exam_pendiente.nombre}}</ion-col>
-              <ion-col><button ion-button (click)="rendirExamen()">Rendir Examen</button></ion-col>
             </ion-row>
+            <ion-row>
+              <ion-item> Cantidad de Preguntas: {{exam_pendiente.cantidad_preguntas }}</ion-item>
+              <ion-item> Peso preguntas correctas: {{exam_pendiente.peso_preguntas_correctas }}</ion-item>
+              <ion-item> Peso preguntas incorrectas: {{exam_pendiente.peso_preguntas_incorrectas }}</ion-item>
+              <ion-item> Intentos Permitidos: {{exam_pendiente.intentosPermitidos }}</ion-item>
+              <ion-item> Inicio de Examen: {{exam_pendiente.inicioExamen }}</ion-item>
+              <ion-item> Fin de Examen: {{exam_pendiente.finExamen }}</ion-item>
+              <ion-item> Duracion: {{exam_pendiente.duracion }}</ion-item>
+            </ion-row>
+            <button id="id_examen" ion-button (click)="rendirExamen(exam_pendiente.id)">Rendir Examen</button>
           </ion-grid>
           </ion-card>
           </ion-item>
@@ -56,8 +65,7 @@
   <div *ngSwitchCase = "'Preguntas'">
     <ion-footer>
       <ion-navbar color="secondary">
-        <ion-icon name="timer"> &nbsp; 00 min 00 seg </ion-icon>
-        <!--<timer [timeInSeconds]="duracionExamen"></timer>-->
+        <timer [timeInSeconds]="duracionExamen"></timer>
       </ion-navbar>
     </ion-footer>
     <ion-slides>
@@ -90,6 +98,7 @@
       </ion-slide>
     </ion-slides>
   </div>
+  <!--Vistas para mirar el resultado-->
   <div *ngSwitchCase = "'Resultados'">
     <ion-card>
       <ion-card-content>

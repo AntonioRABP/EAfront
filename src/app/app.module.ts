@@ -12,15 +12,19 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { ExamenAlumnoPage } from '../pages/examen-alumno/examen-alumno';
+import { TimerPage } from '../pages/timer/timer'
+
 
 import { LoginServiceProvider } from '../providers/login-service/login-service';
+import { ExamenServiceProvider } from '../providers/examen-service/examen-service';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     LoginPage,
-    ExamenAlumnoPage
+    ExamenAlumnoPage,
+    TimerPage
   ],
   imports: [
     BrowserModule,
@@ -36,13 +40,15 @@ import { LoginServiceProvider } from '../providers/login-service/login-service';
     MyApp,
     HomePage,
     LoginPage,
-    ExamenAlumnoPage
+    ExamenAlumnoPage,
+    TimerPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    LoginServiceProvider
+    LoginServiceProvider,
+    ExamenServiceProvider
   ]
 })
 export class AppModule {}
