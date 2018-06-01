@@ -19,9 +19,9 @@ export class DataExamenAlumno {//despues seras eliminado
 			peso_preguntas_correctas: 1,
 			peso_preguntas_incorrectas: 0.5,
 			intentosPermitidos: 3,
-			inicioExamen: this.getFecha('10/10/2018 10:00:00'),
-			finExamen:this.getFecha('10/10/2018 10:30:00'),
-			duracion: this.getTime(30)
+			inicioExamen: '10/10/2018 10:00:00',
+			finExamen:'10/10/2018 10:30:00',
+			duracion: 30
 		},
 		{
 			id: 2,
@@ -30,9 +30,9 @@ export class DataExamenAlumno {//despues seras eliminado
 			peso_preguntas_correctas: 1,
 			peso_preguntas_incorrectas: 0.5,
 			intentosPermitidos: 3,
-			inicioExamen: this.getFecha('10/10/2018 10:00:00'),
-			finExamen:this.getFecha('10/10/2018 10:30:00'),
-			duracion: this.getTime(30)
+			inicioExamen: '10/10/2018 10:00:00',
+			finExamen:'10/10/2018 10:30:00',
+			duracion: 30
 		},
 		{
 			id: 3,
@@ -41,9 +41,9 @@ export class DataExamenAlumno {//despues seras eliminado
 			peso_preguntas_correctas: 1,
 			peso_preguntas_incorrectas: 0.5,
 			intentosPermitidos: 3,
-			inicioExamen: this.getFecha('10/10/2018 10:00:00'),
-			finExamen:this.getFecha('10/10/2018 10:30:00'),
-			duracion: this.getTime(30)
+			inicioExamen: '10/10/2018 10:00:00',
+			finExamen:'10/10/2018 10:30:00',
+			duracion: 30
 		},
 		{
 			id: 4,
@@ -52,9 +52,9 @@ export class DataExamenAlumno {//despues seras eliminado
 			peso_preguntas_correctas: 1,
 			peso_preguntas_incorrectas: 0.5,
 			intentosPermitidos: 3,
-			inicioExamen: this.getFecha('10/10/2018 10:00:00'),
-			finExamen:this.getFecha('10/10/2018 10:30:00'),
-			duracion: this.getTime(30)
+			inicioExamen: '10/10/2018 10:00:00',
+			finExamen:'10/10/2018 10:30:00',
+			duracion: 30
 		}
 	];
 

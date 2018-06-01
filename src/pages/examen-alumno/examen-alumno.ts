@@ -18,7 +18,8 @@ export class ExamenAlumnoPage {
 	@ViewChild(TimerPage) timer: TimerPage;
 
 	duracionExamen: number = 0;
-
+	inicioExamen;
+	finExamen;
 	dataExamenAlumno = new DataExamenAlumno();
 	//variables globales
 	partExamen = 'Inicio';
@@ -63,10 +64,23 @@ export class ExamenAlumnoPage {
 		this.partExamen = 'Inicio';
 	}
 	//FUNCIONES PARA RENDIR EXAMEN
-	rendirExamen(id){
+	rendirExamen($id){
+
+		let message = 'El examen durará: ';
+		let duracion;
+		this.exam_pendientes.forEach(function (elemento, indice, array) {
+    		if (elemento.id == $id){
+    			console.log(elemento.id,elemento.duracion);
+    			duracion=elemento.duracion;
+				message = message.concat(elemento.duracion.toString());
+				return;
+    		};
+		});
+
+
 		let alert = this.alertCtrl.create({
 	    	title: 'Rendir Examen',
-	    	message: 'El examen durará',
+	    	message: message,
 	    	buttons: [
 	      	{
 	        	text: 'Cancelar',
@@ -78,8 +92,17 @@ export class ExamenAlumnoPage {
 	      	{
 	        	text: 'Ir a la prueba',
 	        	handler: () => {
+			        this.inicioExamen = new Date();
 					this.partExamen = 'Preguntas';
-	          		console.log('Buy clicked');
+					this.duracionExamen=duracion;
+			        
+			        setTimeout((result) => {//inicia el contador del examen
+			            
+			            this.timer.startTimer();
+			            this.finalizo();//vemos si acabo el timer
+			        }, 1000);
+	          		
+	          		console.log('Ir a la prueba');
 	        	}
 	      	}
 	    	
@@ -89,6 +112,33 @@ export class ExamenAlumnoPage {
 	  	alert.present();
 		//pedir las preguntas al servidor a traves del id
 	}
+
+	finalizo(){
+
+		setTimeout(() => {
+				if (!this.timer.hasFinished()) {
+					this.finalizo();
+				}
+				else {
+					console.log('fin examen');
+					this.finExamen = new Date();
+
+
+					const alert01 = this.alertCtrl.create({
+				      title: 'Termino el Examen!',
+				      subTitle: 'Puedes consultar tus notas!',
+				      buttons: ['OK']
+				    });
+
+					alert01.present();
+
+					this.partExamen = 'Resultados';
+
+				}
+			}, 1000)
+
+	}
+
 	//FUNCIONES PARA VER RESULTADDOS
 	verResultados(){
 		let alert = this.alertCtrl.create({
@@ -114,5 +164,29 @@ export class ExamenAlumnoPage {
 	  	alert.present();		
 		
 	}
+
+	//FORMATEO FECHAS
+
+  getTime(inputSeconds: number) {
+    var sec_num = parseInt(inputSeconds.toString(), 10);
+    var hours = Math.floor(sec_num / 3600);
+    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+    var seconds = sec_num - (hours * 3600) - (minutes * 60);
+    return this.addo(hours) + ":" + this.addo(minutes) + ":" + this.addo(seconds);
+  }
+  
+  getFecha(horadia) {
+    let format = new Date(horadia);
+    return this.addo(format.getUTCFullYear()) + "-" + this.addo(format.getUTCMonth()) + "-" + this.addo(format.getUTCDate());
+  }
+  
+  addo(comp) {
+    return (((comp + "").length == 1) ? "0" + comp : comp);
+  }
+
+
+
+
+
 
 }

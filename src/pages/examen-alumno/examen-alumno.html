@@ -1,6 +1,10 @@
 <ion-header>
   <ion-navbar color="default">
-    <ion-title>EXAMENES</ion-title>
+    <ion-title text-center>
+      <h4>UNIVERSIDAD NACIONAL DE INGENIERIA</h4>
+      <h6>Facultad de Ingenieria Industrial y de sistemas</h6>
+    </ion-title>
+    
   </ion-navbar>
 </ion-header>
 
@@ -33,9 +37,9 @@
               <ion-item> Peso preguntas correctas: {{exam_pendiente.peso_preguntas_correctas }}</ion-item>
               <ion-item> Peso preguntas incorrectas: {{exam_pendiente.peso_preguntas_incorrectas }}</ion-item>
               <ion-item> Intentos Permitidos: {{exam_pendiente.intentosPermitidos }}</ion-item>
-              <ion-item> Inicio de Examen: {{exam_pendiente.inicioExamen }}</ion-item>
-              <ion-item> Fin de Examen: {{exam_pendiente.finExamen }}</ion-item>
-              <ion-item> Duracion: {{exam_pendiente.duracion }}</ion-item>
+              <ion-item> Inicio de Examen: {{getFecha(exam_pendiente.inicioExamen) }}</ion-item>
+              <ion-item> Fin de Examen: {{getFecha(exam_pendiente.finExamen) }}</ion-item>
+              <ion-item> Duracion: {{getTime(exam_pendiente.duracion) }}</ion-item>
             </ion-row>
             <button id="id_examen" ion-button (click)="rendirExamen(exam_pendiente.id)">Rendir Examen</button>
           </ion-grid>

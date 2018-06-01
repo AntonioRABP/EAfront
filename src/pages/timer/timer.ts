@@ -25,6 +25,10 @@ export class TimerPage{
         return this.timer.hasFinished;
     }
 
+    setFinished(){
+        this.timer.hasFinished = true;
+    }
+
     initTimer(){
         if(!this.timeInSeconds){this.timeInSeconds=0;}
 
