@@ -1,8 +1,7 @@
 <ion-header>
   <ion-navbar color="default">
     <ion-title text-center>
-      <h4>UNIVERSIDAD NACIONAL DE INGENIERIA</h4>
-      <h6>Facultad de Ingenieria Industrial y de sistemas</h6>
+      UNIVERSIDAD NACIONAL DE INGENIERIA
     </ion-title>
     
   </ion-navbar>
@@ -30,16 +29,17 @@
           <ion-card>
           <ion-grid>
             <ion-row>
-              <ion-col>{{exam_pendiente.nombre}}</ion-col>
+              <ion-col>{{exam_pendiente.name}}</ion-col>
             </ion-row>
             <ion-row>
-              <ion-item> Cantidad de Preguntas: {{exam_pendiente.cantidad_preguntas }}</ion-item>
-              <ion-item> Peso preguntas correctas: {{exam_pendiente.peso_preguntas_correctas }}</ion-item>
-              <ion-item> Peso preguntas incorrectas: {{exam_pendiente.peso_preguntas_incorrectas }}</ion-item>
-              <ion-item> Intentos Permitidos: {{exam_pendiente.intentosPermitidos }}</ion-item>
-              <ion-item> Inicio de Examen: {{getFecha(exam_pendiente.inicioExamen) }}</ion-item>
-              <ion-item> Fin de Examen: {{getFecha(exam_pendiente.finExamen) }}</ion-item>
-              <ion-item> Duracion: {{getTime(exam_pendiente.duracion) }}</ion-item>
+              
+              <ion-item> Tema: {{exam_pendiente.subject }}</ion-item>
+              <ion-item> Peso preguntas correctas: {{exam_pendiente.correct_points }}</ion-item>
+              <ion-item> Peso preguntas incorrectas: {{exam_pendiente.error_points }}</ion-item>
+              <ion-item> Intentos Permitidos: {{exam_pendiente.attempts_allowed }}</ion-item>
+              <ion-item> Inicio de Examen: {{getFecha(exam_pendiente.start_datetime) }}</ion-item>
+              <ion-item> Fin de Examen: {{getFecha(exam_pendiente.end_datetime) }}</ion-item>
+              <ion-item> Duracion: {{getTime(exam_pendiente.duration_time) }}</ion-item>
             </ion-row>
             <button id="id_examen" ion-button (click)="rendirExamen(exam_pendiente.id)">Rendir Examen</button>
           </ion-grid>
@@ -87,11 +87,26 @@
           <br>
           <br>
 
-          <ion-item *ngFor="let alternativa of pregunta.alternativas">
-            <ion-label>{{alternativa.texto}}</ion-label>
-            <ion-checkbox color="dark" checked="false"></ion-checkbox>
+          <ion-item *ngIf = "!!pregunta.alternativas['a']">
+            <ion-label>{{pregunta.alternativas["a"]}}</ion-label>
+            <ion-checkbox [(ngModel)]="answerA"></ion-checkbox>
           </ion-item>
-
+          <ion-item  *ngIf = "!!pregunta.alternativas['b']">
+            <ion-label>{{pregunta.alternativas["b"]}}</ion-label>
+            <ion-checkbox [(ngModel)]="answerB"></ion-checkbox>
+          </ion-item>
+          <ion-item *ngIf = "!!pregunta.alternativas['c']">
+            <ion-label>{{pregunta.alternativas["c"]}}</ion-label>
+            <ion-checkbox [(ngModel)]="answerC"></ion-checkbox>
+          </ion-item>
+          <ion-item *ngIf = "!!pregunta.alternativas['d']">
+            <ion-label>{{pregunta.alternativas["d"]}}</ion-label>
+            <ion-checkbox [(ngModel)]="answerD"></ion-checkbox>
+          </ion-item>
+          <ion-item *ngIf = "!!pregunta.alternativas['e']">
+            <ion-label>{{pregunta.alternativas["e"]}}</ion-label>
+            <ion-checkbox [(ngModel)]="answerE"></ion-checkbox>
+          </ion-item>
           </ion-card-content>
           <div>
             <button ion-button color="light" icon-only><ion-icon name="ios-arrow-back"></ion-icon></button>

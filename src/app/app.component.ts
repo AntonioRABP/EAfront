@@ -12,7 +12,7 @@ import { ExamenAlumnoPage } from '../pages/examen-alumno/examen-alumno';
 })
 export class MyApp {
 
-  rootPage:any = ExamenAlumnoPage;
+  rootPage:any = LoginPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {

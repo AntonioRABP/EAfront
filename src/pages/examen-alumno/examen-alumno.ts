@@ -27,9 +27,16 @@ export class ExamenAlumnoPage {
 	//variables para el inicio
 	examen = 'exam-pendiente';
 	exam_pendientes = this.dataExamenAlumno.exam_pendientes;
-	exam_pasados = this.dataExamenAlumno.exam_pasados;
+	exam_pasados = [];
 	//variables para las preguntas
 	preguntas = this.dataExamenAlumno.preguntas;
+	respuestas = [];
+	answerA = false;
+	answerB = false;
+	answerC = false;
+	answerD = false;
+	answerE = false;
+
 	//variables para el resultado
 
 	constructor(public navCtrl: NavController, 
@@ -51,8 +58,8 @@ export class ExamenAlumnoPage {
 	    res.subscribe(
 	      value => {
 	        //SI DEVUELVE TRUE ES POR QUE NOS HEMOS LOGUEADO CORRECTAMENTE
-	        console.log(value);
-
+	        console.log(value.data);
+	        this.exam_pendientes = value.data;
 	      },
 	      err => {console.log('Error: ' + err)},//CONTROLAMOS LOS ERRORES
 	      () => console.log('this is the end')
@@ -67,13 +74,14 @@ export class ExamenAlumnoPage {
 	//FUNCIONES PARA RENDIR EXAMEN
 	rendirExamen($id){
 
+		//pedir las preguntas al servidor a traves del id
 		let message = 'El examen durará: ';
 		let duracion;
 		this.exam_pendientes.forEach(function (elemento, indice, array) {
     		if (elemento.id == $id){
-    			console.log(elemento.id,elemento.duracion);
-    			duracion=elemento.duracion;
-				message = message.concat(elemento.duracion.toString());
+    			console.log(elemento.id,elemento.duration_time);
+    			duracion=elemento.duration_time;
+				message = message.concat(elemento.duration_time.toString(),' segundos');
 				return;
     		};
 		});
@@ -111,7 +119,6 @@ export class ExamenAlumnoPage {
 	  	});
 
 	  	alert.present();
-		//pedir las preguntas al servidor a traves del id
 	}
 
 	finalizo(){
@@ -142,6 +149,23 @@ export class ExamenAlumnoPage {
 
 	}
 
+
+	preguntasMarca(id){
+		let flg = 0;
+		let answer;
+		console.log("hola")
+		answer = String(Number(this.answerA)) +  String(Number(this.answerB)) + String(Number(this.answerC)) + String(Number(this.answerD)) + String(Number(this.answerE)); 
+		for(let i =0 ;i < this.respuestas.length; i++){
+			if (this.respuestas[i].id = id) {
+				this.respuestas[i].answer = answer;
+				flg = 1;
+				break;
+			}	
+		}
+		if (flg != 1){
+			this.respuestas.push({"id":id, "answer":answer});
+		}
+	}
 	//FUNCIONES PARA VER RESULTADDOS
 	verResultados(){
 		let alert = this.alertCtrl.create({
@@ -160,6 +184,7 @@ export class ExamenAlumnoPage {
 	        	handler: () => {
 					this.endExamen = true;
 	          		console.log('Ver resultados');
+	          		console.log(this.respuestas);
 	        	}
 	      	}
 	    			]
@@ -170,22 +195,22 @@ export class ExamenAlumnoPage {
 
 	//FORMATEO FECHAS
 
-  getTime(inputSeconds: number) {
-    var sec_num = parseInt(inputSeconds.toString(), 10);
-    var hours = Math.floor(sec_num / 3600);
-    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
-    var seconds = sec_num - (hours * 3600) - (minutes * 60);
-    return this.addo(hours) + ":" + this.addo(minutes) + ":" + this.addo(seconds);
-  }
+	getTime(inputSeconds: number) {
+		var sec_num = parseInt(inputSeconds.toString(), 10);
+		var hours = Math.floor(sec_num / 3600);
+		var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+		var seconds = sec_num - (hours * 3600) - (minutes * 60);
+		return this.addo(hours) + ":" + this.addo(minutes) + ":" + this.addo(seconds);
+	}
   
-  getFecha(horadia) {
-    let format = new Date(horadia);
-    return this.addo(format.getUTCFullYear()) + "-" + this.addo(format.getUTCMonth()) + "-" + this.addo(format.getUTCDate());
-  }
+  	getFecha(horadia) {
+    	let format = new Date(horadia);
+    	return this.addo(format.getUTCFullYear()) + "-" + this.addo(format.getUTCMonth()) + "-" + this.addo(format.getUTCDate());
+	}
   
-  addo(comp) {
-    return (((comp + "").length == 1) ? "0" + comp : comp);
-  }
+  	addo(comp) {
+    	return (((comp + "").length == 1) ? "0" + comp : comp);
+ 	}
 
 
 

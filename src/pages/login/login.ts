@@ -42,11 +42,6 @@ export class LoginPage {
         if (value.success) {
           console.log("Welcome!");
           //GUARDAMOS LOS VALORES EN LA BD DEL FRONT
-          this.storage.remove("session_id");
-          this.storage.set("session_id" , value.data.session_id);
-          this.storage.set("expires_at" , value.data.expires_at);
-          console.log('Primer Token: ',value.data.session_id);
-
           window.localStorage.setItem("s-session", value.data.session_id);
 
           console.log('Redirigimos a la vista de examenes');
