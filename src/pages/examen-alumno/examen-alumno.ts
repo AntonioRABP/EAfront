@@ -26,19 +26,20 @@ export class ExamenAlumnoPage {
 	partExamen = 'Inicio';
 	//variables para el inicio
 	examen = 'exam-pendiente';
-	exam_pendientes = this.dataExamenAlumno.exam_pendientes;
+	exam_pendientes = [];
 	exam_pasados = [];
-	//variables para las preguntas
-	preguntas = this.dataExamenAlumno.preguntas;
 	respuestas = [];
-	answerA = false;
-	answerB = false;
-	answerC = false;
-	answerD = false;
-	answerE = false;
+	//variables para las preguntas
+	preguntas = [];//this.dataExamenAlumno.preguntas;
+	answerA = 0;
+	answerB = 0;
+	answerC = 0;
+	answerD = 0;
+	answerE = 0;
 
 	//variables para el resultado
 
+	nameMyexam = '';
 	constructor(public navCtrl: NavController, 
 		public navParams: NavParams,
 		public examenServiceProvider: ExamenServiceProvider,
@@ -72,11 +73,26 @@ export class ExamenAlumnoPage {
 		this.partExamen = 'Inicio';
 	}
 	//FUNCIONES PARA RENDIR EXAMEN
-	rendirExamen($id){
 
+	rendirExamen($id){
+		this.nameMyexam = document.getElementById('myExam').textContent;
 		//pedir las preguntas al servidor a traves del id
+		//this.preguntas = getAlternative
+		let res = this.examenServiceProvider.getAlternative($id);
+		//guradar las preguntas
+	    res.subscribe(
+	      value => {
+	        //SI DEVUELVE TRUE ES POR QUE NOS HEMOS LOGUEADO CORRECTAMENTE
+	        console.log('alterantivas: ',value.data);
+	        this.preguntas = value.data;
+	      },
+	      err => {console.log('Error: ' + err)},//CONTROLAMOS LOS ERRORES
+	      () => console.log('this is the end')
+	    );
+
 		let message = 'El examen durará: ';
 		let duracion;
+
 		this.exam_pendientes.forEach(function (elemento, indice, array) {
     		if (elemento.id == $id){
     			console.log(elemento.id,elemento.duration_time);
@@ -149,23 +165,51 @@ export class ExamenAlumnoPage {
 
 	}
 
-
+/*
 	preguntasMarca(id){
 		let flg = 0;
 		let answer;
 		console.log("hola")
 		answer = String(Number(this.answerA)) +  String(Number(this.answerB)) + String(Number(this.answerC)) + String(Number(this.answerD)) + String(Number(this.answerE)); 
+
+	}
+
+	changeAnswer(numanswer, id){
+		switch(numanswer){
+			case 'answerA':
+				( this.answerA = 1 ? 0 : 1);
+				break;
+			case 'answerB':
+				( this.answerB = 1 ? 0 : 1);
+				break;
+			case 'answerC':
+				( this.answerC = 1 ? 0 : 1);
+				break;
+			case 'answerD':
+				( this.answerD = 1 ? 0 : 1);
+				break;
+			case 'answerE':
+				( this.answerE = 1 ? 0 : 1);
+				break;
+		}
+		let answerLocal = this.answerE + this.answerD*2 +this.answerC*4 +this.answerB*8+this.answerA*16;
+		let flg = 0;
+		let result = 
+		this.preguntas. = [];
+
 		for(let i =0 ;i < this.respuestas.length; i++){
 			if (this.respuestas[i].id = id) {
-				this.respuestas[i].answer = answer;
+				this.respuestas[i].answer = answerLocal;
 				flg = 1;
 				break;
 			}	
 		}
 		if (flg != 1){
-			this.respuestas.push({"id":id, "answer":answer});
+			this.respuestas.push({"id":id, "answer":answerLocal, "result":});
 		}
+
 	}
+*/
 	//FUNCIONES PARA VER RESULTADDOS
 	verResultados(){
 		let alert = this.alertCtrl.create({

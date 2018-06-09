@@ -39,16 +39,19 @@ export class DataExamenAlumno {//despues seras eliminado
 	public preguntas = [
 		{
 			id: 1, 
-			texto: '1. Una vez firmado, un contrato es legalmente vinculante a menos que',
-			alternativas:
+			statement: '1. Una vez firmado, un contrato es legalmente vinculante a menos que',
+			solution:
 				{
 					a: 'A. Una parte sea incapaz de ejecutarlo',
 					b: 'B. Una parte sea incapaz de financiar su parte del trabajo.',
 					c: 'C. Esté violando una ley aplicable',
 					d: 'D. Se declare nulo y sin efecto por el representante legal de cualquiera de las partes'
-				}
+				},
+			answer:8,
+			source: 'http://www.lectiva.com/cursos-gratis/respuestas-a-las-preguntas-mas-frecuentes-sobre-gestion-del-conocimiento-3347.htm'
 			
-		},
+		}
+		/*,
 		{
 			id: 2, 
 			texto: '2. Con un enunciado del trabajo de las adquisiciones claro, un vendedor completa su trabajo según lo especificado, pero el comprador no está satisfecho con los resultados. El contrato se considera:',
@@ -88,7 +91,7 @@ export class DataExamenAlumno {//despues seras eliminado
 					c: 'C. Los contratos deben incluir procedimientos para adaptar los cambios.',
 					d: 'D. Las especificaciones más detalladas eliminan las causas de los cambios'
 				}	
-		}
+		}*/
 	];
 
   constructor() {

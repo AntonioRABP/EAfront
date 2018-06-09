@@ -29,7 +29,7 @@
           <ion-card>
           <ion-grid>
             <ion-row>
-              <ion-col>{{exam_pendiente.name}}</ion-col>
+              <ion-col id='myExam' >{{exam_pendiente.name}}</ion-col>
             </ion-row>
             <ion-row>
               
@@ -77,35 +77,35 @@
         <ion-card>
           <ion-card-content>
           <ion-card-header>
-            Primera Practica KM
+            {{nameMyexam}}
           </ion-card-header>
           <br>
-            {{pregunta.texto}}
+            {{pregunta.name}}
           <br>
           <br>
           Marcar las alternativas correctas.
           <br>
           <br>
 
-          <ion-item *ngIf = "!!pregunta.alternativas['a']">
-            <ion-label>{{pregunta.alternativas["a"]}}</ion-label>
-            <ion-checkbox [(ngModel)]="answerA"></ion-checkbox>
+          <ion-item *ngIf = "!!pregunta.solution['a']">
+            <ion-label>a. {{pregunta.solution["a"]}}</ion-label>
+            <ion-checkbox></ion-checkbox>
           </ion-item>
-          <ion-item  *ngIf = "!!pregunta.alternativas['b']">
-            <ion-label>{{pregunta.alternativas["b"]}}</ion-label>
-            <ion-checkbox [(ngModel)]="answerB"></ion-checkbox>
+          <ion-item  *ngIf = "!!pregunta.solution['b']">
+            <ion-label>b. {{pregunta.solution["b"]}}</ion-label>
+            <ion-checkbox></ion-checkbox>
           </ion-item>
-          <ion-item *ngIf = "!!pregunta.alternativas['c']">
-            <ion-label>{{pregunta.alternativas["c"]}}</ion-label>
-            <ion-checkbox [(ngModel)]="answerC"></ion-checkbox>
+          <ion-item *ngIf = "!!pregunta.solution['c']">
+            <ion-label>c. {{pregunta.solution["c"]}}</ion-label>
+            <ion-checkbox></ion-checkbox>
           </ion-item>
-          <ion-item *ngIf = "!!pregunta.alternativas['d']">
-            <ion-label>{{pregunta.alternativas["d"]}}</ion-label>
-            <ion-checkbox [(ngModel)]="answerD"></ion-checkbox>
+          <ion-item *ngIf = "!!pregunta.solution['d']">
+            <ion-label>d. {{pregunta.solution["d"]}}</ion-label>
+            <ion-checkbox></ion-checkbox>
           </ion-item>
-          <ion-item *ngIf = "!!pregunta.alternativas['e']">
-            <ion-label>{{pregunta.alternativas["e"]}}</ion-label>
-            <ion-checkbox [(ngModel)]="answerE"></ion-checkbox>
+          <ion-item *ngIf = "!!pregunta.solution['e']">
+            <ion-label>e. {{pregunta.solution["e"]}}</ion-label>
+            <ion-checkbox></ion-checkbox>
           </ion-item>
           </ion-card-content>
           <div>
@@ -132,7 +132,7 @@
         NOTA FINAL: DESAPROBADO
       </ion-card-content>
     </ion-card>
-    <button ion-button color="default" (click)="irExamen()">Ir a Examanes</button>
+    <button ion-button color="default" (click)="irExamen()">Ir a Examenes</button>
   </div>
 </div>
 </ion-content>
