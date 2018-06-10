@@ -54,7 +54,6 @@ export class ExamenServiceProvider {
         this.http.get(urlRest + 'student/evaluation/'+id+'/solutions',{ headers: headers })
           .subscribe(dat=>{
             let res = dat.json();
-            console.log('value: ',res);
             //AQUI SE PUEDE CAMBIAR POR DATOS FAKE HASTA ASOCIARLO CON SU SERVICIO
             observer.next(res);//ENVIAMOS LA RESPUESTA DEL SERVIDOR AL OBSERVER
             observer.complete();

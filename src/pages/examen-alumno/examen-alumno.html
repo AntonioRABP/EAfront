@@ -41,7 +41,7 @@
               <ion-item> Fin de Examen: {{getFecha(exam_pendiente.end_datetime) }}</ion-item>
               <ion-item> Duracion: {{getTime(exam_pendiente.duration_time) }}</ion-item>
             </ion-row>
-            <button id="id_examen" ion-button (click)="rendirExamen(exam_pendiente.id)">Rendir Examen</button>
+            <button id="id_examen" ion-button (click)="rendirExamen(exam_pendiente.id,exam_pendiente.name)">Rendir Examen</button>
           </ion-grid>
           </ion-card>
           </ion-item>
@@ -77,7 +77,7 @@
         <ion-card>
           <ion-card-content>
           <ion-card-header>
-            {{nameMyexam}}
+            {{examenPendingCurrent.name}}
           </ion-card-header>
           <br>
             {{pregunta.name}}
@@ -88,24 +88,24 @@
           <br>
 
           <ion-item *ngIf = "!!pregunta.solution['a']">
-            <ion-label>a. {{pregunta.solution["a"]}}</ion-label>
-            <ion-checkbox></ion-checkbox>
+            <ion-label text-wrap text-justify>a. {{pregunta.solution["a"]}}</ion-label>
+            <ion-checkbox (ionChange)="updateChoice(pregunta.id,'a')"></ion-checkbox>
           </ion-item>
           <ion-item  *ngIf = "!!pregunta.solution['b']">
-            <ion-label>b. {{pregunta.solution["b"]}}</ion-label>
-            <ion-checkbox></ion-checkbox>
+            <ion-label text-wrap text-justify>b. {{pregunta.solution["b"]}}</ion-label>
+            <ion-checkbox (ionChange)="updateChoice(pregunta.id,'b')"></ion-checkbox>
           </ion-item>
           <ion-item *ngIf = "!!pregunta.solution['c']">
-            <ion-label>c. {{pregunta.solution["c"]}}</ion-label>
-            <ion-checkbox></ion-checkbox>
+            <ion-label text-wrap text-justify>c. {{pregunta.solution["c"]}}</ion-label>
+            <ion-checkbox (ionChange)="updateChoice(pregunta.id,'c')"></ion-checkbox>
           </ion-item>
           <ion-item *ngIf = "!!pregunta.solution['d']">
-            <ion-label>d. {{pregunta.solution["d"]}}</ion-label>
-            <ion-checkbox></ion-checkbox>
+            <ion-label text-wrap text-justify>d. {{pregunta.solution["d"]}}</ion-label>
+            <ion-checkbox (ionChange)="updateChoice(pregunta.id,'d')"></ion-checkbox>
           </ion-item>
           <ion-item *ngIf = "!!pregunta.solution['e']">
-            <ion-label>e. {{pregunta.solution["e"]}}</ion-label>
-            <ion-checkbox></ion-checkbox>
+            <ion-label text-wrap text-justify>e. {{pregunta.solution["e"]}}</ion-label>
+            <ion-checkbox (ionChange)="updateChoice(pregunta.id,'e')"></ion-checkbox>
           </ion-item>
           </ion-card-content>
           <div>
