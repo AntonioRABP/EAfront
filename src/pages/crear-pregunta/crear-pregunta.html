@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title text-center>Crear pregunta</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-list-header>
+      Aspectos generales
+    </ion-list-header>
+<!-------------Definir el curso----------------->
+    <ion-item>
+      <ion-label color="primary">Curso: </ion-label>
+      <ion-select>
+        <ion-option>
+          GP234 - CURSO 1
+        </ion-option>
+        <ion-option>
+          ST114 - CURSO 2
+        </ion-option>
+        <ion-option>
+          ST255 - CURSO 3
+        </ion-option>
+        <ion-option>
+          ST265 - CURSO 4
+        </ion-option>
+      </ion-select>
+    </ion-item>
+<!-------------Definir el tema----------------->
+    <ion-item>
+      <ion-label color="primary">Tema: </ion-label>
+      <ion-select>
+        <ion-option>
+          TEMA 1
+        </ion-option>
+        <ion-option>
+          TEMA 2
+        </ion-option>
+        <ion-option>
+          TEMA 3
+        </ion-option>
+        <ion-option>
+          TEMA 4
+        </ion-option>
+      </ion-select>
+    </ion-item>
+<!------------Ingresar la pregunta------------->
+    <ion-item>
+      <ion-label color="primary">Pregunta: </ion-label> 
+      <ion-input type="text" text-right></ion-input>
+    </ion-item>
+<!------------Numero de Alternativas----------->
+    <ion-item>
+      <ion-label color="primary"># Alternativas: </ion-label>
+      <ion-input type="number" text-right min=2 max=5></ion-input>    
+    </ion-item>
+  </ion-list>
+  <br>
+<!-----------Definicion de alternativas-------->
+  <ion-list>
+    <ion-list-header>
+      Alternativas
+    </ion-list-header>
+    <ion-item>
+      <ion-input type="text" placeholder="Alternativa"></ion-input>
+      <ion-toggle checked="false"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-input type="text" placeholder="Alternativa"></ion-input>
+      <ion-toggle checked="false"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-input type="text" placeholder="Alternativa"></ion-input>
+      <ion-toggle checked="false"></ion-toggle>
+    </ion-item>
+  </ion-list>
+  <br>
+  <!------------Botones------------------------>
+  <button ion-button full color="secondary" block (click)="doConfirm()">Registrar pregunta</button>
+  <button ion-button full color="danger">Cancelar</button>
+  <br>
+</ion-content>

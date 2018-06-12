@@ -12,6 +12,9 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { ExamenAlumnoPage } from '../pages/examen-alumno/examen-alumno';
+import { CrearExamenPage } from '../pages/crear-examen/crear-examen';
+import { CrearPreguntaPage } from '../pages/crear-pregunta/crear-pregunta';
+import { PerfilProfesorPage } from '../pages/perfil-profesor/perfil-profesor';
 import { TimerPage } from '../pages/timer/timer'
 
 
@@ -24,7 +27,10 @@ import { ExamenServiceProvider } from '../providers/examen-service/examen-servic
     HomePage,
     LoginPage,
     ExamenAlumnoPage,
-    TimerPage
+    TimerPage,
+    CrearExamenPage,
+    CrearPreguntaPage,
+    PerfilProfesorPage
   ],
   imports: [
     BrowserModule,
@@ -41,7 +47,10 @@ import { ExamenServiceProvider } from '../providers/examen-service/examen-servic
     HomePage,
     LoginPage,
     ExamenAlumnoPage,
-    TimerPage
+    TimerPage,
+    CrearExamenPage,
+    CrearPreguntaPage,
+    PerfilProfesorPage
   ],
   providers: [
     StatusBar,
