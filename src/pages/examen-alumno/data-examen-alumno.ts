@@ -98,21 +98,16 @@ export class DataExamenAlumno {//despues seras eliminado
 
   }
 
-  getTime(inputSeconds: number) {
-    var sec_num = parseInt(inputSeconds.toString(), 10);
-    var hours = Math.floor(sec_num / 3600);
-    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
-    var seconds = sec_num - (hours * 3600) - (minutes * 60);
-    return this.addo(hours) + ":" + this.addo(minutes) + ":" + this.addo(seconds);
-  }
-  
-  getFecha(horadia) {
-    let format = new Date(horadia);
-    return this.addo(format.getUTCFullYear()) + "-" + this.addo(format.getUTCMonth()) + "-" + this.addo(format.getUTCDate());
-  }
-  
-  addo(comp) {
-    return (((comp + "").length == 1) ? "0" + comp : comp);
+  public respuestasCurrent ={
+  	id: 1,
+  	answer: 8,
+  	a: 1,
+  	b: 0,
+  	c: 0,
+  	d: 0,
+  	e: 1,
+  	correct: 0,
+  	error:0
   }
 }
 

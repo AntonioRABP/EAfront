@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
-import { Storage } from '@ionic/storage';
+
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
@@ -17,8 +17,7 @@ const urlRest = "http://18.188.172.254:3000/";
 @Injectable()
 export class ExamenServiceProvider {
 	var = '';
-  constructor(public http: Http,
-  	private storage: Storage) {
+  constructor(public http: Http) {
     console.log('Hello ExamenServiceProvider Provider');
   }
 

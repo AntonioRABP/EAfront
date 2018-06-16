@@ -1,6 +1,5 @@
 import { Component,ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController  } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
 import { ExamenServiceProvider } from '../../providers/examen-service/examen-service';
 
 import { TimerPage } from '../timer/timer'
@@ -36,6 +35,8 @@ export class ExamenAlumnoPage {
 		duration_time: null
 	};
 
+	nota = 0;
+
 	//variables para el inicio
 	examen = 'exam-pendiente';
 	exam_pendientes = [];
@@ -55,8 +56,7 @@ export class ExamenAlumnoPage {
 	constructor(public navCtrl: NavController, 
 		public navParams: NavParams,
 		public examenServiceProvider: ExamenServiceProvider,
-		private alertCtrl: AlertController,
-  		private storage: Storage) {
+		private alertCtrl: AlertController) {
 	}
 
 	ionViewDidLoad() {
@@ -141,11 +141,19 @@ export class ExamenAlumnoPage {
 	        	text: 'Ir a la prueba',
 	        	handler: () => {
 			        this.inicioExamen = new Date();
-					
+					this.respuestas = [];
 					//INI: 2.1
 					//construimos el tipo de dato para calcular la nota
 					this.preguntas.forEach(function (elemento, indice, array) {
-			    		respuestasCurrent.push({'id': elemento.id, 'answer':elemento.answer, 'a': 0, 'b':0}); 
+			    		respuestasCurrent.push({'id': elemento.id, 'answer':elemento.answer, 
+			    			'a': 0, 
+			    			'b': 0, 
+			    			'c': 0,
+			    			'd': 0,
+			    			'e': 0,
+			    			'correct': 0,
+			    			'error':0
+			    		}); 
 			    		return;
 					});
 			    	this.respuestas = respuestasCurrent;
@@ -187,47 +195,96 @@ export class ExamenAlumnoPage {
 					
 					alert01.present();
 				}
+				this.calcularNota(this.examenPendingCurrent.correct_points,this.examenPendingCurrent.error_points);
 				this.partExamen = 'Resultados';
+				this.endExamen = false;
 				}
 		}, 1000)
 	}
 
-/*
-	preguntasMarca(id){
-		let flg = 0;
-		let answer;
-		console.log("hola")
-		answer = String(Number(this.answerA)) +  String(Number(this.answerB)) + String(Number(this.answerC)) + String(Number(this.answerD)) + String(Number(this.answerE)); 
 
-	}
-*/
 
 	updateChoice(id, choice){
-		console.log(id,choice);
+		this.respuestas.forEach(function (elemento, indice, array) {
+    		if (elemento.id == id){
+				switch(choice){
+					case 'a':
+						elemento.a = (elemento.a == 1 ? 0 : 1);
+						break;
+					case 'b':
+						elemento.b = (elemento.b == 1 ? 0 : 1);
+						break;
+					case 'c':
+						elemento.c = (elemento.c == 1 ? 0 : 1);
+						break;
+					case 'd':
+						elemento.d = (elemento.d == 1 ? 0 : 1);
+						break;
+					case 'e':
+						elemento.e = (elemento.e == 1 ? 0 : 1);
+						break;
+				}
+				return;
+    		};
+		});
 	}
-	changeAnswer(numanswer, id){
-		switch(numanswer){
-			case 'answerA':
-				( this.answerA = 1 ? 0 : 1);
-				break;
-			case 'answerB':
-				( this.answerB = 1 ? 0 : 1);
-				break;
-			case 'answerC':
-				( this.answerC = 1 ? 0 : 1);
-				break;
-			case 'answerD':
-				( this.answerD = 1 ? 0 : 1);
-				break;
-			case 'answerE':
-				( this.answerE = 1 ? 0 : 1);
-				break;
-		}
-		let answerLocal = this.answerE + this.answerD*2 +this.answerC*4 +this.answerB*8+this.answerA*16;
-		let flg = 0;
-		let result = 0;
+
+	calcularNota(ptos_favor, ptos_contra){
+
+		let ptos_favor_calc = 0;
+		let ptos_contra_calc = 0;
+
+		this.respuestas.forEach(function (elemento, indice, array) {
+
+			let respuesta_correcta = elemento.answer.toString(2).padStart(5,'0');//convertir answer a binario mas lpad
+			let ptos_divididos_f = ptos_favor/(respuesta_correcta.split('1').length-1);//contar cantidad de respuestas correctas que se deberia tener
+			let ptos_divididos_c = ptos_contra/(respuesta_correcta.split('1').length-1);//contar cantidad de respuestas correctas que se deberia tener
+			let total_correctas = 0;
+			let total_incorrectas = 0;
+			//comprobar equivocados
+			if(elemento.a == 1){
+				total_incorrectas = total_incorrectas +  (respuesta_correcta[0] != 1 ? 1 : 0);
+			}
+			if(elemento.b == 1){
+				total_incorrectas = total_incorrectas +  (respuesta_correcta[1] != 1 ? 1 : 0);
+			}
+			if(elemento.c == 1){
+				total_incorrectas = total_incorrectas +  (respuesta_correcta[2] != 1 ? 1 : 0);
+			}
+			if(elemento.d == 1){
+				total_incorrectas = total_incorrectas +  (respuesta_correcta[3] != 1 ? 1 : 0);
+			}
+			if(elemento.e == 1){
+				total_incorrectas = total_incorrectas +  (respuesta_correcta[4] != 1 ? 1 : 0);
+			}
+			//comprobar aciertos
+			if( respuesta_correcta[0] == 1){
+				total_correctas = total_correctas +  (elemento.a == 1? 1 : 0);
+			}
+			if( respuesta_correcta[1] == 1){
+				total_correctas = total_correctas +  (elemento.b == 1 ? 1 : 0);
+			}
+			if( respuesta_correcta[2] == 1){
+				total_correctas = total_correctas +  (elemento.c == 1 ? 1 : 0);
+			}
+			if( respuesta_correcta[3] == 1){
+				total_correctas = total_correctas +  (elemento.d == 1 ? 1 : 0);
+			}
+			if( respuesta_correcta[4] == 1){
+				total_correctas = total_correctas +  (elemento.e == 1 ? 1 : 0);
+			}
+
+			elemento.correct = total_correctas*ptos_divididos_f;
+			elemento.error = total_incorrectas*ptos_divididos_c;
+
+			ptos_favor_calc += total_correctas*ptos_divididos_f;
+			ptos_contra_calc += total_incorrectas*ptos_divididos_c;
 
 
+		});
+		console.log(this.respuestas);
+		this.nota = (ptos_favor_calc - ptos_contra_calc);
+		return;
 	}
 
 	//FUNCIONES PARA VER RESULTADDOS

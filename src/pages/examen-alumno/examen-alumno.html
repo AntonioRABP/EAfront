@@ -67,11 +67,9 @@
   </div>
   <!--ESTE ES LA VISTA PARA REALIZAR PREGUNTAS-->
   <div *ngSwitchCase = "'Preguntas'">
-    <ion-footer>
-      <ion-navbar color="secondary">
+    <ion-toolbar>
         <timer [timeInSeconds]="duracionExamen"></timer>
-      </ion-navbar>
-    </ion-footer>
+    </ion-toolbar>
     <ion-slides>
       <ion-slide *ngFor="let pregunta of preguntas">
         <ion-card>
@@ -121,15 +119,8 @@
   <div *ngSwitchCase = "'Resultados'">
     <ion-card>
       <ion-card-content>
-        ESTOS SON TU RESULTADOS:
-        <br>
-        <br>
-        PREGUNTAS RESPONDIDAS CORRECTAMENTE: 7
-        <br>
-        PREGUNTAS EQUIVOCADAS: 7
-        <br>
-        <br>
-        NOTA FINAL: DESAPROBADO
+        <h4>ESTOS SON TU RESULTADOS:</h4> 
+        <h5>NOTA FINAL: {{nota}}</h5>
       </ion-card-content>
     </ion-card>
     <button ion-button color="default" (click)="irExamen()">Ir a Examenes</button>

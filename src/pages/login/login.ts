@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Storage } from '@ionic/storage';
 
 import { IonicPage, NavController, NavParams, AlertController  } from 'ionic-angular';
 
@@ -23,8 +22,7 @@ export class LoginPage {
   constructor(public navCtrl: NavController, 
   				public navParams: NavParams,
           public serviceLogin: LoginServiceProvider,
-          public alertCtrl: AlertController,
-          private storage: Storage) {
+          public alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {

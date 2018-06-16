@@ -6,12 +6,10 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { HttpModule } from '@angular/http';
 
-import { IonicStorageModule } from '@ionic/storage';
-
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
-import { ExamenAlumnoPage } from '../pages/examen-alumno/examen-alumno';
+import { ExamenAlumnoPage } from '../pages/examen-alumno/examen-alumno'
 import { TimerPage } from '../pages/timer/timer'
 
 
@@ -29,11 +27,7 @@ import { ExamenServiceProvider } from '../providers/examen-service/examen-servic
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot({
-      name: '__mydbea',
-      driverOrder: ['indexeddb', 'sqlite', 'websql']
-    })
+    IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
