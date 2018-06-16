@@ -1,0 +1,126 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title text-center>Generar examen</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-list>
+    	<ion-list-header>
+			Aspectos generales
+		</ion-list-header>
+<!---------------------------------------------------------->
+		<ion-item>
+			<ion-label color="primary">Nombre: </ion-label>
+			<ion-input type="text" text-right></ion-input>
+		</ion-item>
+<!------------------Curso del examen------------------------>
+    	<ion-item>
+      		<ion-label color="primary">Curso: </ion-label>
+      		<ion-select>
+        		<ion-option>
+          			GP234 - CURSO 1
+        		</ion-option>
+        		<ion-option>
+          			ST114 - CURSO 2
+        		</ion-option>
+        		<ion-option>
+          			ST255 - CURSO 3
+        		</ion-option>
+        		<ion-option>
+          			ST265 - CURSO 4
+        		</ion-option>
+      		</ion-select>
+    	</ion-item>
+
+      <ion-item>
+          <ion-label color="primary">Tema: </ion-label>
+          <ion-select>
+            <ion-option>
+              TEMA 1
+            </ion-option>
+            <ion-option>
+              TEMA 2
+            </ion-option>
+            <ion-option>
+              TEMA 3
+            </ion-option>
+            <ion-option>
+              TEMA 4
+            </ion-option>
+          </ion-select>
+    </ion-item>
+
+
+<!------------------Fecha Inicio---------------------------->
+    	<ion-item>
+      		<ion-label color="primary">Fecha Inicio:</ion-label>
+      		<ion-datetime displayFormat="DD-MMM-YY, hh:mm a"></ion-datetime>
+		</ion-item>
+<!---------------------------------------------------------->
+    	<ion-item>
+      		<ion-label color="primary">Fecha Fin:</ion-label>
+      		<ion-datetime displayFormat="DD-MMM-YY, hh:mm a"></ion-datetime>
+		</ion-item>
+<!------------------Numero de Preguntas--------------------->
+      <ion-item>
+          <ion-label color="primary"># Preguntas: </ion-label>
+          <ion-input type="number" text-right min=1 max=10></ion-input>    
+      </ion-item>
+<!------------------Puntuacion de Preguntas------------>
+      <ion-item>
+          <ion-label color="primary">Puntos a favor </ion-label>
+          <ion-input type="number" text-right min=0 max=5 step=0.5></ion-input>
+      </ion-item> 
+      <ion-item>
+          <ion-label color="primary">Puntos en contra </ion-label>
+          <ion-input type="number" text-right min=-2 max=0 step=0.5></ion-input>
+      </ion-item>
+<!------------------Duracion del examen---------------->     
+      <ion-item>
+          <ion-label color="primary">Duracion: </ion-label>
+          <ion-datetime displayFormat="mm:ss"></ion-datetime>
+      </ion-item>
+<!------------------Duracion del examen---------------->     
+      <ion-item>
+          <ion-label color="primary"># Intentos: </ion-label>
+          <ion-input type="number" text-right min=1 max=3 step=1></ion-input>
+      </ion-item>
+	</ion-list>
+  <br>
+  <ion-list>
+      <ion-list-header>
+          Preguntas
+      </ion-list-header>
+      <ion-item>
+          <ion-select placeholder="Pregunta 1" class="mySelect">
+            <ion-option>Soy una pregunta 1?</ion-option>
+            <ion-option>Soy una pregunta 2?</ion-option>
+            <ion-option>Soy una pregunta 3?</ion-option>
+            <ion-option>Soy una pregunta 4?</ion-option>
+            <ion-option>Soy una pregunta 5?</ion-option>
+          </ion-select>
+      </ion-item>
+      <ion-item>
+          <ion-select placeholder="Pregunta 2" class="mySelect">
+            <ion-option>Soy una pregunta 1?</ion-option>
+            <ion-option>Soy una pregunta 2?</ion-option>
+            <ion-option>Soy una pregunta 3?</ion-option>
+            <ion-option>Soy una pregunta 4?</ion-option>
+            <ion-option>Soy una pregunta 5?</ion-option>
+          </ion-select>
+      </ion-item>
+      <ion-item>
+          <ion-select placeholder="Pregunta 3" class="mySelect">
+            <ion-option>Soy una pregunta 1?</ion-option>
+            <ion-option>Soy una pregunta 2?</ion-option>
+            <ion-option>Soy una pregunta 3?</ion-option>
+            <ion-option>Soy una pregunta 4?</ion-option>
+            <ion-option>Soy una pregunta 5?</ion-option>
+          </ion-select>
+      </ion-item>
+  </ion-list>
+  <button ion-button full color="secondary">Registrar</button>
+  <button ion-button full color="danger">Cancelar</button>
+  <br>
+</ion-content>
