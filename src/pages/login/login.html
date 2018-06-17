@@ -2,7 +2,7 @@
   <div [ngSwitch]="typeLogin">
     <!--LOGIN-->
     <div *ngSwitchCase = "'login'">  
-      <h1>EVALUAPP</h1>
+      <h1>EvaluApp</h1>
       <ion-card>
         <ion-card-header>
           LOGIN
@@ -23,16 +23,12 @@
               <p>¿Olvidaste tu Contraseña?<br><a center>¡Click Aquí!</a></p>
             </ion-item>
             <button ion-button type="submit" color="primary"  block outline>Ingresar</button>
-            <button ion-button color="danger"  block outline (click)="goRegister()">Registro</button>
+            <button ion-button color="danger"  block outline (click)="goRegister()">Registrate</button>
           </ion-list>
           <b>O</b>
           <button ion-button color="primary" ion-left block>
             <ion-icon name="logo-facebook"></ion-icon>
-            <div> Entra con facebook</div>
-          </button>
-          <button ion-button color="danger" ion-left block>
-            <ion-icon name="logo-google"></ion-icon>
-            <div>Entra con Google</div>
+            <div style="padding: 10px;">Entra con facebook</div>
           </button>
         </ion-card-content>
       </form>
