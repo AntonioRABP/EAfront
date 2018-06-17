@@ -9,6 +9,7 @@ import { ExamenAlumnoPage } from '../pages/examen-alumno/examen-alumno';
 import { CrearExamenPage } from '../pages/crear-examen/crear-examen';
 import { CrearPreguntaPage } from '../pages/crear-pregunta/crear-pregunta';
 import { PerfilProfesorPage } from '../pages/perfil-profesor/perfil-profesor';
+import { ExamenProfesorPage } from '../pages/examen-profesor/examen-profesor';
 
 @Component({
   templateUrl: 'app.html'
