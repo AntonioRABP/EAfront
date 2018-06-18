@@ -1,26 +1,52 @@
 <ion-menu id="MenuStudent" [content]="content">
-		  <ion-header>
-		    <ion-toolbar>
-		      <ion-title>Menu</ion-title>
-		    </ion-toolbar>
-		  </ion-header>
-		  <ion-content>
-		    <ion-list>
-		      <button ion-item (click)="openPagePer()">
-		        Perfil
-		      </button>
-		      <button ion-item (click)="openPageExa()">
-		        Examenes
-		      </button>
-		      <button ion-item>
+  	<ion-header>
+		<ion-toolbar>
+	        <ion-title>Menu</ion-title>
+		</ion-toolbar>
+	</ion-header>
+	<ion-content>
+		<ion-list>
+		    <button ion-item (click)="openPagePer()">
+		       Perfil
+	        </button>
+	        <button ion-item (click)="openPageExa()">
+       	       Examenes
+		    </button>
+		    <button ion-item>
 		        Respuesta
-		      </button>
-		      <button ion-item>
+		    </button>
+		    <button ion-item>
 		        Salir
-		      </button>
-		    </ion-list>
-		  </ion-content>
-		</ion-menu>
+		     </button>
+		</ion-list>
+    </ion-content>
+</ion-menu>
 
+<ion-menu id="MenuTeacher" [content]="content">
+  	<ion-header>
+		<ion-toolbar>
+	        <ion-title>Menu</ion-title>
+		</ion-toolbar>
+	</ion-header>
+	<ion-content>
+		<ion-list>
+		    <button ion-item (click)="openPagePer()">
+		       Perfil
+	        </button>
+	        <button ion-item (click)="openPageExa()">
+       	       Examenes
+		    </button>
+		    <button ion-item>
+		       Crear examen
+		    </button>
+		    <button ion-item>
+		       Crear pregunta
+		    </button>
+		    <button ion-item>
+		        Salir
+		     </button>
+		</ion-list>
+    </ion-content>
+</ion-menu>
 
-	<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
