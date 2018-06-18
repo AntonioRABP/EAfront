@@ -10,19 +10,13 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 
-<<<<<<< HEAD
-import { ExamenAlumnoPage } from '../pages/examen-alumno/examen-alumno'
 
 import { CrearExamenPage } from '../pages/crear-examen/crear-examen';
 import { CrearPreguntaPage } from '../pages/crear-pregunta/crear-pregunta';
 import { PerfilProfesorPage } from '../pages/perfil-profesor/perfil-profesor';
-=======
 import { ExamenAlumnoPage } from '../pages/examen-alumno/examen-alumno';
-import { CrearExamenPage } from '../pages/crear-examen/crear-examen';
-import { CrearPreguntaPage } from '../pages/crear-pregunta/crear-pregunta';
-import { PerfilProfesorPage } from '../pages/perfil-profesor/perfil-profesor';
+
 import { ExamenProfesorPage } from '../pages/examen-profesor/examen-profesor';
->>>>>>> d7f691c815b28acc01bd4063c564c97af537e418
 
 import { TimerPage } from '../pages/timer/timer'
 
