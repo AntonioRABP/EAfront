@@ -39,23 +39,23 @@
           <form (ngSubmit)="isRegister()">
             <ion-item>
               <ion-label>Username</ion-label>
-              <ion-input type="text" name="username"></ion-input>
+              <ion-input type="text" [(ngModel)]="userRegister.username" name="username"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label>Password</ion-label>
-              <ion-input type="password" name="password"></ion-input>
+              <ion-input type="password" [(ngModel)]="userRegister.password" name="password"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label>Nombres</ion-label>
-              <ion-input type="text" name="nombre"></ion-input>
+              <ion-input type="text" [(ngModel)]="userRegister.nombres" name="nombre"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label>Apellidos</ion-label>
-              <ion-input type="text" name="apellido"></ion-input>
+              <ion-input type="text" [(ngModel)]="userRegister.apellidos" name="apellido"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label>Correo</ion-label>
-              <ion-input type="text"  name="email"></ion-input>
+              <ion-input type="text"  [(ngModel)]="userRegister.email" name="email"></ion-input>
             </ion-item>
 
             <ion-row>
