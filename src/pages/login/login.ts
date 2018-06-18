@@ -20,6 +20,7 @@ export class LoginPage {
 	typeLogin = "login"; //TIPO DE VISTA QUE SE MOSTRARA (PUEDE SER LOGIN O REGISTRO)
 	user = {username: '', password: ''}; //VALORES PARA EL FORM DE LOGIN
   listExamenes = {};
+  userRegister = {username: '', password: '', nombres: '', apellidos: '', email: ''};
 
   constructor(public navCtrl: NavController, 
           public menuCtrl: MenuController,
@@ -67,7 +68,18 @@ export class LoginPage {
 
 
   isRegister(){
-    
+    this.serviceLogin.setRegister(this.userRegister).subscribe(data => {
+      if(data.success){
+          let alertRegister = this.alertCtrl.create({
+            title: 'Se ha registrado!!',
+            subTitle: 'Revise su correo para verificar su cuenta.',
+            buttons: ['OK']
+          });
+        alertRegister.present();
+      }
+    });
+
+    //this.typeLogin = 'login';
   }
   //CAMBIAMOS EL PARAMETRO PARA MOSTRAR EL REGISTRO
   goRegister(){
