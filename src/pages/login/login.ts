@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+  import { Component } from '@angular/core';
 
 import { IonicPage, NavController, NavParams, AlertController  } from 'ionic-angular';
 
@@ -6,6 +6,8 @@ import { LoginServiceProvider } from '../../providers/login-service/login-servic
 
 import {HomePage} from '../home/home';
 import { ExamenAlumnoPage } from '../examen-alumno/examen-alumno';
+
+import { MenuController } from 'ionic-angular';
 
 
 @IonicPage()
@@ -20,9 +22,11 @@ export class LoginPage {
   listExamenes = {};
 
   constructor(public navCtrl: NavController, 
+          public menuCtrl: MenuController,
   				public navParams: NavParams,
           public serviceLogin: LoginServiceProvider,
           public alertCtrl: AlertController) {
+    this.menuCtrl.enable(false,'MenuStudent');
   }
 
   ionViewDidLoad() {
