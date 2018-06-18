@@ -10,13 +10,15 @@ import { CrearExamenPage } from '../pages/crear-examen/crear-examen';
 import { CrearPreguntaPage } from '../pages/crear-pregunta/crear-pregunta';
 import { PerfilProfesorPage } from '../pages/perfil-profesor/perfil-profesor';
 import { ExamenProfesorPage } from '../pages/examen-profesor/examen-profesor';
+import { PerfilEstudiantePage } from '../pages/perfil-estudiante/perfil-estudiante';
+
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
 
-  rootPage:any = LoginPage;
+  rootPage:any = PerfilEstudiantePage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
