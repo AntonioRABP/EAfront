@@ -35,7 +35,7 @@ export class ExamenAlumnoPage {
 		duration_time: null
 	};
 
-	nota = 0;
+	nota = '0';
 
 	//variables para el inicio
 	examen = 'exam-pendiente';
@@ -145,18 +145,40 @@ export class ExamenAlumnoPage {
 					//INI: 2.1
 					//construimos el tipo de dato para calcular la nota
 					this.preguntas.forEach(function (elemento, indice, array) {
-			    		respuestasCurrent.push({'id': elemento.id, 'answer':elemento.answer, 
-			    			'a': 0, 
-			    			'b': 0, 
-			    			'c': 0,
-			    			'd': 0,
-			    			'e': 0,
-			    			'correct': 0,
-			    			'error':0
-			    		}); 
+						let a = elemento.solution.a;
+						let b = elemento.solution.b;
+						let c = elemento.solution.c;
+						let d = elemento.solution.d;
+						let e = elemento.solution.e;
+
+						if( e != null ){						
+				    		respuestasCurrent.push({'id': elemento.id, 'answer':elemento.answer, 
+				    			'a': 0, 
+				    			'b': 0, 
+				    			'c': 0,
+				    			'd': 0,
+				    			'e': 0,
+				    			'correct': 0,
+				    			'error':0,
+				    			'res': 0
+				    		});
+						}else{
+							respuestasCurrent.push({'id': elemento.id, 'answer':elemento.answer, 
+				    			'a': 0, 
+				    			'b': 0, 
+				    			'c': 0,
+				    			'd': 0,
+				    			'correct': 0,
+				    			'error':0,
+				    			'res': 0
+				    		});
+						}
+
 			    		return;
 					});
 			    	this.respuestas = respuestasCurrent;
+			    	console.log(this.preguntas);
+			    	
 					//END: 2.1					
 
 					this.partExamen = 'Preguntas';
@@ -224,9 +246,10 @@ export class ExamenAlumnoPage {
 						elemento.e = (elemento.e == 1 ? 0 : 1);
 						break;
 				}
-				return;
     		};
 		});
+		
+		return;
 	}
 
 	calcularNota(ptos_favor, ptos_contra){
@@ -235,42 +258,49 @@ export class ExamenAlumnoPage {
 		let ptos_contra_calc = 0;
 
 		this.respuestas.forEach(function (elemento, indice, array) {
+			let respuesta_correcta = '';
 
-			let respuesta_correcta = elemento.answer.toString(2).padStart(5,'0');//convertir answer a binario mas lpad
+			if(elemento.e != null){
+				respuesta_correcta = elemento.answer.toString(2).padStart(5,'0');//convertir answer a binario mas lpad
+			}else{
+				respuesta_correcta = elemento.answer.toString(2).padStart(4,'0');//convertir answer a binario mas lpad
+			}
+
 			let ptos_divididos_f = ptos_favor/(respuesta_correcta.split('1').length-1);//contar cantidad de respuestas correctas que se deberia tener
 			let ptos_divididos_c = ptos_contra/(respuesta_correcta.split('1').length-1);//contar cantidad de respuestas correctas que se deberia tener
 			let total_correctas = 0;
 			let total_incorrectas = 0;
 			//comprobar equivocados
+			console.log(respuesta_correcta);
 			if(elemento.a == 1){
-				total_incorrectas = total_incorrectas +  (respuesta_correcta[0] != 1 ? 1 : 0);
+				total_incorrectas = total_incorrectas +  (respuesta_correcta[0] != '1' ? 1 : 0);
 			}
 			if(elemento.b == 1){
-				total_incorrectas = total_incorrectas +  (respuesta_correcta[1] != 1 ? 1 : 0);
+				total_incorrectas = total_incorrectas +  (respuesta_correcta[1] != '1' ? 1 : 0);
 			}
 			if(elemento.c == 1){
-				total_incorrectas = total_incorrectas +  (respuesta_correcta[2] != 1 ? 1 : 0);
+				total_incorrectas = total_incorrectas +  (respuesta_correcta[2] != '1' ? 1 : 0);
 			}
 			if(elemento.d == 1){
-				total_incorrectas = total_incorrectas +  (respuesta_correcta[3] != 1 ? 1 : 0);
+				total_incorrectas = total_incorrectas +  (respuesta_correcta[3] != '1' ? 1 : 0);
 			}
 			if(elemento.e == 1){
-				total_incorrectas = total_incorrectas +  (respuesta_correcta[4] != 1 ? 1 : 0);
+				total_incorrectas = total_incorrectas +  (respuesta_correcta[4] != '1' ? 1 : 0);
 			}
 			//comprobar aciertos
-			if( respuesta_correcta[0] == 1){
+			if( respuesta_correcta[0] == '1'){
 				total_correctas = total_correctas +  (elemento.a == 1? 1 : 0);
 			}
-			if( respuesta_correcta[1] == 1){
+			if( respuesta_correcta[1] == '1'){
 				total_correctas = total_correctas +  (elemento.b == 1 ? 1 : 0);
 			}
-			if( respuesta_correcta[2] == 1){
+			if( respuesta_correcta[2] == '1'){
 				total_correctas = total_correctas +  (elemento.c == 1 ? 1 : 0);
 			}
-			if( respuesta_correcta[3] == 1){
+			if( respuesta_correcta[3] == '1'){
 				total_correctas = total_correctas +  (elemento.d == 1 ? 1 : 0);
 			}
-			if( respuesta_correcta[4] == 1){
+			if( respuesta_correcta[4] == '1'){
 				total_correctas = total_correctas +  (elemento.e == 1 ? 1 : 0);
 			}
 
@@ -282,8 +312,7 @@ export class ExamenAlumnoPage {
 
 
 		});
-		console.log(this.respuestas);
-		this.nota = (ptos_favor_calc - ptos_contra_calc);
+		this.nota = (ptos_favor_calc + ptos_contra_calc).toString();
 		return;
 	}
 
