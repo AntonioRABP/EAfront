@@ -18,7 +18,7 @@ import { PerfilEstudiantePage } from '../pages/perfil-estudiante/perfil-estudian
 })
 export class MyApp {
 
-  rootPage:any = PerfilEstudiantePage;
+  rootPage:any = LoginPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
