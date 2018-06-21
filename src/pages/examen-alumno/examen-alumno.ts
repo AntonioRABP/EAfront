@@ -1,6 +1,7 @@
 import { Component,ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController  } from 'ionic-angular';
 import { ExamenServiceProvider } from '../../providers/examen-service/examen-service';
+import { MenuController } from 'ionic-angular';
 
 import { TimerPage } from '../timer/timer'
 
@@ -56,7 +57,10 @@ export class ExamenAlumnoPage {
 	constructor(public navCtrl: NavController, 
 		public navParams: NavParams,
 		public examenServiceProvider: ExamenServiceProvider,
+		public menuCtrl: MenuController,
 		private alertCtrl: AlertController) {
+  	this.menuCtrl.enable(true,'MenuStudent');
+  	this.menuCtrl.enable(false,'MenuTeacher');		
 	}
 
 	ionViewDidLoad() {
