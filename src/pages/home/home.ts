@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
-import {IonicPage, NavController, MenuController, Nav, Platform} from 'ionic-angular';
+import { NavController, MenuController, Nav, Platform} from 'ionic-angular';
 
 import { ExamenAlumnoPage } from '../examen-alumno/examen-alumno';
 

@@ -1,7 +1,12 @@
 <ion-header>
-    <ion-title text-center padding>
-      EXAMENES
-    </ion-title> 
+  <ion-navbar color="primary">
+  	<button ion-button menuToggle> 
+  		<ion-icon name="menu"></ion-icon>
+  	</button>
+    <ion-title text-center>
+    	Examenes
+    </ion-title>
+  </ion-navbar> 
 </ion-header>
 
 <ion-content>
@@ -30,17 +35,17 @@
                     {{exam_pendiente.subject }}
                 </p>
                 <ion-item>
-                  <ion-icon name="checkmark-circle-outline" item-start large></ion-icon>
+                  <ion-icon name="checkmark-circle" item-start large></ion-icon>
                   <h2>{{exam_pendiente.correct_points }} puntos</h2>
                   <p>Puntaje preguntas correctas</p>
                 </ion-item>
                 <ion-item>
-                    <ion-icon name="close" item-start large></ion-icon>
+                    <ion-icon name="close-circle" item-start large></ion-icon>
                     <h2>{{exam_pendiente.error_points }} puntos</h2>
                     <p>Puntaje preguntas incorrectas</p>
                 </ion-item>
                 <ion-item>
-                    <ion-icon name="information-circle-outline" item-start large></ion-icon>
+                    <ion-icon name="information-circle" item-start large></ion-icon>
                     <h2>{{exam_pendiente.attempts_allowed }} intentos</h2>
                     <p>Intentos permitidos</p>
                 </ion-item>
