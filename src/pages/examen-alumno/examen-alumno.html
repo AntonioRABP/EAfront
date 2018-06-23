@@ -35,17 +35,17 @@
                     {{exam_pendiente.subject }}
                 </p>
                 <ion-item>
-                  <ion-icon name="checkmark-circle" item-start large></ion-icon>
+                  <ion-icon name="checkbox-outline" item-start large></ion-icon>
                   <h2>{{exam_pendiente.correct_points }} puntos</h2>
                   <p>Puntaje preguntas correctas</p>
                 </ion-item>
                 <ion-item>
-                    <ion-icon name="close-circle" item-start large></ion-icon>
+                    <ion-icon name="md-close" item-start large></ion-icon>
                     <h2>{{exam_pendiente.error_points }} puntos</h2>
                     <p>Puntaje preguntas incorrectas</p>
                 </ion-item>
                 <ion-item>
-                    <ion-icon name="information-circle" item-start large></ion-icon>
+                    <ion-icon name="md-color-wand" item-start large></ion-icon>
                     <h2>{{exam_pendiente.attempts_allowed }} intentos</h2>
                     <p>Intentos permitidos</p>
                 </ion-item>
@@ -122,23 +122,23 @@
           <br>
 
           <ion-item *ngIf = "!!pregunta.solution['a']">
-            <ion-label text-wrap text-justify>a. {{pregunta.solution["a"]}}</ion-label>
+            <ion-label text-wrap text-justify>{{pregunta.solution["a"]}}</ion-label>
             <ion-checkbox (ionChange)="updateChoice(pregunta.id,'a')"></ion-checkbox>
           </ion-item>
           <ion-item  *ngIf = "!!pregunta.solution['b']">
-            <ion-label text-wrap text-justify>b. {{pregunta.solution["b"]}}</ion-label>
+            <ion-label text-wrap text-justify>{{pregunta.solution["b"]}}</ion-label>
             <ion-checkbox (ionChange)="updateChoice(pregunta.id,'b')"></ion-checkbox>
           </ion-item>
           <ion-item *ngIf = "!!pregunta.solution['c']">
-            <ion-label text-wrap text-justify>c. {{pregunta.solution["c"]}}</ion-label>
+            <ion-label text-wrap text-justify>{{pregunta.solution["c"]}}</ion-label>
             <ion-checkbox (ionChange)="updateChoice(pregunta.id,'c')"></ion-checkbox>
           </ion-item>
           <ion-item *ngIf = "!!pregunta.solution['d']">
-            <ion-label text-wrap text-justify>d. {{pregunta.solution["d"]}}</ion-label>
+            <ion-label text-wrap text-justify>{{pregunta.solution["d"]}}</ion-label>
             <ion-checkbox (ionChange)="updateChoice(pregunta.id,'d')"></ion-checkbox>
           </ion-item>
           <ion-item *ngIf = "!!pregunta.solution['e']">
-            <ion-label text-wrap text-justify>e. {{pregunta.solution["e"]}}</ion-label>
+            <ion-label text-wrap text-justify>{{pregunta.solution["e"]}}</ion-label>
             <ion-checkbox (ionChange)="updateChoice(pregunta.id,'e')"></ion-checkbox>
           </ion-item>
           </ion-card-content>
