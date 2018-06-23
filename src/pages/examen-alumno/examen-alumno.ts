@@ -1,6 +1,7 @@
 import { Component,ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController  } from 'ionic-angular';
 import { ExamenServiceProvider } from '../../providers/examen-service/examen-service';
+import { MenuController } from 'ionic-angular';
 
 import { TimerPage } from '../timer/timer'
 
@@ -56,7 +57,10 @@ export class ExamenAlumnoPage {
 	constructor(public navCtrl: NavController, 
 		public navParams: NavParams,
 		public examenServiceProvider: ExamenServiceProvider,
+		public menuCtrl: MenuController,
 		private alertCtrl: AlertController) {
+  	this.menuCtrl.enable(true,'MenuStudent');
+  	this.menuCtrl.enable(false,'MenuTeacher');		
 	}
 
 	ionViewDidLoad() {
@@ -146,10 +150,10 @@ export class ExamenAlumnoPage {
 					//INI: 2.1
 					//construimos el tipo de dato para calcular la nota
 					this.preguntas.forEach(function (elemento, indice, array) {
-						let a = elemento.solution.a;
-						let b = elemento.solution.b;
-						let c = elemento.solution.c;
-						let d = elemento.solution.d;
+						//let a = elemento.solution.a;
+						//let b = elemento.solution.b;
+						//let c = elemento.solution.c;
+						//let d = elemento.solution.d;
 						let e = elemento.solution.e;
 
 						if( e != null ){						

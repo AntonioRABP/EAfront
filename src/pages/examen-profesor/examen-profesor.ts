@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { MenuController } from 'ionic-angular';
 /**
  * Generated class for the ExamenProfesorPage page.
  *
@@ -16,7 +16,11 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class ExamenProfesorPage {
 	tempExam: string = "Programados";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, 
+  	          public navParams: NavParams,
+  	          public menuCtrl: MenuController) {
+  	this.menuCtrl.enable(false,'MenuStudent');
+  	this.menuCtrl.enable(true,'MenuTeacher');
   }
 
   ionViewDidLoad() {

@@ -1,10 +1,12 @@
 <ion-header>
-  <ion-navbar color="default">
+  <ion-navbar>
+    <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+    </button>    
     <ion-title text-center>
-      UNIVERSIDAD NACIONAL DE INGENIERIA
+      EXÁMENES
     </ion-title>
-    
-  </ion-navbar>
+  </ion-navbar> 
 </ion-header>
 
 <ion-content>
@@ -24,29 +26,63 @@
     <!--ESTE ES LA VISTA DE EXAMENES-->
     <div [ngSwitch]="examen">
       <div *ngSwitchCase="'exam-pendiente'">
-        <ion-list *ngFor="let exam_pendiente of exam_pendientes">
-          <ion-item>
-          <ion-card>
-          <ion-grid>
-            <ion-row>
-              <ion-col id='myExam' >{{exam_pendiente.name}}</ion-col>
-            </ion-row>
-            <ion-row>
-              
-              <ion-item> Tema: {{exam_pendiente.subject }}</ion-item>
-              <ion-item> Peso preguntas correctas: {{exam_pendiente.correct_points }}</ion-item>
-              <ion-item> Peso preguntas incorrectas: {{exam_pendiente.error_points }}</ion-item>
-              <ion-item> Intentos Permitidos: {{exam_pendiente.attempts_allowed }}</ion-item>
-              <ion-item> Inicio de Examen: {{getFecha(exam_pendiente.start_datetime) }}</ion-item>
-              <ion-item> Fin de Examen: {{getFecha(exam_pendiente.end_datetime) }}</ion-item>
-              <ion-item> Duracion: {{getTime(exam_pendiente.duration_time) }}</ion-item>
-            </ion-row>
-            <button id="id_examen" ion-button (click)="rendirExamen(exam_pendiente.id,exam_pendiente.name)">Rendir Examen</button>
-          </ion-grid>
+          <ion-card *ngFor="let exam_pendiente of exam_pendientes">
+              <ion-card-content>
+                <ion-card-title id = 'myExam'>
+                    {{exam_pendiente.name}}
+                </ion-card-title>
+                <p>
+                    {{exam_pendiente.subject }}
+                </p>
+                <ion-item>
+                  <ion-icon name="checkbox-outline" item-start large></ion-icon>
+                  <h2>{{exam_pendiente.correct_points }} puntos</h2>
+                  <p>Puntaje preguntas correctas</p>
+                </ion-item>
+                <ion-item>
+                    <ion-icon name="md-close" item-start large></ion-icon>
+                    <h2>{{exam_pendiente.error_points }} puntos</h2>
+                    <p>Puntaje preguntas incorrectas</p>
+                </ion-item>
+                <ion-item>
+                    <ion-icon name="md-color-wand" item-start large></ion-icon>
+                    <h2>{{exam_pendiente.attempts_allowed }} intentos</h2>
+                    <p>Intentos permitidos</p>
+                </ion-item>
+                <ion-item>
+                  <ion-icon name="time" item-start large></ion-icon>
+                  <h2>{{getTime(exam_pendiente.duration_time) }}  minutos</h2>
+                  <p>Duración</p>
+                </ion-item>
+                <button id="id_examen" block outline ion-button color="primary" (click)="rendirExamen(exam_pendiente.id,exam_pendiente.name)">Rendir Examen</button>
+              </ion-card-content>
           </ion-card>
-          </ion-item>
-        </ion-list>
       </div>
+            
+ <!--       <ion-list >
+          <ion-item>
+            <ion-card>
+              <ion-card-header id='myExam'>
+                  
+              </ion-card-header>
+              <ion-card-content>
+                
+
+                    <p> Tema: </p>                 
+                    <ion-item> Peso preguntas correctas: {{exam_pendiente.correct_points }}</ion-item>
+                    <ion-item> Peso preguntas incorrectas: {{exam_pendiente.error_points }}</ion-item>
+                    <ion-item> Intentos Permitidos: {{exam_pendiente.attempts_allowed }}</ion-item>
+                    <ion-item> Inicio de Examen: {{getFecha(exam_pendiente.start_datetime) }}</ion-item>
+                    <ion-item> Fin de Examen: {{getFecha(exam_pendiente.end_datetime) }}</ion-item>
+                    <ion-item> Duracion: {{getTime(exam_pendiente.duration_time) }}</ion-item>
+
+                  <button id="id_examen" ion-button (click)="rendirExamen(exam_pendiente.id,exam_pendiente.name)">Rendir Examen</button>
+
+              </ion-card-content>
+            </ion-card>
+          </ion-item>
+        </ion-list> -->
+      
 
       <div *ngSwitchCase="'exam-pasados'">
         <ion-list *ngFor="let exam_pasado of exam_pasados">
@@ -86,23 +122,23 @@
           <br>
 
           <ion-item *ngIf = "!!pregunta.solution['a']">
-            <ion-label text-wrap text-justify>a. {{pregunta.solution["a"]}}</ion-label>
+            <ion-label text-wrap text-justify>{{pregunta.solution["a"]}}</ion-label>
             <ion-checkbox (ionChange)="updateChoice(pregunta.id,'a')"></ion-checkbox>
           </ion-item>
           <ion-item  *ngIf = "!!pregunta.solution['b']">
-            <ion-label text-wrap text-justify>b. {{pregunta.solution["b"]}}</ion-label>
+            <ion-label text-wrap text-justify>{{pregunta.solution["b"]}}</ion-label>
             <ion-checkbox (ionChange)="updateChoice(pregunta.id,'b')"></ion-checkbox>
           </ion-item>
           <ion-item *ngIf = "!!pregunta.solution['c']">
-            <ion-label text-wrap text-justify>c. {{pregunta.solution["c"]}}</ion-label>
+            <ion-label text-wrap text-justify>{{pregunta.solution["c"]}}</ion-label>
             <ion-checkbox (ionChange)="updateChoice(pregunta.id,'c')"></ion-checkbox>
           </ion-item>
           <ion-item *ngIf = "!!pregunta.solution['d']">
-            <ion-label text-wrap text-justify>d. {{pregunta.solution["d"]}}</ion-label>
+            <ion-label text-wrap text-justify>{{pregunta.solution["d"]}}</ion-label>
             <ion-checkbox (ionChange)="updateChoice(pregunta.id,'d')"></ion-checkbox>
           </ion-item>
           <ion-item *ngIf = "!!pregunta.solution['e']">
-            <ion-label text-wrap text-justify>e. {{pregunta.solution["e"]}}</ion-label>
+            <ion-label text-wrap text-justify>{{pregunta.solution["e"]}}</ion-label>
             <ion-checkbox (ionChange)="updateChoice(pregunta.id,'e')"></ion-checkbox>
           </ion-item>
           </ion-card-content>
