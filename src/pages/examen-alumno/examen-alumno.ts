@@ -149,10 +149,10 @@ export class ExamenAlumnoPage {
 					//INI: 2.1
 					//construimos el tipo de dato para calcular la nota
 					this.preguntas.forEach(function (elemento, indice, array) {
-						let a = elemento.solution.a;
-						let b = elemento.solution.b;
-						let c = elemento.solution.c;
-						let d = elemento.solution.d;
+						//let a = elemento.solution.a;
+						//let b = elemento.solution.b;
+						//let c = elemento.solution.c;
+						//let d = elemento.solution.d;
 						let e = elemento.solution.e;
 
 						if( e != null ){						

@@ -3,8 +3,8 @@
     <button ion-button menuToggle>
         <ion-icon name="menu"></ion-icon>
     </button>    
-    <ion-title text-center padding>
-      EXAMENES
+    <ion-title text-center>
+      EXÁMENES
     </ion-title>
   </ion-navbar> 
 </ion-header>
@@ -13,7 +13,7 @@
 <div [ngSwitch]="partExamen">
   <div *ngSwitchCase = "'Inicio'">
 
-    <div>
+    <div padding>
       <ion-segment [(ngModel)]="examen">
         <ion-segment-button value="exam-pendiente">
           Examenes Pendientes
