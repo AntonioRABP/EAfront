@@ -66,12 +66,21 @@ export class LoginPage {
   isRegister(){
     this.serviceLogin.setRegister(this.userRegister).subscribe(data => {
       if(data.success){
-          let alertRegister = this.alertCtrl.create({
-            title: 'Se ha registrado!!',
-            subTitle: 'Revise su correo para verificar su cuenta.',
-            buttons: ['OK']
-          });
+        let alertRegister = this.alertCtrl.create({
+          title: 'Cuenta creada!!',
+          subTitle: 'Revise su correo para verificar la cuenta.',
+          buttons: ['OK']
+        });
         alertRegister.present();
+
+        this.typeLogin = 'login';
+      }else{
+        let alertRegisterFail = this.alertCtrl.create({
+          title: 'Error en el registro',
+          subTitle: 'EL nombre de usario o el email ya esta siendo usado.',
+          buttons: ['OK']
+        });
+        alertRegisterFail.present();
       }
     });
 

@@ -71,6 +71,7 @@ export class ExamenAlumnoPage {
 	    res.subscribe(
 	      value => {
 	        if (value.success){
+	        	console.log(value.data);
 	        	this.exam_pendientes = value.data;
 	        }else{
 	        	console.log('No se ha podido recuperar los examenes pendientes del alumno.');

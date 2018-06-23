@@ -4,10 +4,9 @@ import { CrearPreguntaPage } from './crear-pregunta';
 
 @NgModule({
   declarations: [
-    CrearPreguntaPage,
   ],
   imports: [
-    IonicPageModule.forChild(CrearPreguntaPage),
+
   ],
 })
 export class CrearPreguntaPageModule {}
