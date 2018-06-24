@@ -24,6 +24,7 @@ import { TimerPage } from '../pages/timer/timer'
 
 import { LoginServiceProvider } from '../providers/login-service/login-service';
 import { ExamenServiceProvider } from '../providers/examen-service/examen-service';
+import { PreEvaluationServiceProvider } from '../providers/pre-evaluation-service/pre-evaluation-service';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { ExamenServiceProvider } from '../providers/examen-service/examen-servic
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     LoginServiceProvider,
-    ExamenServiceProvider
+    ExamenServiceProvider,
+    PreEvaluationServiceProvider
   ]
 })
 export class AppModule {}

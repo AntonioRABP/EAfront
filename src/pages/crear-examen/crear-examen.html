@@ -18,17 +18,8 @@
     	<ion-item>
       		<ion-label color="primary">Curso: </ion-label>
       		<ion-select>
-        		<ion-option>
-          			GP234 - CURSO 1
-        		</ion-option>
-        		<ion-option>
-          			ST114 - CURSO 2
-        		</ion-option>
-        		<ion-option>
-          			ST255 - CURSO 3
-        		</ion-option>
-        		<ion-option>
-          			ST265 - CURSO 4
+        		<ion-option *ngFor="let curso_disp of curso_disps">
+          			{{curso_disp.name}}
         		</ion-option>
       		</ion-select>
     	</ion-item>
