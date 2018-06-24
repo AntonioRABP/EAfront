@@ -1,6 +1,4 @@
 import { NgModule } from '@angular/core';
-import { IonicPageModule } from 'ionic-angular';
-import { ExamenAlumnoPage } from './examen-alumno';
 import { MenuController } from 'ionic-angular';
 
 @NgModule({
