@@ -39,6 +39,25 @@ export class PreEvaluationServiceProvider {
   	});
 
   	return observable;
-  }
+  };
+
+  getListSubjects(id){
+  	//AGREGAMOS LAS CABECERAS Y PARAMETROS PARA LA CONSULTA
+  	let headers= new Headers();
+  	headers.append('x-session', window.localStorage.getItem('x-session'));
+
+  	//CREAMOS UNA VARIABLE OBSERVABLE QUE GENERARA LAS NOTIFICACIONES CONSULTANDO EL BACK
+  	var observable = Observable.create( observer => {
+  		this.http.get(urlRest + 'admin/course/' +id+ '/topics',{ headers: headers})
+  			.subscribe(dat => {
+  				let res = dat.json();
+  				observer.next(res);
+  				observer.complete();
+  				observer.error('Algo esta mal!!');
+  			})
+  	});
+
+  	return observable;
+  };
 
 }

@@ -17,8 +17,8 @@
 <!------------------Curso del examen------------------------>
     	<ion-item>
       		<ion-label color="primary">Curso: </ion-label>
-      		<ion-select>
-        		<ion-option *ngFor="let curso_disp of curso_disps">
+      		<ion-select id="cursoSelected" (ionChange)="enlistarTemas('cursoSelected')">
+        		<ion-option *ngFor="let curso_disp of curso_disps" value="{{curso_disp.id}}">
           			{{curso_disp.name}}
         		</ion-option>
       		</ion-select>
@@ -26,18 +26,9 @@
 
       <ion-item>
           <ion-label color="primary">Tema: </ion-label>
-          <ion-select>
-            <ion-option>
-              TEMA 1
-            </ion-option>
-            <ion-option>
-              TEMA 2
-            </ion-option>
-            <ion-option>
-              TEMA 3
-            </ion-option>
-            <ion-option>
-              TEMA 4
+          <ion-select id="temaSelected">
+            <ion-option *ngFor="let tema_disp of tema_disps" value="{{tema_disp.id}}">
+              value="{{tema_disp.name}}"
             </ion-option>
           </ion-select>
     </ion-item>

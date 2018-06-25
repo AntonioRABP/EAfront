@@ -16,6 +16,7 @@ import { PreEvaluationServiceProvider } from '../../providers/pre-evaluation-ser
 })
 export class CrearExamenPage {
   curso_disps = [];
+  tema_disps = [];
 
   constructor(public navCtrl: NavController, 
   			  public navParams: NavParams,
@@ -39,6 +40,23 @@ export class CrearExamenPage {
   		},
   		err => {console.log('Error: ' + err)},//CONTROLAMOS LOS ERRORES
   		() => console.log('Este es el final')
+  		);
+  }
+
+  enlistarTemas(idCurso){
+  	var node = document.getElementById(idCurso);
+  	let res = this.preEvaluationServiceProvider.getListSubjects(node);
+
+  	res.suscribe(
+  		value => {
+  			if(value.success){
+  				this.tema_disps = value.data;
+  			}else{
+  				console.log('No se ha podido recuperar los temas por cursos')
+  			}
+  		},
+  		err => {console.log('Error: ' + err)},//CONTROLAMOS LOS ERRORES
+  		() => console.log('Este es el final') 
   		);
   }
 
