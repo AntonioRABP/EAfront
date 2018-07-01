@@ -1,6 +1,6 @@
 <ion-content class="background">
   <div [ngSwitch]="typeLogin">
-    <!--LOGIN-->
+    <!--INICIAR SESIÓN-->
     <div *ngSwitchCase = "'login'">  
       <h1>EvaluApp</h1>
       <ion-card>
@@ -35,7 +35,7 @@
       </ion-card> 
     </div>
 
-    <!--REGISTRO-->
+    <!--REGISTRARSE-->
     <div *ngSwitchCase = "'register'">
       <h1>EvaluApp</h1>
       <ion-card>
@@ -74,5 +74,11 @@
         </form>
       </ion-card>   
     </div>
+
+    <!--<div *ngSwitchCase = "'forgotPassword'">
+        <h1>EvaluApp</h1>
+    </div> -->
+
+    
   </div>
 </ion-content>

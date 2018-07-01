@@ -84,4 +84,9 @@ export class LoginPage {
   goLogin(){
     this.typeLogin = 'login';
   }
+  //PARA MOSTRAR LA VISTA DE RECUPERAR CONTRASEÑA
+  /*goForgotPass(){
+    this.typeLogin = 'forgotPassword'
+  }*/
+
 }
