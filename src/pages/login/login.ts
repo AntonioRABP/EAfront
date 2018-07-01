@@ -66,7 +66,7 @@ export class LoginPage {
     this.serviceLogin.setRegister(this.userRegister).subscribe(data => {
       if(data.success){
           let alertRegister = this.alertCtrl.create({
-            title: 'Se ha registrado!!',
+            title: '¡Se ha registrado!',
             subTitle: 'Revise su correo para verificar su cuenta.',
             buttons: ['OK']
           });
@@ -76,6 +76,12 @@ export class LoginPage {
 
     //this.typeLogin = 'login';
   }
+
+  isReset(){
+    //Aquí iría el servicio si tuviera uno
+    console.log("Si tuviera uno")
+  }
+
   //CAMBIAMOS EL PARAMETRO PARA MOSTRAR EL REGISTRO
   goRegister(){
     this.typeLogin = 'register';
@@ -84,9 +90,7 @@ export class LoginPage {
   goLogin(){
     this.typeLogin = 'login';
   }
-  //PARA MOSTRAR LA VISTA DE RECUPERAR CONTRASEÑA
-  /*goForgotPass(){
-    this.typeLogin = 'forgotPassword'
-  }*/
-
+  goReset(){
+    this.typeLogin = 'forgotPassword';
+  }
 }
