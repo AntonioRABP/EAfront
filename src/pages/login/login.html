@@ -20,7 +20,7 @@
               <ion-input type="password" [(ngModel)]="user.password" name="password"></ion-input>
             </ion-item>
             <ion-item>
-              <p>¿Olvidaste tu Contraseña?<br><a center>¡Click Aquí!</a></p>
+              <p>¿Olvidaste tu Contraseña?<br><a center (click)="goReset()" >¡Click Aquí!</a></p>
             </ion-item>
             <button ion-button type="submit" color="primary"  block outline>Ingresar</button>
             <button ion-button color="danger"  block outline (click)="goRegister()">Registrate</button>
@@ -63,8 +63,8 @@
                 <ion-input type="text" [(ngModel)]="userRegister.apellidos" name="apellido"></ion-input>
               </ion-item>
               <ion-item>
-                <ion-label floating>Correo</ion-label>
-                <ion-input type="text"  [(ngModel)]="userRegister.email" name="email"></ion-input>
+                <ion-label floating>Correo Electrónico</ion-label>
+                <ion-input type="email"  [(ngModel)]="userRegister.email" name="email"></ion-input>
               </ion-item>
               <br>
               <button ion-button type="submit" block outline>Registrarse</button>
@@ -74,5 +74,31 @@
         </form>
       </ion-card>   
     </div>
+    
+    <!--RESTAURAR CONTRASEÑA-->
+    <div *ngSwitchCase = "'forgotPassword'">
+      <h1>EvaluApp</h1>
+      <ion-card>
+        <ion-card-header>
+          RESTAURAR
+        </ion-card-header>
+
+        <form (ngSubmit) = "isReset()">
+          <ion-card-content>
+            <ion-list no-lines>
+              <p>Ingrese el correo electrónico con el que se registró</p>
+              <ion-item>
+                <ion-label floating>Correo Electrónico</ion-label>
+                <ion-input type="email" [(ngModel)]="userRegister.email" name="email"></ion-input>
+              </ion-item>
+              <br>
+              <button ion-button type="submit" block outline>Enviar Contraseña</button>
+              <button ion-button color="danger"  block outline (click)="goLogin()">Atras</button>
+            </ion-list>
+          </ion-card-content>
+        </form>
+        </ion-card>   
+    </div>
+
   </div>
 </ion-content>
