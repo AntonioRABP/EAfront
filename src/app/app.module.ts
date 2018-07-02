@@ -7,7 +7,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule } from '@angular/http';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 
 
@@ -30,7 +29,6 @@ import { PreEvaluationServiceProvider } from '../providers/pre-evaluation-servic
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
     LoginPage,
     ExamenAlumnoPage,
     TimerPage,
@@ -49,7 +47,6 @@ import { PreEvaluationServiceProvider } from '../providers/pre-evaluation-servic
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
     LoginPage,
     ExamenAlumnoPage,
     TimerPage,

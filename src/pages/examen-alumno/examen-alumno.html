@@ -111,10 +111,10 @@
         <ion-card>
           <ion-card-content>
           <ion-card-header>
-            {{examenPendingCurrent.name}}
+            <h1>{{examenPendingCurrent.name}}</h1>
           </ion-card-header>
           <br>
-            {{pregunta.name}}
+          <h2>{{pregunta.name}}</h2>
           <br>
           <br>
           Marcar las alternativas correctas.
@@ -136,20 +136,20 @@
           <ion-item *ngIf = "!!pregunta.solution['d']">
             <ion-label text-wrap text-justify>{{pregunta.solution["d"]}}</ion-label>
             <ion-checkbox (ionChange)="updateChoice(pregunta.id,'d')"></ion-checkbox>
+            <p>Prueba</p>
           </ion-item>
           <ion-item *ngIf = "!!pregunta.solution['e']">
             <ion-label text-wrap text-justify>{{pregunta.solution["e"]}}</ion-label>
             <ion-checkbox (ionChange)="updateChoice(pregunta.id,'e')"></ion-checkbox>
+            
           </ion-item>
           </ion-card-content>
-          <div>
-            <button ion-button color="light" icon-only><ion-icon name="ios-arrow-back"></ion-icon></button>
-            <button ion-button color="light" icon-only><ion-icon name="ios-arrow-forward" ></ion-icon></button>
-          </div>
-        </ion-card>
-        <button ion-button (click)="verResultados()">Terminar Examen</button>
+          </ion-card>
+          <br>
+          <button ion-button (click)="verResultados()">Terminar Examen</button>
       </ion-slide>
     </ion-slides>
+    
   </div>
   <!--Vistas para mirar el resultado-->
   <div *ngSwitchCase = "'Resultados'">
