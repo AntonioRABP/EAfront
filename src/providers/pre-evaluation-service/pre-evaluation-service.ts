@@ -60,4 +60,34 @@ export class PreEvaluationServiceProvider {
   	return observable;
   };
 
+  setGenerateEvaluation(registerEvaluation){
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+
+    let data = {
+      name: registerEvaluation.name,
+      subject: registerEvaluation.subject,
+      questions_count: registerEvaluation.questions_count,
+      correct_points: registerEvaluation.correct_points,
+      error_points: registerEvaluation.error_points,
+      attempts_allowed: registerEvaluation.attempts_allowed,
+      duration_time: registerEvaluation.duration_time,
+      course_id: registerEvaluation.course_id,
+      difficulty_level: registerEvaluation.difficulty_level,
+      type: registerEvaluation.type,
+      category: registerEvaluation.category,
+      is_random: registerEvaluation.is_random,
+      access_code: registerEvaluation.access_code,
+      require_access_code: registerEvaluation.require_access_code
+    };
+
+    return Observable.create(observer => {
+      this.http.post(urlRest + 'admin/pre-evaluation', JSON.stringify(data), { headers: headers })
+        .subscribe(dat => {
+          observer.next(dat.json());
+          observer.complete();
+          observer.error('Algo esta man con la creacion de la evaluacion!');
+        });
+    });
+  }
 }
