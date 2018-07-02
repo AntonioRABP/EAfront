@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController  } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController,LoadingController ,MenuController } from 'ionic-angular';
 import { LoginServiceProvider } from '../../providers/login-service/login-service';
 import { ExamenAlumnoPage } from '../examen-alumno/examen-alumno';
-import { MenuController } from 'ionic-angular';
+import { ResetPasswordPage } from '../reset-password/reset-password';
+
 
 
 @IonicPage()
@@ -12,7 +13,7 @@ import { MenuController } from 'ionic-angular';
 })
 export class LoginPage {
 
-	typeLogin = "login"; //TIPO DE VISTA QUE SE MOSTRARA (PUEDE SER LOGIN O REGISTRO)
+	typeLogin = "login"; //Tipo de vista que se mostrará (pueden ser Login,Registro o Recuperar Contraseña)
 	user = {username: '', password: ''}; //VALORES PARA EL FORM DE LOGIN
   listExamenes = {};
   userRegister = {username: '', password: '', nombres: '', apellidos: '', email: ''};
@@ -21,9 +22,12 @@ export class LoginPage {
           public menuCtrl: MenuController,
   				public navParams: NavParams,
           public serviceLogin: LoginServiceProvider,
-          public alertCtrl: AlertController) {
+          public alertCtrl: AlertController,
+          public loadingCtrl: LoadingController) {
     this.menuCtrl.enable(false,'MenuStudent');
   }
+
+
 
   ionViewDidLoad() {
    	console.log('Carga LoginPage');
@@ -63,18 +67,40 @@ export class LoginPage {
 
 
   isRegister(){
-    this.serviceLogin.setRegister(this.userRegister).subscribe(data => {
-      if(data.success){
-          let alertRegister = this.alertCtrl.create({
-            title: '¡Se ha registrado!',
-            subTitle: 'Revise su correo para verificar su cuenta.',
-            buttons: ['OK']
-          });
-        alertRegister.present();
-      }
+    const loader = this.loadingCtrl.create({
+      spinner : "bubbles",
+      content: "Registrandote...",
     });
+    loader.present();
 
-    //this.typeLogin = 'login';
+    this.serviceLogin.setRegister(this.userRegister).subscribe(
+      data => {
+        console.log('antes del if')
+        if(data.success){
+            console.log(data)
+            loader.dismiss()
+            let alertRegister = this.alertCtrl.create({
+              title: '¡Se ha registrado!',
+              subTitle: 'Revise su correo para verificar su cuenta.',
+              buttons: [
+                {
+                  text:'OK',
+                  handler: () => {
+                    this.typeLogin = 'login';
+                  }
+                }]
+            });
+          alertRegister.present();
+        }
+        else{
+          console.log('No entró al if');
+        }
+      },
+      err => {console.log('Error: ' + err)},
+      () => console.log('this is the end')
+    );
+
+    //;
   }
 
   isReset(){
@@ -82,15 +108,19 @@ export class LoginPage {
     console.log("Si tuviera uno")
   }
 
-  //CAMBIAMOS EL PARAMETRO PARA MOSTRAR EL REGISTRO
+  //Te envía a la vista de Registro
   goRegister(){
     this.typeLogin = 'register';
   }
-  //CAMBIAMOS EL PARAMETRO PARA MOSTRAR EL LOGIN
+  //Te envía a la vista de Login
   goLogin(){
     this.typeLogin = 'login';
   }
+  //Te envía a la vista de Recuperar Contraseña
   goReset(){
-    this.typeLogin = 'forgotPassword';
+    //this.typeLogin = 'forgotPassword';
+    this.navCtrl.setRoot(ResetPasswordPage);
   }
+
+
 }

@@ -20,16 +20,11 @@
               <ion-input type="password" [(ngModel)]="user.password" name="password"></ion-input>
             </ion-item>
             <ion-item>
-              <p>¿Olvidaste tu Contraseña?<br><a center (click)="goReset()" >¡Click Aquí!</a></p>
+              <h2 (click)="goReset()">¿Olvidaste tu Contraseña?</h2>
             </ion-item>
             <button ion-button type="submit" color="primary"  block outline>Ingresar</button>
             <button ion-button color="danger"  block outline (click)="goRegister()">Registrate</button>
           </ion-list>
-          <b>O</b>
-          <button ion-button color="primary" ion-left block>
-            <ion-icon name="logo-facebook"></ion-icon>
-            <div style="padding: 10px;">Entra con facebook</div>
-          </button>
         </ion-card-content>
       </form>
       </ion-card> 
@@ -75,7 +70,7 @@
       </ion-card>   
     </div>
     
-    <!--RESTAURAR CONTRASEÑA-->
+    <!--RESTAURAR CONTRASEÑA
     <div *ngSwitchCase = "'forgotPassword'">
       <h1>EvaluApp</h1>
       <ion-card>
@@ -98,7 +93,7 @@
           </ion-card-content>
         </form>
         </ion-card>   
-    </div>
+    </div>-->
 
   </div>
 </ion-content>

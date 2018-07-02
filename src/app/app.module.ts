@@ -8,17 +8,14 @@ import { HttpModule } from '@angular/http';
 
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
-
-
 import { CrearExamenPage } from '../pages/crear-examen/crear-examen';
 import { CrearPreguntaPage } from '../pages/crear-pregunta/crear-pregunta';
 import { PerfilProfesorPage } from '../pages/perfil-profesor/perfil-profesor';
 import { ExamenAlumnoPage } from '../pages/examen-alumno/examen-alumno';
 import { PerfilEstudiantePage } from '../pages/perfil-estudiante/perfil-estudiante';
-
 import { ExamenProfesorPage } from '../pages/examen-profesor/examen-profesor';
-
-import { TimerPage } from '../pages/timer/timer'
+import { ResetPasswordPage } from '../pages/reset-password/reset-password';
+import { TimerPage } from '../pages/timer/timer';
 
 
 import { LoginServiceProvider } from '../providers/login-service/login-service';
@@ -35,7 +32,8 @@ import { PreEvaluationServiceProvider } from '../providers/pre-evaluation-servic
     CrearPreguntaPage,
     PerfilProfesorPage,
     ExamenProfesorPage,
-    PerfilEstudiantePage
+    PerfilEstudiantePage,
+    ResetPasswordPage
   ],
   imports: [
     BrowserModule,
@@ -52,7 +50,8 @@ import { PreEvaluationServiceProvider } from '../providers/pre-evaluation-servic
     CrearPreguntaPage,
     PerfilProfesorPage,
     ExamenProfesorPage,
-    PerfilEstudiantePage
+    PerfilEstudiantePage,
+    ResetPasswordPage
   ],
   providers: [
     StatusBar,

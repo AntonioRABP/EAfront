@@ -52,10 +52,11 @@ export class LoginServiceProvider {
       last_name: datauserregister.apellidos,
       email: datauserregister.email
     };
-
+    console.log('hola')
     return Observable.create(observer => {
       this.http.post(urlRest + 'student/auth/sign-up', JSON.stringify(data), { headers: headers })
         .subscribe(dat => {
+          console.log(dat)
           observer.next(dat.json());
           observer.complete();
           observer.error('Algo esta mal en el registro!');
