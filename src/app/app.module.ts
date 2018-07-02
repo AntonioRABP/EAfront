@@ -16,6 +16,7 @@ import { CrearPreguntaPage } from '../pages/crear-pregunta/crear-pregunta';
 import { PerfilProfesorPage } from '../pages/perfil-profesor/perfil-profesor';
 import { ExamenAlumnoPage } from '../pages/examen-alumno/examen-alumno';
 import { PerfilEstudiantePage } from '../pages/perfil-estudiante/perfil-estudiante';
+import { NewEvaluationPage } from '../pages/new-evaluation/new-evaluation';
 
 import { ExamenProfesorPage } from '../pages/examen-profesor/examen-profesor';
 
@@ -37,7 +38,8 @@ import { PreEvaluationServiceProvider } from '../providers/pre-evaluation-servic
     CrearPreguntaPage,
     PerfilProfesorPage,
     ExamenProfesorPage,
-    PerfilEstudiantePage
+    PerfilEstudiantePage,
+    NewEvaluationPage
   ],
   imports: [
     BrowserModule,
@@ -55,7 +57,8 @@ import { PreEvaluationServiceProvider } from '../providers/pre-evaluation-servic
     CrearPreguntaPage,
     PerfilProfesorPage,
     ExamenProfesorPage,
-    PerfilEstudiantePage
+    PerfilEstudiantePage,
+    NewEvaluationPage
   ],
   providers: [
     StatusBar,

@@ -17,6 +17,11 @@ import { PreEvaluationServiceProvider } from '../../providers/pre-evaluation-ser
 export class CrearExamenPage {
   curso_disps = [];
   tema_disps = [];
+  exam_gener = {name: '', subject: '', question_count: '', 
+                correct_points: '', error_points: '', attempts_allowed: '',
+                duration_time: '', course_id: '', difficulty_level: '',
+                type: '', category: '', is_random: '', access_code: '',
+                require_access_code: ''};
 
   constructor(public navCtrl: NavController, 
   			  public navParams: NavParams,

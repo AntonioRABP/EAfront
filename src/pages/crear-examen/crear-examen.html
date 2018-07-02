@@ -12,12 +12,12 @@
 <!---------------------------------------------------------->
 		<ion-item>
 			<ion-label color="primary">Nombre: </ion-label>
-			<ion-input type="text" text-right></ion-input>
+			<ion-input type="text" text-right [(ngModel)]="exam_gener.name"></ion-input>
 		</ion-item>
 <!------------------Curso del examen------------------------>
     	<ion-item>
       		<ion-label color="primary">Curso: </ion-label>
-      		<ion-select id="cursoSelected" (ionChange)="enlistarTemas('cursoSelected')">
+      		<ion-select id="cursoSelected" [(ngModel)]="exam_gener.course_id" (ionChange)="enlistarTemas('cursoSelected')">
         		<ion-option *ngFor="let curso_disp of curso_disps" value="{{curso_disp.id}}">
           			{{curso_disp.name}}
         		</ion-option>
@@ -47,7 +47,7 @@
 <!------------------Numero de Preguntas--------------------->
       <ion-item>
           <ion-label color="primary"># Preguntas: </ion-label>
-          <ion-input type="number" text-right min=1 max=10></ion-input>    
+          <ion-input type="number" text-right [(ngModel)]="" min=1 max=10></ion-input>    
       </ion-item>
 <!------------------Puntuacion de Preguntas------------>
       <ion-item>
