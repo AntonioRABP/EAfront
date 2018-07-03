@@ -25,6 +25,8 @@ import { LoginServiceProvider } from '../providers/login-service/login-service';
 import { ExamenServiceProvider } from '../providers/examen-service/examen-service';
 import { PreEvaluationServiceProvider } from '../providers/pre-evaluation-service/pre-evaluation-service';
 import { RegisterServiceProvider } from '../providers/register-service/register-service';
+import { LogOutServiceProvider } from '../providers/log-out-service/log-out-service';
+
 
 @NgModule({
   declarations: [
@@ -68,7 +70,8 @@ import { RegisterServiceProvider } from '../providers/register-service/register-
     LoginServiceProvider,
     ExamenServiceProvider,
     PreEvaluationServiceProvider,
-    RegisterServiceProvider
+    RegisterServiceProvider,
+    LogOutServiceProvider
   ]
 })
 export class AppModule {}
