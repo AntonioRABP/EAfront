@@ -16,7 +16,7 @@ export class ResetPasswordPage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public formBuilder : FormBuilder) {
-    
+    //Validación del formulario
     this.resetForm = formBuilder.group({
       email : ['',[Validators.compose([Validators.required, Validators.email])]]
     })
@@ -31,6 +31,6 @@ export class ResetPasswordPage {
     this.navCtrl.setRoot(LoginPage);
   }
 
-  //Validación del formulario
+  
 
 }

@@ -5,16 +5,19 @@
       LOGIN
     </ion-card-header>
 
-    <form (ngSubmit)="isLogin()">
+    <form (ngSubmit)="isLogin()" [formGroup]="loginForm">
       <ion-card-content>
         <ion-list no-lines>
           <ion-item>
             <ion-label floating>Usuario</ion-label>
-            <ion-input type="text" [(ngModel)]="user.username" name="username"></ion-input>
+            <ion-input type="text" [(ngModel)]="user.username" name="username" formControlName="username" ></ion-input>
           </ion-item>
           <ion-item>
             <ion-label floating>Contraseña</ion-label>
-            <ion-input type="password" [(ngModel)]="user.password" name="password"></ion-input>
+            <ion-input type="password" [(ngModel)]="user.password" name="password" formControlName="password" ></ion-input>
+          </ion-item>
+          <ion-item *ngIf="!loginForm.valid && loginForm.dirty">
+            <p>Ingrese usuario y contraseña</p>
           </ion-item>
           <ion-item>
             <h2 (click)="goReset()">¿Olvidaste tu Contraseña?</h2>
