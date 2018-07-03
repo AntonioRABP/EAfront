@@ -17,6 +17,7 @@ export class ResetPasswordPage {
               public navParams: NavParams,
               public formBuilder : FormBuilder) {
     
+    //Validación de campo email del formulario
     this.resetForm = formBuilder.group({
       email : ['',[Validators.compose([Validators.required, Validators.email])]]
     })
