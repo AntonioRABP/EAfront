@@ -1,99 +1,28 @@
 <ion-content class="background">
-  <div [ngSwitch]="typeLogin">
-    <!--INICIAR SESIÓN-->
-    <div *ngSwitchCase = "'login'">  
-      <h1>EvaluApp</h1>
-      <ion-card>
-        <ion-card-header>
-          LOGIN
-        </ion-card-header>
-      
-      <form (ngSubmit)="isLogin()">
-        <ion-card-content>
-          <ion-list no-lines>
-            <ion-item>
-              <ion-label floating>Usuario</ion-label>
-              <ion-input type="text" [(ngModel)]="user.username" name="username"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label floating>Contraseña</ion-label>
-              <ion-input type="password" [(ngModel)]="user.password" name="password"></ion-input>
-            </ion-item>
-            <ion-item>
-              <h2 (click)="goReset()">¿Olvidaste tu Contraseña?</h2>
-            </ion-item>
-            <button ion-button type="submit" color="primary"  block outline>Ingresar</button>
-            <button ion-button color="danger"  block outline (click)="goRegister()">Registrate</button>
-          </ion-list>
-        </ion-card-content>
-      </form>
-      </ion-card> 
-    </div>
+  <h1>EvaluApp</h1>
+  <ion-card>
+    <ion-card-header>
+      LOGIN
+    </ion-card-header>
 
-    <!--REGISTRARSE-->
-    <div *ngSwitchCase = "'register'">
-      <h1>EvaluApp</h1>
-      <ion-card>
-        <ion-card-header>
-          REGISTRARSE
-        </ion-card-header>
-
-        <form (ngSubmit) = "isRegister()">
-          <ion-card-content>
-            <ion-list no-lines>
-              <ion-item>
-                <ion-label floating>Usuario</ion-label>
-                <ion-input type="text" [(ngModel)]="userRegister.username" name="username"></ion-input>
-              </ion-item>
-              <ion-item>
-                <ion-label floating>Contraseña</ion-label>
-                <ion-input type="password" [(ngModel)]="userRegister.password" name="password"></ion-input>
-              </ion-item>
-              <ion-item>
-                <ion-label floating>Nombres</ion-label>
-                <ion-input type="text" [(ngModel)]="userRegister.nombres" name="nombre"></ion-input>
-              </ion-item>
-              <ion-item>
-                <ion-label floating>Apellidos</ion-label>
-                <ion-input type="text" [(ngModel)]="userRegister.apellidos" name="apellido"></ion-input>
-              </ion-item>
-              <ion-item>
-                <ion-label floating>Correo Electrónico</ion-label>
-                <ion-input type="email"  [(ngModel)]="userRegister.email" name="email"></ion-input>
-              </ion-item>
-              <br>
-              <button ion-button type="submit" block outline>Registrarse</button>
-              <button ion-button color="danger"  block outline (click)="goLogin()">Atras</button>
-            </ion-list>
-          </ion-card-content>
-        </form>
-      </ion-card>   
-    </div>
-    
-    <!--RESTAURAR CONTRASEÑA
-    <div *ngSwitchCase = "'forgotPassword'">
-      <h1>EvaluApp</h1>
-      <ion-card>
-        <ion-card-header>
-          RESTAURAR
-        </ion-card-header>
-
-        <form (ngSubmit) = "isReset()">
-          <ion-card-content>
-            <ion-list no-lines>
-              <p>Ingrese el correo electrónico con el que se registró</p>
-              <ion-item>
-                <ion-label floating>Correo Electrónico</ion-label>
-                <ion-input type="email" [(ngModel)]="userRegister.email" name="email"></ion-input>
-              </ion-item>
-              <br>
-              <button ion-button type="submit" block outline>Enviar Contraseña</button>
-              <button ion-button color="danger"  block outline (click)="goLogin()">Atras</button>
-            </ion-list>
-          </ion-card-content>
-        </form>
-        </ion-card>   
-    </div>-->
-
-  </div>
+    <form (ngSubmit)="isLogin()">
+      <ion-card-content>
+        <ion-list no-lines>
+          <ion-item>
+            <ion-label floating>Usuario</ion-label>
+            <ion-input type="text" [(ngModel)]="user.username" name="username"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Contraseña</ion-label>
+            <ion-input type="password" [(ngModel)]="user.password" name="password"></ion-input>
+          </ion-item>
+          <ion-item>
+            <h2 (click)="goReset()">¿Olvidaste tu Contraseña?</h2>
+          </ion-item>
+          <button ion-button type="submit" color="primary" block outline>Ingresar</button>
+          <button ion-button type="button" color="danger" block outline (click)="goRegister()">Registrate</button>
+        </ion-list>
+      </ion-card-content>
+    </form>
+  </ion-card>
 </ion-content>

@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController,LoadingController 
 import { LoginServiceProvider } from '../../providers/login-service/login-service';
 import { ExamenAlumnoPage } from '../examen-alumno/examen-alumno';
 import { ResetPasswordPage } from '../reset-password/reset-password';
+import { RegisterPage } from '../register/register';
 
 
 
@@ -13,7 +14,7 @@ import { ResetPasswordPage } from '../reset-password/reset-password';
 })
 export class LoginPage {
 
-	typeLogin = "login"; //Tipo de vista que se mostrará (pueden ser Login,Registro o Recuperar Contraseña)
+
 	user = {username: '', password: ''}; //VALORES PARA EL FORM DE LOGIN
   listExamenes = {};
   userRegister = {username: '', password: '', nombres: '', apellidos: '', email: ''};
@@ -34,6 +35,7 @@ export class LoginPage {
   }
 
   isLogin(){
+    console.log("isLogin Fired")
     //CONSULTAMOS EL SERVICIO PARA OBTENER LA SESION
     let res = this.serviceLogin.getSession(this.user);
 
@@ -65,60 +67,15 @@ export class LoginPage {
     );
   }
 
-
-  isRegister(){
-    const loader = this.loadingCtrl.create({
-      spinner : "bubbles",
-      content: "Registrandote...",
-    });
-    loader.present();
-
-    this.serviceLogin.setRegister(this.userRegister).subscribe(
-      data => {
-        console.log('antes del if')
-        if(data.success){
-            console.log(data)
-            loader.dismiss()
-            let alertRegister = this.alertCtrl.create({
-              title: '¡Se ha registrado!',
-              subTitle: 'Revise su correo para verificar su cuenta.',
-              buttons: [
-                {
-                  text:'OK',
-                  handler: () => {
-                    this.typeLogin = 'login';
-                  }
-                }]
-            });
-          alertRegister.present();
-        }
-        else{
-          console.log('No entró al if');
-        }
-      },
-      err => {console.log('Error: ' + err)},
-      () => console.log('this is the end')
-    );
-
-    //;
-  }
-
-  isReset(){
-    //Aquí iría el servicio si tuviera uno
-    console.log("Si tuviera uno")
-  }
-
+  
   //Te envía a la vista de Registro
   goRegister(){
-    this.typeLogin = 'register';
+    console.log("goRegister Fired")
+    this.navCtrl.setRoot(RegisterPage)
   }
-  //Te envía a la vista de Login
-  goLogin(){
-    this.typeLogin = 'login';
-  }
+
   //Te envía a la vista de Recuperar Contraseña
   goReset(){
-    //this.typeLogin = 'forgotPassword';
     this.navCtrl.setRoot(ResetPasswordPage);
   }
 

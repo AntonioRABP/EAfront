@@ -41,27 +41,4 @@ export class LoginServiceProvider {
     return observable;
   }
 
-  public setRegister(datauserregister){
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-
-    let data = {
-      username: datauserregister.username,
-      password: datauserregister.password,
-      first_name: datauserregister.nombres,
-      last_name: datauserregister.apellidos,
-      email: datauserregister.email
-    };
-    console.log('hola')
-    return Observable.create(observer => {
-      this.http.post(urlRest + 'student/auth/sign-up', JSON.stringify(data), { headers: headers })
-        .subscribe(dat => {
-          console.log(dat)
-          observer.next(dat.json());
-          observer.complete();
-          observer.error('Algo esta mal en el registro!');
-        });
-    });
-
-  }
 }

@@ -14,6 +14,7 @@ import { PerfilProfesorPage } from '../pages/perfil-profesor/perfil-profesor';
 import { ExamenAlumnoPage } from '../pages/examen-alumno/examen-alumno';
 import { PerfilEstudiantePage } from '../pages/perfil-estudiante/perfil-estudiante';
 import { NewEvaluationPage } from '../pages/new-evaluation/new-evaluation';
+import {RegisterPage} from '../pages/register/register';
 
 import { ExamenProfesorPage } from '../pages/examen-profesor/examen-profesor';
 import { ResetPasswordPage } from '../pages/reset-password/reset-password';
@@ -23,6 +24,7 @@ import { TimerPage } from '../pages/timer/timer';
 import { LoginServiceProvider } from '../providers/login-service/login-service';
 import { ExamenServiceProvider } from '../providers/examen-service/examen-service';
 import { PreEvaluationServiceProvider } from '../providers/pre-evaluation-service/pre-evaluation-service';
+import { RegisterServiceProvider } from '../providers/register-service/register-service';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { PreEvaluationServiceProvider } from '../providers/pre-evaluation-servic
     ExamenProfesorPage,
     PerfilEstudiantePage,
     ResetPasswordPage,
-    NewEvaluationPage
+    NewEvaluationPage,
+    RegisterPage
   ],
   imports: [
     BrowserModule,
@@ -55,7 +58,8 @@ import { PreEvaluationServiceProvider } from '../providers/pre-evaluation-servic
     ExamenProfesorPage,
     PerfilEstudiantePage,
     ResetPasswordPage,
-    NewEvaluationPage
+    NewEvaluationPage,
+    RegisterPage
   ],
   providers: [
     StatusBar,
@@ -63,7 +67,8 @@ import { PreEvaluationServiceProvider } from '../providers/pre-evaluation-servic
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     LoginServiceProvider,
     ExamenServiceProvider,
-    PreEvaluationServiceProvider
+    PreEvaluationServiceProvider,
+    RegisterServiceProvider
   ]
 })
 export class AppModule {}

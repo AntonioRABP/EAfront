@@ -1,0 +1,38 @@
+<ion-content class="background">
+  <h1>EvaluApp</h1>
+  <ion-card>
+    <ion-card-header>
+      REGISTRARSE
+    </ion-card-header>
+
+    <form (ngSubmit) = "isRegister()">
+      <ion-card-content>
+        <ion-list no-lines>
+          <ion-item>
+            <ion-label floating>Usuario</ion-label>
+            <ion-input type="text" [(ngModel)]="userRegister.username" name="username"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Contraseña</ion-label>
+            <ion-input type="password" [(ngModel)]="userRegister.password" name="password"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Nombres</ion-label>
+            <ion-input type="text" [(ngModel)]="userRegister.nombres" name="nombre"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Apellidos</ion-label>
+            <ion-input type="text" [(ngModel)]="userRegister.apellidos" name="apellido"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Correo Electrónico</ion-label>
+            <ion-input type="email"  [(ngModel)]="userRegister.email" name="email"></ion-input>
+          </ion-item>
+          <br>
+          <button ion-button type="submit" block outline>Registrarse</button>
+          <button ion-button type="button" color="danger"  block outline (click)="goLogin()">Atras</button>
+        </ion-list>
+      </ion-card-content>
+    </form>
+  </ion-card> 
+</ion-content>
