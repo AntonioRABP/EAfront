@@ -37,9 +37,7 @@ export class LoginServiceProvider {
             observer.complete();
             observer.error('Algo esta mal!!');
           })
-        }); 
-    
+        });  
     return observable;
   }
-
 }

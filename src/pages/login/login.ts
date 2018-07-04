@@ -19,7 +19,7 @@ export class LoginPage {
 
 	user = {username: '', password: ''}; //VALORES PARA EL FORM DE LOGIN
   listExamenes = {};
-  userRegister = {username: '', password: '', nombres: '', apellidos: '', email: ''};
+
 
   constructor(public navCtrl: NavController, 
           public menuCtrl: MenuController,

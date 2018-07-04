@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http'; 
 
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
@@ -26,6 +27,7 @@ import { ExamenServiceProvider } from '../providers/examen-service/examen-servic
 import { PreEvaluationServiceProvider } from '../providers/pre-evaluation-service/pre-evaluation-service';
 import { RegisterServiceProvider } from '../providers/register-service/register-service';
 import { LogOutServiceProvider } from '../providers/log-out-service/log-out-service';
+import { ResetPasswordServiceProvider } from '../providers/reset-password-service/reset-password-service';
 
 
 @NgModule({
@@ -46,6 +48,7 @@ import { LogOutServiceProvider } from '../providers/log-out-service/log-out-serv
   imports: [
     BrowserModule,
     HttpModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -71,7 +74,8 @@ import { LogOutServiceProvider } from '../providers/log-out-service/log-out-serv
     ExamenServiceProvider,
     PreEvaluationServiceProvider,
     RegisterServiceProvider,
-    LogOutServiceProvider
+    LogOutServiceProvider,
+    ResetPasswordServiceProvider
   ]
 })
 export class AppModule {}
