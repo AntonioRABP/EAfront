@@ -26,8 +26,6 @@ export class ExamenServiceProvider {
     let headers= new Headers();
     headers.append('s-session', window.localStorage.getItem('s-session'));
 
-    console.log('pintar var: ',window.localStorage.getItem('s-session'));
-
     //CREAMOS UNA VARIABLE OBSERVABLE QUE GENERARA LAS NOTIFICACIONES CONSULTANDO EL BACK
     var observable = Observable.create( observer =>{
 			  this.http.get(urlRest + 'student/evaluation',{ headers: headers })
@@ -62,6 +60,91 @@ export class ExamenServiceProvider {
 
     return observable;
   };
+
+ 
+ startExamen(id_evaluation){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('s-session', window.localStorage.getItem('s-session'));
+
+    let data = {
+      evaluation_id: id_evaluation * 1
+    };
+
+    return Observable.create(observer => {
+      this.http.post(urlRest + 'student/attempt/start', JSON.stringify(data), { headers: headers })
+        .subscribe(dat => {
+          observer.next(dat.json());
+          observer.complete();
+          observer.error('Algo esta mal en el registro!');
+        });
+    });
+
+ }
+
+ endExamen(id_attempt){
+    let headers = new Headers();
+    headers.append('s-session', window.localStorage.getItem('s-session'));
+
+    let data = {
+      attempt_id: id_attempt * 1
+    };
+
+    console.log(id_attempt);
+    return Observable.create(observer => {
+      this.http.post(urlRest + 'student/attempt/' + id_attempt + '/end', JSON.stringify(data), { headers: headers })
+        .subscribe(dat => {
+          observer.next(dat.json());
+          observer.complete();
+          observer.error('Algo esta mal en el registro!');
+        });
+    });
+
+ }
+
+ getAttempts(id_evaluation){
+    let headers = new Headers();
+    headers.append('s-session', window.localStorage.getItem('s-session'));
+    
+    let data = {
+      evaluation_id: id_evaluation * 1
+    };
+
+    return Observable.create(observer => {
+      this.http.post(urlRest + 'student/evaluation/' + id_evaluation + '/attempts',  JSON.stringify(data), { headers: headers })
+        .subscribe(dat => {
+          observer.next(dat.json());
+          observer.complete();
+          observer.error('Algo esta mal en el registro!');
+        });
+    
+    });
+
+ }
+
+ setRespuestas(attempt_id,question_id,answer){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('s-session', window.localStorage.getItem('s-session'));
+    
+    let data = {
+      attempt_id : attempt_id,
+      question_id : question_id,
+      answer : answer
+    };
+
+    return Observable.create(observer => {
+      this.http.post(urlRest + 'student/attempt/' + attempt_id + '/send-answer',  JSON.stringify(data), { headers: headers })
+        .subscribe(dat => {
+          observer.next(dat.json());
+          observer.complete();
+          observer.error('Algo esta mal en el registro!');
+        });
+    
+    });
+
+
+ }
 
 }
 

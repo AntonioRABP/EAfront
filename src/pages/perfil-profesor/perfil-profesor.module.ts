@@ -4,10 +4,9 @@ import { PerfilProfesorPage } from './perfil-profesor';
 
 @NgModule({
   declarations: [
-    PerfilProfesorPage,
+
   ],
   imports: [
-    IonicPageModule.forChild(PerfilProfesorPage),
   ],
 })
 export class PerfilProfesorPageModule {}

@@ -52,6 +52,8 @@ export class ExamenAlumnoPage {
 	answerC = 0;
 	answerD = 0;
 	answerE = 0;
+	//variables para rendir el examen
+	attempt_current = 0;
 
 	//variables para el resultado
 	constructor(public navCtrl: NavController, 
@@ -75,6 +77,7 @@ export class ExamenAlumnoPage {
 	    res.subscribe(
 	      value => {
 	        if (value.success){
+	        	console.log(value.data);
 	        	this.exam_pendientes = value.data;
 	        }else{
 	        	console.log('No se ha podido recuperar los examenes pendientes del alumno.');
@@ -95,6 +98,8 @@ export class ExamenAlumnoPage {
 	rendirExamen($id){
 		//INI: 0
 		//Establacemos el examen pendiente actual y su duraccion
+
+		let intentosflg = 0;
 		let message = 'El examen durará: ';
 		let duracion;
 		let examenCurrent = this.examenPendingCurrent;
@@ -118,7 +123,6 @@ export class ExamenAlumnoPage {
 	      value => {
 	        if(value.success){
 	        	this.preguntas = value.data;
-	        	console.log('xx');
 	        }else{
 	        	console.log('No se ha podido recuperar las preguntas para este examen');
 	        }
@@ -144,6 +148,7 @@ export class ExamenAlumnoPage {
 	      	{
 	        	text: 'Ir a la prueba',
 	        	handler: () => {
+
 			        this.inicioExamen = new Date();
 					this.respuestas = [];
 					//INI: 2.1
@@ -155,7 +160,7 @@ export class ExamenAlumnoPage {
 						//let d = elemento.solution.d;
 						let e = elemento.solution.e;
 
-						if( e != null ){						
+						if( e != null ){
 				    		respuestasCurrent.push({'id': elemento.id, 'answer':elemento.answer, 
 				    			'a': 0, 
 				    			'b': 0, 
@@ -181,19 +186,58 @@ export class ExamenAlumnoPage {
 			    		return;
 					});
 			    	this.respuestas = respuestasCurrent;
-			    	console.log(this.preguntas);
 			    	
 					//END: 2.1					
 
-					this.partExamen = 'Preguntas';
-					this.duracionExamen=duracion;
-			        console.log(4);
-			        setTimeout((result) => {
-			        	//inicia el contador del examen
-			            this.timer.startTimer();
-			            this.finalizo();//vemos si acabo el timer
-			        }, 1000);
-	        	}
+			        console.log(this.examenPendingCurrent.id);
+
+			        this.examenServiceProvider.startExamen(this.examenPendingCurrent.id).subscribe(
+			        	value => {
+			        		console.log('inicia examen');
+			        		console.log(value);
+
+	        				if(!value.success){
+	        					console.log("equivocado");
+							    const alertIntento = this.alertCtrl.create({
+							      title: 'Usted ya tomo este examen',
+							      subTitle: '',
+							      buttons: [
+							        {
+							          text: 'Ok',
+							        },
+							      ]
+							    });
+							    alertIntento.present();
+
+	        		        }else{
+
+			        			this.attempt_current = value.data["id"];								
+
+			        			console.log(this.attempt_current);
+			        			//borrar luego
+			        			intentosflg = 1;
+			        			console.log(this.preguntas);
+
+								this.duracionExamen=duracion;
+								this.partExamen = 'Preguntas';
+	        					console.log(this.duracionExamen);
+
+						        setTimeout((result) => {
+						        		//inicia el contador del examen
+						        		console.log('en examen');
+						            	this.timer.startTimer();
+						            	this.finalizo();//vemos si acabo el timer
+						        	},1000);
+
+	        				}
+	      				},
+	      				err => {console.log('Error: ' + err)},//CONTROLAMOS LOS ERRORES
+	      				() => console.log('this is the end')
+			        );
+
+
+
+	        	}//end hadler
 	      	}
 	    	
 	    	]
@@ -203,6 +247,18 @@ export class ExamenAlumnoPage {
 
 	}
 
+  	finalizarExamen(attempt) {
+    
+    	this.examenServiceProvider.endExamen(attempt).subscribe(
+    		data => {
+        	console.log('fin:' + data);
+      		},err => {
+        	console.log(err);
+      		}
+    	);
+    	console.log('end finalizar examen');
+  	}
+
 	finalizo(){
 		setTimeout(() => {
 			if (!this.timer.hasFinished() && !this.endExamen ) {
@@ -210,6 +266,7 @@ export class ExamenAlumnoPage {
 			}
 			else {
 				console.log('fin examen');
+					
 				this.finExamen = new Date();
 
 				if(!this.endExamen){
@@ -222,13 +279,12 @@ export class ExamenAlumnoPage {
 					alert01.present();
 				}
 				this.calcularNota(this.examenPendingCurrent.correct_points,this.examenPendingCurrent.error_points);
+				this.finalizarExamen(this.attempt_current);	
 				this.partExamen = 'Resultados';
 				this.endExamen = false;
 				}
 		}, 1000)
 	}
-
-
 
 	updateChoice(id, choice){
 		this.respuestas.forEach(function (elemento, indice, array) {
@@ -256,19 +312,45 @@ export class ExamenAlumnoPage {
 		return;
 	}
 
+	registroRespuestas(attempt, question, answer){
+		this.examenServiceProvider.setRespuestas(attempt, question, answer).subscribe(
+			res => {
+				console.log(res);
+			},
+			err => {
+				console.log(err);
+			}
+		);
+	}
+
 	calcularNota(ptos_favor, ptos_contra){
+
+		let intento = this.attempt_current;
 
 		let ptos_favor_calc = 0;
 		let ptos_contra_calc = 0;
 
+		let registroAnswer = [];
+
+		console.log('calcular nota');
+
 		this.respuestas.forEach(function (elemento, indice, array) {
 			let respuesta_correcta = '';
+			let notaAnswer = 0;
 
 			if(elemento.e != null){
 				respuesta_correcta = elemento.answer.toString(2).padStart(5,'0');//convertir answer a binario mas lpad
+				notaAnswer = elemento.a*16+elemento.b*8+elemento.c*4+elemento.d*2+elemento.e;
 			}else{
 				respuesta_correcta = elemento.answer.toString(2).padStart(4,'0');//convertir answer a binario mas lpad
+				notaAnswer = elemento.a*8+elemento.b*4+elemento.c*2+elemento.d;
 			}
+
+
+			registroAnswer.push({'intento': intento*1, 
+							'answer':elemento.id*1, 
+				    		'notaAnswer': notaAnswer*1
+				    		});
 
 			let ptos_divididos_f = ptos_favor/(respuesta_correcta.split('1').length-1);//contar cantidad de respuestas correctas que se deberia tener
 			let ptos_divididos_c = ptos_contra/(respuesta_correcta.split('1').length-1);//contar cantidad de respuestas correctas que se deberia tener
@@ -276,47 +358,66 @@ export class ExamenAlumnoPage {
 			let total_incorrectas = 0;
 			//comprobar equivocados
 			console.log(respuesta_correcta);
-			if(elemento.a == 1){
-				total_incorrectas = total_incorrectas +  (respuesta_correcta[0] != '1' ? 1 : 0);
-			}
-			if(elemento.b == 1){
-				total_incorrectas = total_incorrectas +  (respuesta_correcta[1] != '1' ? 1 : 0);
-			}
-			if(elemento.c == 1){
-				total_incorrectas = total_incorrectas +  (respuesta_correcta[2] != '1' ? 1 : 0);
-			}
-			if(elemento.d == 1){
-				total_incorrectas = total_incorrectas +  (respuesta_correcta[3] != '1' ? 1 : 0);
-			}
-			if(elemento.e == 1){
-				total_incorrectas = total_incorrectas +  (respuesta_correcta[4] != '1' ? 1 : 0);
-			}
-			//comprobar aciertos
-			if( respuesta_correcta[0] == '1'){
-				total_correctas = total_correctas +  (elemento.a == 1? 1 : 0);
-			}
-			if( respuesta_correcta[1] == '1'){
-				total_correctas = total_correctas +  (elemento.b == 1 ? 1 : 0);
-			}
-			if( respuesta_correcta[2] == '1'){
-				total_correctas = total_correctas +  (elemento.c == 1 ? 1 : 0);
-			}
-			if( respuesta_correcta[3] == '1'){
-				total_correctas = total_correctas +  (elemento.d == 1 ? 1 : 0);
-			}
-			if( respuesta_correcta[4] == '1'){
-				total_correctas = total_correctas +  (elemento.e == 1 ? 1 : 0);
-			}
 
+			if(1){
+				if(elemento.a == 1){
+					total_incorrectas = total_incorrectas +  (respuesta_correcta[0] != '1' ? 1 : 0);
+				}
+				if(elemento.b == 1){
+					total_incorrectas = total_incorrectas +  (respuesta_correcta[1] != '1' ? 1 : 0);
+				}
+				if(elemento.c == 1){
+					total_incorrectas = total_incorrectas +  (respuesta_correcta[2] != '1' ? 1 : 0);
+				}
+				if(elemento.d == 1){
+					total_incorrectas = total_incorrectas +  (respuesta_correcta[3] != '1' ? 1 : 0);
+				}
+				if(elemento.e == 1){
+					total_incorrectas = total_incorrectas +  (respuesta_correcta[4] != '1' ? 1 : 0);
+				}
+				//comprobar aciertos
+				if( respuesta_correcta[0] == '1'){
+					total_correctas = total_correctas +  (elemento.a == 1? 1 : 0);
+				}
+				if( respuesta_correcta[1] == '1'){
+					total_correctas = total_correctas +  (elemento.b == 1 ? 1 : 0);
+				}
+				if( respuesta_correcta[2] == '1'){
+					total_correctas = total_correctas +  (elemento.c == 1 ? 1 : 0);
+				}
+				if( respuesta_correcta[3] == '1'){
+					total_correctas = total_correctas +  (elemento.d == 1 ? 1 : 0);
+				}
+				if( respuesta_correcta[4] == '1'){
+					total_correctas = total_correctas +  (elemento.e == 1 ? 1 : 0);
+				}
+			}
 			elemento.correct = total_correctas*ptos_divididos_f;
 			elemento.error = total_incorrectas*ptos_divididos_c;
 
 			ptos_favor_calc += total_correctas*ptos_divididos_f;
 			ptos_contra_calc += total_incorrectas*ptos_divididos_c;
 
-
 		});
+
 		this.nota = (ptos_favor_calc + ptos_contra_calc).toString();
+		console.log(this.nota);
+
+		for(let j=0;j<registroAnswer.length;j++){
+
+			this.examenServiceProvider.setRespuestas(registroAnswer[j]["intento"], 
+				registroAnswer[j]["answer"], 
+				registroAnswer[j]["notaAnswer"]).subscribe(
+				res => {
+					console.log(res);
+				},
+				err => {
+					console.log(err);
+				}
+			);
+		}
+
+
 		return;
 	}
 

@@ -84,6 +84,7 @@ export class LoginPage {
 
   
   //Te envía a la vista de Registro
+
   goRegister(){
     console.log("goRegister Fired")
     this.navCtrl.setRoot(RegisterPage)
