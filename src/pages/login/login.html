@@ -9,6 +9,13 @@
       <ion-card-content>
         <ion-list no-lines>
           <ion-item>
+            <ion-label>Rol</ion-label>
+              <ion-select [(ngModel)]="user.rol" formControlName="rol" >
+                <ion-option value="admin">Profesor</ion-option>
+                <ion-option value="student">Estudiante</ion-option>
+              </ion-select>
+          </ion-item>
+          <ion-item>
             <ion-label floating>Usuario</ion-label>
             <ion-input type="text" [(ngModel)]="user.username" name="username" formControlName="username" ></ion-input>
           </ion-item>

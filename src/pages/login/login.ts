@@ -17,7 +17,7 @@ export class LoginPage {
 
   loginForm :FormGroup;
 
-	user = {username: '', password: ''}; //VALORES PARA EL FORM DE LOGIN
+	user = {username: '', password: '', rol : ''}; //VALORES PARA EL FORM DE LOGIN
   listExamenes = {};
 
 
@@ -32,7 +32,8 @@ export class LoginPage {
     //Validación del formulario
     this.loginForm = formBuilder.group({
       username : ['',Validators.required],
-      password : ['',Validators.required]
+      password : ['',Validators.required],
+      rol : ['',Validators.required]
     })
   }
 
