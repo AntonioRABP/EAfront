@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Loading, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Loading, LoadingController, AlertController } from 'ionic-angular';
 import { PreEvaluationServiceProvider } from '../../providers/pre-evaluation-service/pre-evaluation-service';
 
 /**
@@ -29,7 +29,8 @@ export class NewEvaluationPage {
   constructor(public navCtrl: NavController, 
   			  public navParams: NavParams,
   			  public preEvaluationServiceProvider: PreEvaluationServiceProvider,
-  			  public loadingCtrl: LoadingController){ 
+  			  public loadingCtrl: LoadingController,
+          public alertCtrl: AlertController){ 
   }
 
   ionViewDidLoad() {
@@ -79,7 +80,14 @@ export class NewEvaluationPage {
   		this.exam_gener.require_access_code = 0
   	};
 
-  	this.preEvaluationServiceProvider.setGenerateEvaluation(this.exam_gener).suscribe(data => {
+  	this.preEvaluationServiceProvider.setGeneratePreEvaluation(this.exam_gener).suscribe(data => {
+          if(data.success){
+              let alertRegister = this.alertCtrl.create({
+                title: '¡Ha registrado su pregunta!',
+                buttons: ['OK']
+              });
+            alertRegister.present();
+      }
   	});
   }
 

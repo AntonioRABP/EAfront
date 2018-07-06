@@ -35,7 +35,7 @@
 <!------------------Numero de Preguntas--------------------->
       <ion-item>
           <ion-label color="primary"># Preguntas: </ion-label>
-          <ion-input type="number" [(ngModel)]="exam_gener.questions_count" text-right [(ngModel)]="" min=1 max=10></ion-input>    
+          <ion-input type="number" [(ngModel)]="exam_gener.questions_count" text-right min=1 max=10></ion-input>    
       </ion-item>
 <!------------------Puntuacion de Preguntas------------>
       <ion-item>
@@ -58,6 +58,7 @@
       </ion-item>
 <!--------------------Dificultad----------------------->
 	  <ion-item>
+        <ion-label>Dificultad</ion-label>
 	      <ion-range min="1" max="3" step="1" snaps="true" [(ngModel)]="exam_gener.difficulty_level" color="dark">
 	        <ion-icon range-left small name="ios-star-outline"></ion-icon>
 	        <ion-icon range-right name="ios-star"></ion-icon>
