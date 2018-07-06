@@ -87,14 +87,14 @@
       <div *ngSwitchCase="'exam-pasados'">
         <ion-list *ngFor="let exam_pasado of exam_pasados">
           <ion-item>
-          <ion-card>
-          <ion-grid>
-            <ion-row>
-              <ion-col>{{exam_pasado.nombre}}</ion-col>
-              <ion-col><button ion-button >Ver nota</button></ion-col>
-            </ion-row>
-          </ion-grid>
-          </ion-card>
+            <ion-card>
+              <ion-grid>
+                <ion-row>
+                  <ion-col>{{exam_pasado.nombre}}</ion-col>
+                  <ion-col><button ion-button >Ver nota</button></ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-card>
           </ion-item>
         </ion-list>
       </div>
@@ -144,9 +144,15 @@
             
           </ion-item>
           </ion-card-content>
-          </ion-card>
-          <br>
-          <button ion-button (click)="verResultados()">Terminar Examen</button>
+
+          <div>
+            <button ion-button color="light" icon-only><ion-icon name="ios-arrow-back"></ion-icon></button>
+            <button ion-button color="light" icon-only><ion-icon name="ios-arrow-forward" ></ion-icon></button>
+          </div>
+
+        </ion-card>
+        <button ion-button (click)="verResultados()">Terminar Examen</button>
+
       </ion-slide>
     </ion-slides>
     
@@ -160,6 +166,36 @@
       </ion-card-content>
     </ion-card>
     <button ion-button color="default" (click)="irExamen()">Ir a Examenes</button>
+    <button ion-button color="default" (click)="irExamen()">Ver Solucionario</button>
+    
+    <ion-slides>
+
+      <ion-slide *ngFor="let pregunta of preguntas">
+        <ion-card>
+          <ion-card-content>
+          <ion-card-header>
+            {{examenPendingCurrent.name}}
+          </ion-card-header>
+          <br>
+            {{pregunta.name}}
+          <br>
+          
+          <ion-item>
+            <ion-icon name="checkmark"></ion-icon>
+            Esta es la respuestas
+          </ion-item>
+          <br>
+          <ion-item>
+            <ion-label text-wrap text-justify>Rpta: Aqui se ingresa el verdadero</ion-label>
+          </ion-item>
+
+          </ion-card-content>
+        </ion-card>
+
+
+      </ion-slide>
+    </ion-slides>
+
   </div>
 </div>
 </ion-content>

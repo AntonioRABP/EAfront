@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http} from '@angular/http';
 
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
@@ -36,31 +37,8 @@ export class LoginServiceProvider {
             observer.complete();
             observer.error('Algo esta mal!!');
           })
-        }); 
-    
+        });  
     return observable;
   }
 
-  public setRegister(datauserregister){
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-
-    let data = {
-      username: datauserregister.username,
-      password: datauserregister.password,
-      first_name: datauserregister.nombres,
-      last_name: datauserregister.apellidos,
-      email: datauserregister.email
-    };
-
-    return Observable.create(observer => {
-      this.http.post(urlRest + 'student/auth/sign-up', JSON.stringify(data), { headers: headers })
-        .subscribe(dat => {
-          observer.next(dat.json());
-          observer.complete();
-          observer.error('Algo esta mal en el registro!');
-        });
-    });
-
-  }
 }

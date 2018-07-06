@@ -4,10 +4,10 @@ import { CrearExamenPage } from './crear-examen';
 
 @NgModule({
   declarations: [
-    CrearExamenPage,
+  
   ],
   imports: [
-    IonicPageModule.forChild(CrearExamenPage),
+
   ],
 })
 export class CrearExamenPageModule {}
