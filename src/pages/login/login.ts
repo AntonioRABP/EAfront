@@ -81,36 +81,9 @@ export class LoginPage {
     }
   }
 
-<<<<<<< HEAD
-
-  isRegister(){
-    this.serviceLogin.setRegister(this.userRegister).subscribe(data => {
-      if(data.success){
-        let alertRegister = this.alertCtrl.create({
-          title: 'Cuenta creada!!',
-          subTitle: 'Revise su correo para verificar la cuenta.',
-          buttons: ['OK']
-        });
-        alertRegister.present();
-
-        this.typeLogin = 'login';
-      }else{
-        let alertRegisterFail = this.alertCtrl.create({
-          title: 'Error en el registro',
-          subTitle: 'EL nombre de usario o el email ya esta siendo usado.',
-          buttons: ['OK']
-        });
-        alertRegisterFail.present();
-      }
-    });
-
-    //this.typeLogin = 'login';
-  }
-  //CAMBIAMOS EL PARAMETRO PARA MOSTRAR EL REGISTRO
-=======
   
   //Te envía a la vista de Registro
->>>>>>> e827ee66cb7d2378ce16128f47ff49b2fcedd055
+
   goRegister(){
     console.log("goRegister Fired")
     this.navCtrl.setRoot(RegisterPage)

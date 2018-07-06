@@ -195,18 +195,9 @@ export class ExamenAlumnoPage {
 			        	value => {
 			        		console.log('inicia examen');
 			        		console.log(value);
-	        				if(value.success){
-	        					console.log(value.data);
-	        					
-	        					this.preguntas = value.data;
-			        			this.attempt_current = value.id;								
 
-			        			intentosflg = 1;
-								this.partExamen = 'Preguntas';
-								this.duracionExamen=duracion;
-	        				
-	        		        }else{
-
+	        				if(!value.success){
+	        					console.log("equivocado");
 							    const alertIntento = this.alertCtrl.create({
 							      title: 'Usted ya tomo este examen',
 							      subTitle: '',
@@ -218,6 +209,26 @@ export class ExamenAlumnoPage {
 							    });
 							    alertIntento.present();
 
+	        		        }else{
+
+			        			this.attempt_current = value.data["id"];								
+
+			        			console.log(this.attempt_current);
+			        			//borrar luego
+			        			intentosflg = 1;
+			        			console.log(this.preguntas);
+
+								this.duracionExamen=duracion;
+								this.partExamen = 'Preguntas';
+	        					console.log(this.duracionExamen);
+
+						        setTimeout((result) => {
+						        		//inicia el contador del examen
+						        		console.log('en examen');
+						            	this.timer.startTimer();
+						            	this.finalizo();//vemos si acabo el timer
+						        	},1000);
+
 	        				}
 	      				},
 	      				err => {console.log('Error: ' + err)},//CONTROLAMOS LOS ERRORES
@@ -225,17 +236,6 @@ export class ExamenAlumnoPage {
 			        );
 
 
-			        if (intentosflg == 1){
-								
-			        	console.log("ingreso a flg");
-			        	setTimeout(
-			        				(result) => {
-			        					//inicia el contador del examen
-			            				this.timer.startTimer();
-			            				this.finalizo();//vemos si acabo el timer
-			        				}, 
-			        				1000);
-			        }
 
 	        	}//end hadler
 	      	}
@@ -256,6 +256,7 @@ export class ExamenAlumnoPage {
         	console.log(err);
       		}
     	);
+    	console.log('end finalizar examen');
   	}
 
 	finalizo(){
@@ -265,7 +266,6 @@ export class ExamenAlumnoPage {
 			}
 			else {
 				console.log('fin examen');
-				this.finalizarExamen(this.attempt_current);	
 					
 				this.finExamen = new Date();
 
@@ -279,13 +279,12 @@ export class ExamenAlumnoPage {
 					alert01.present();
 				}
 				this.calcularNota(this.examenPendingCurrent.correct_points,this.examenPendingCurrent.error_points);
+				this.finalizarExamen(this.attempt_current);	
 				this.partExamen = 'Resultados';
 				this.endExamen = false;
 				}
 		}, 1000)
 	}
-
-
 
 	updateChoice(id, choice){
 		this.respuestas.forEach(function (elemento, indice, array) {
@@ -313,12 +312,28 @@ export class ExamenAlumnoPage {
 		return;
 	}
 
+	registroRespuestas(attempt, question, answer){
+		this.examenServiceProvider.setRespuestas(attempt, question, answer).subscribe(
+			res => {
+				console.log(res);
+			},
+			err => {
+				console.log(err);
+			}
+		);
+	}
+
 	calcularNota(ptos_favor, ptos_contra){
+
+		let intento = this.attempt_current;
 
 		let ptos_favor_calc = 0;
 		let ptos_contra_calc = 0;
 
+		let registroAnswer = [];
+
 		console.log('calcular nota');
+
 		this.respuestas.forEach(function (elemento, indice, array) {
 			let respuesta_correcta = '';
 			let notaAnswer = 0;
@@ -332,16 +347,10 @@ export class ExamenAlumnoPage {
 			}
 
 
-			this.examenServiceProvider.setRespuestas(this.attempt_current, this.elemento.id, notaAnswer).subscribe(
-				res => {
-
-					console.log(res);
-					console.log(notaAnswer);
-				},
-				err => {
-					console.log(err);
-				}
-			);
+			registroAnswer.push({'intento': intento*1, 
+							'answer':elemento.id*1, 
+				    		'notaAnswer': notaAnswer*1
+				    		});
 
 			let ptos_divididos_f = ptos_favor/(respuesta_correcta.split('1').length-1);//contar cantidad de respuestas correctas que se deberia tener
 			let ptos_divididos_c = ptos_contra/(respuesta_correcta.split('1').length-1);//contar cantidad de respuestas correctas que se deberia tener
@@ -389,13 +398,24 @@ export class ExamenAlumnoPage {
 			ptos_favor_calc += total_correctas*ptos_divididos_f;
 			ptos_contra_calc += total_incorrectas*ptos_divididos_c;
 
-
-
-
 		});
+
 		this.nota = (ptos_favor_calc + ptos_contra_calc).toString();
+		console.log(this.nota);
 
+		for(let j=0;j<registroAnswer.length;j++){
 
+			this.examenServiceProvider.setRespuestas(registroAnswer[j]["intento"], 
+				registroAnswer[j]["answer"], 
+				registroAnswer[j]["notaAnswer"]).subscribe(
+				res => {
+					console.log(res);
+				},
+				err => {
+					console.log(err);
+				}
+			);
+		}
 
 
 		return;

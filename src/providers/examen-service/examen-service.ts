@@ -111,7 +111,7 @@ export class ExamenServiceProvider {
     };
 
     return Observable.create(observer => {
-      this.http.post(urlRest + 'student/evaluation/' + id_evaluation + '/attemp',  JSON.stringify(data), { headers: headers })
+      this.http.post(urlRest + 'student/evaluation/' + id_evaluation + '/attempts',  JSON.stringify(data), { headers: headers })
         .subscribe(dat => {
           observer.next(dat.json());
           observer.complete();
@@ -124,6 +124,7 @@ export class ExamenServiceProvider {
 
  setRespuestas(attempt_id,question_id,answer){
     let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
     headers.append('s-session', window.localStorage.getItem('s-session'));
     
     let data = {
