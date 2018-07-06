@@ -48,8 +48,9 @@ export class LoginPage {
       console.log("formulario valido")
       console.log("isLogin Fired")
       //CONSULTAMOS EL SERVICIO PARA OBTENER LA SESION
-      let res = this.serviceLogin.getSession(this.user);
-  
+      console.log(this.user)
+      let res = this.serviceLogin.getSessionStudent(this.user);
+      
       //NOS SUSCRIBIMOS AL SERVICIO
       res.subscribe(
         value => {
@@ -58,7 +59,6 @@ export class LoginPage {
             console.log("Welcome!");
             //GUARDAMOS LOS VALORES EN LA BD DEL FRONT
             window.localStorage.setItem("s-session", value.data.session_id);
-  
             console.log('Redirigimos a la vista de examenes');
             this.navCtrl.setRoot(ExamenAlumnoPage);//HomePage);//REDIRIGIMOS AL HOME
           }else{
