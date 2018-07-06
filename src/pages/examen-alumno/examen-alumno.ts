@@ -199,7 +199,7 @@ export class ExamenAlumnoPage {
 	        				if(!value.success){
 	        					console.log("equivocado");
 							    const alertIntento = this.alertCtrl.create({
-							      title: 'Usted ya tomo este examen',
+							      title: 'Supero el numero de intentos',
 							      subTitle: '',
 							      buttons: [
 							        {
