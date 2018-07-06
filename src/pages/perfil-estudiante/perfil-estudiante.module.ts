@@ -4,10 +4,8 @@ import { PerfilEstudiantePage } from './perfil-estudiante';
 
 @NgModule({
   declarations: [
-    PerfilEstudiantePage,
   ],
   imports: [
-    IonicPageModule.forChild(PerfilEstudiantePage),
   ],
 })
 export class PerfilEstudiantePageModule {}
