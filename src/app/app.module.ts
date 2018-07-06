@@ -5,30 +5,34 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http'; 
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
-
-
 import { CrearExamenPage } from '../pages/crear-examen/crear-examen';
 import { CrearPreguntaPage } from '../pages/crear-pregunta/crear-pregunta';
 import { PerfilProfesorPage } from '../pages/perfil-profesor/perfil-profesor';
 import { ExamenAlumnoPage } from '../pages/examen-alumno/examen-alumno';
 import { PerfilEstudiantePage } from '../pages/perfil-estudiante/perfil-estudiante';
+import { NewEvaluationPage } from '../pages/new-evaluation/new-evaluation';
+import {RegisterPage} from '../pages/register/register';
 
 import { ExamenProfesorPage } from '../pages/examen-profesor/examen-profesor';
-
-import { TimerPage } from '../pages/timer/timer'
+import { ResetPasswordPage } from '../pages/reset-password/reset-password';
+import { TimerPage } from '../pages/timer/timer';
 
 
 import { LoginServiceProvider } from '../providers/login-service/login-service';
 import { ExamenServiceProvider } from '../providers/examen-service/examen-service';
+import { PreEvaluationServiceProvider } from '../providers/pre-evaluation-service/pre-evaluation-service';
+import { RegisterServiceProvider } from '../providers/register-service/register-service';
+import { LogOutServiceProvider } from '../providers/log-out-service/log-out-service';
+import { ResetPasswordServiceProvider } from '../providers/reset-password-service/reset-password-service';
+
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
     LoginPage,
     ExamenAlumnoPage,
     TimerPage,
@@ -36,17 +40,20 @@ import { ExamenServiceProvider } from '../providers/examen-service/examen-servic
     CrearPreguntaPage,
     PerfilProfesorPage,
     ExamenProfesorPage,
-    PerfilEstudiantePage
+    PerfilEstudiantePage,
+    ResetPasswordPage,
+    NewEvaluationPage,
+    RegisterPage
   ],
   imports: [
     BrowserModule,
     HttpModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
     LoginPage,
     ExamenAlumnoPage,
     TimerPage,
@@ -54,14 +61,21 @@ import { ExamenServiceProvider } from '../providers/examen-service/examen-servic
     CrearPreguntaPage,
     PerfilProfesorPage,
     ExamenProfesorPage,
-    PerfilEstudiantePage
+    PerfilEstudiantePage,
+    ResetPasswordPage,
+    NewEvaluationPage,
+    RegisterPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     LoginServiceProvider,
-    ExamenServiceProvider
+    ExamenServiceProvider,
+    PreEvaluationServiceProvider,
+    RegisterServiceProvider,
+    LogOutServiceProvider,
+    ResetPasswordServiceProvider
   ]
 })
 export class AppModule {}

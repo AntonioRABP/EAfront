@@ -1,79 +1,31 @@
 <ion-content class="background">
-  <div [ngSwitch]="typeLogin">
-    <!--LOGIN-->
-    <div *ngSwitchCase = "'login'">  
-      <h1>EvaluApp</h1>
-      <ion-card>
-        <ion-card-header>
-          LOGIN
-        </ion-card-header>
-      
-      <form (ngSubmit)="isLogin()">
-        <ion-card-content>
-          <ion-list no-lines>
-            <ion-item>
-              <ion-label floating>Usuario</ion-label>
-              <ion-input type="text" [(ngModel)]="user.username" name="username"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label floating>Contraseña</ion-label>
-              <ion-input type="password" [(ngModel)]="user.password" name="password"></ion-input>
-            </ion-item>
-            <ion-item>
-              <p>¿Olvidaste tu Contraseña?<br><a center>¡Click Aquí!</a></p>
-            </ion-item>
-            <button ion-button type="submit" color="primary"  block outline>Ingresar</button>
-            <button ion-button color="danger"  block outline (click)="goRegister()">Registrate</button>
-          </ion-list>
-          <b>O</b>
-          <button ion-button color="primary" ion-left block>
-            <ion-icon name="logo-facebook"></ion-icon>
-            <div style="padding: 10px;">Entra con facebook</div>
-          </button>
-        </ion-card-content>
-      </form>
-      </ion-card> 
-    </div>
+  <h1>EvaluApp</h1>
+  <ion-card>
+    <ion-card-header>
+      LOGIN
+    </ion-card-header>
 
-    <!--REGISTRO-->
-    <div *ngSwitchCase = "'register'">      
-        <ion-navbar>
-          <ion-title>Registro</ion-title>
-        </ion-navbar>
-
-        <ion-grid>
-          <form (ngSubmit)="isRegister()">
-            <ion-item>
-              <ion-label>Username</ion-label>
-              <ion-input type="text" [(ngModel)]="userRegister.username" name="username"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label>Password</ion-label>
-              <ion-input type="password" [(ngModel)]="userRegister.password" name="password"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label>Nombres</ion-label>
-              <ion-input type="text" [(ngModel)]="userRegister.nombres" name="nombre"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label>Apellidos</ion-label>
-              <ion-input type="text" [(ngModel)]="userRegister.apellidos" name="apellido"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label>Correo</ion-label>
-              <ion-input type="text"  [(ngModel)]="userRegister.email" name="email"></ion-input>
-            </ion-item>
-
-            <ion-row>
-              <ion-col col-6>
-                <button ion-button type="submit" block>Registrarse</button>
-              </ion-col>
-              <ion-col col-6>
-                <button ion-button color="light"  (click)="goLogin()">Atras</button>
-              </ion-col>
-            </ion-row>
-          </form>
-       </ion-grid>      
-    </div>
-  </div>
+    <form (ngSubmit)="isLogin()" [formGroup]="loginForm">
+      <ion-card-content>
+        <ion-list no-lines>
+          <ion-item>
+            <ion-label floating>Usuario</ion-label>
+            <ion-input type="text" [(ngModel)]="user.username" name="username" formControlName="username" ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Contraseña</ion-label>
+            <ion-input type="password" [(ngModel)]="user.password" name="password" formControlName="password" ></ion-input>
+          </ion-item>
+          <ion-item *ngIf="!loginForm.valid && loginForm.dirty">
+            <p>Ingrese usuario y contraseña</p>
+          </ion-item>
+          <ion-item>
+            <h2 (click)="goReset()">¿Olvidaste tu Contraseña?</h2>
+          </ion-item>
+          <button ion-button type="submit" color="primary" block outline>Ingresar</button>
+          <button ion-button type="button" color="danger" block outline (click)="goRegister()">Registrate</button>
+        </ion-list>
+      </ion-card-content>
+    </form>
+  </ion-card>
 </ion-content>
