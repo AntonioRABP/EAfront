@@ -3,6 +3,7 @@
     <ion-title text-center>Crear pregunta</ion-title>
   </ion-navbar>
 </ion-header>
+
 <form (ngSubmit)="regQuestion()">
   <ion-content>
     <ion-list>
@@ -12,12 +13,12 @@
 
       <ion-item>
         <ion-label color="primary">Nombre: </ion-label>
-        <ion-input type="text" text-right [(ngModel)]="preg_gener.name"></ion-input>
+        <ion-input type="text" text-right [(ngModel)]="preg_gener.name" [ngModelOptions]="{standalone: true}"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label color="primary">Pre-evaluacion: </ion-label>
-        <ion-select [(ngModel)]="preg_gener.pre_evaluation_id">
+        <ion-select [(ngModel)]="preg_gener.pre_evaluation_id" [ngModelOptions]="{standalone: true}">
           <ion-option *ngFor="let eval_disp of eval_disps" value="{{eval_disp.id}}">
             {{eval_disp.name}}
           </ion-option>
@@ -26,7 +27,7 @@
 
       <ion-item>
         <ion-label>Tipo de tema:</ion-label>
-        <ion-select [(ngModel)]="preg_gener.topic_id">
+        <ion-select [(ngModel)]="preg_gener.topic_id" [ngModelOptions]="{standalone: true}">
           <ion-option value=1>Gestion</ion-option>
           <ion-option value=2>Matematicas</ion-option>
           <ion-option value=3>Humanidades</ion-option>
@@ -36,18 +37,18 @@
 
       <ion-item>
         <ion-label color="primary">Pregunta: </ion-label> 
-        <ion-textarea rows="1" AutosizeComponent [(ngModel)]="preg_gener.statement.text"></ion-textarea>
+        <ion-textarea rows="1" AutosizeComponent [(ngModel)]="preg_gener.statement.text" [ngModelOptions]="{standalone: true}"></ion-textarea>
       </ion-item>
 
       <ion-item>
         <ion-label color="primary">Solucion: </ion-label> 
-        <ion-textarea rows="1" AutosizeComponent [(ngModel)]="preg_gener.solution.text"></ion-textarea>
+        <ion-textarea rows="1" AutosizeComponent [(ngModel)]="preg_gener.solution.text" [ngModelOptions]="{standalone: true}"></ion-textarea>
       </ion-item>
 
   
       <ion-item>
         <ion-label color="primary">Referencia: </ion-label> 
-        <ion-input type="text" text-right [(ngModel)]="preg_gener.source"></ion-input>
+        <ion-input type="text" text-right [(ngModel)]="preg_gener.source" name="first"></ion-input>
       </ion-item>
     </ion-list>   
 
@@ -57,33 +58,33 @@
       </ion-list-header>
 
       <ion-item>
-        <ion-toggle checked="false" [(ngModel)]="alt_correctas[0]"></ion-toggle>
+        <ion-toggle checked="false" [(ngModel)]="alt_correctas[0]" [ngModelOptions]="{standalone: true}"></ion-toggle>
         <ion-label>1. </ion-label>
-        <ion-textarea rows="1" AutosizeComponent [(ngModel)]="preg_gener.statement.alternatives[0].text"></ion-textarea>
+        <ion-textarea rows="1" AutosizeComponent [(ngModel)]="preg_gener.statement.alternatives[0].text" [ngModelOptions]="{standalone: true}"></ion-textarea>
       </ion-item>
 
       <ion-item>
-        <ion-toggle checked="false" [(ngModel)]="alt_correctas[1]"></ion-toggle>
+        <ion-toggle checked="false" [(ngModel)]="alt_correctas[1]" [ngModelOptions]="{standalone: true}"></ion-toggle>
         <ion-label>2. </ion-label>
-        <ion-textarea rows="1" AutosizeComponent [(ngModel)]="preg_gener.statement.alternatives[1].text"></ion-textarea>
+        <ion-textarea rows="1" AutosizeComponent [(ngModel)]="preg_gener.statement.alternatives[1].text" [ngModelOptions]="{standalone: true}"></ion-textarea>
       </ion-item>
 
       <ion-item>
-        <ion-toggle checked="false" [(ngModel)]="alt_correctas[2]" ></ion-toggle>
+        <ion-toggle checked="false" [(ngModel)]="alt_correctas[2]" [ngModelOptions]="{standalone: true}"></ion-toggle>
         <ion-label>3. </ion-label>
-        <ion-textarea rows="1" AutosizeComponent [(ngModel)]="preg_gener.statement.alternatives[2].text"></ion-textarea>
+        <ion-textarea rows="1" AutosizeComponent [(ngModel)]="preg_gener.statement.alternatives[2].text" [ngModelOptions]="{standalone: true}"></ion-textarea>
       </ion-item>
 
       <ion-item>
-        <ion-toggle checked="false" [(ngModel)]="alt_correctas[3]"></ion-toggle>
+        <ion-toggle checked="false" [(ngModel)]="alt_correctas[3]" [ngModelOptions]="{standalone: true}"></ion-toggle>
         <ion-label>4. </ion-label>
-        <ion-textarea rows="1" AutosizeComponent [(ngModel)]="preg_gener.statement.alternatives[3].text"></ion-textarea>
+        <ion-textarea rows="1" AutosizeComponent [(ngModel)]="preg_gener.statement.alternatives[3].text" [ngModelOptions]="{standalone: true}"></ion-textarea>
       </ion-item>
 
       <ion-item>
-        <ion-toggle checked="false" [(ngModel)]="alt_correctas[4]"></ion-toggle>
+        <ion-toggle checked="false" [(ngModel)]="alt_correctas[4]" [ngModelOptions]="{standalone: true}"></ion-toggle>
         <ion-label>5. </ion-label>
-        <ion-textarea rows="1" AutosizeComponent [(ngModel)]="preg_gener.statement.alternatives[4].text"></ion-textarea>
+        <ion-textarea rows="1" AutosizeComponent [(ngModel)]="preg_gener.statement.alternatives[4].text" [ngModelOptions]="{standalone: true}"></ion-textarea>
       </ion-item>
 
     </ion-list>

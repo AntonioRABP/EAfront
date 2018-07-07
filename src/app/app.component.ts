@@ -7,6 +7,7 @@ import { Nav } from 'ionic-angular';
 import { LoginPage } from '../pages/login/login';
 import { ExamenAlumnoPage } from '../pages/examen-alumno/examen-alumno';
 import { PerfilEstudiantePage } from '../pages/perfil-estudiante/perfil-estudiante';
+import { CrearPreguntaPage } from '../pages/crear-pregunta/crear-pregunta';
 
 import { LogOutServiceProvider } from '../providers/log-out-service/log-out-service';
 
