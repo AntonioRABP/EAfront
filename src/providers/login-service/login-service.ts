@@ -17,28 +17,29 @@ export class LoginServiceProvider {
     console.log('Constructor LoginServiceProvider');
   }
   
-  //OBTENEMOS LOS VALORES DE INICIACION DE SESION
-  getSession(datauser){
+  //Inicio de sesión para el estudiante
+  getSessionStudent(datauser){
     console.log('Obtenemos la sesion');
-    //AGREGAMOS LOS CABECERAS Y PARAMETROS PARA LA CONSULTA
+    //Agregamos cabecera y parámetros para la consulta
     let headers= new Headers();
     headers.append('Content-Type', 'application/json');
     let data = {
       username : datauser.username,
       password : datauser.password
     };
-    //CREAMOS UNA VARIABLE OBSERVABLE QUE GENERARA LAS NOTIFICACIONES CONSULTANDO EL BACK
+    //Creamos un observable que genera notificaciones consultando al back
     var observable = Observable.create( observer =>{
 			  this.http.post(urlRest + 'student/auth/sign-in',JSON.stringify(data),{ headers: headers })
           .subscribe(dat=>{
             let res = dat.json();
-            //AQUI SE PUEDE CAMBIAR POR DATOS FAKE HASTA ASOCIARLO CON SU SERVICIO
-            observer.next(res);//ENVIAMOS LA RESPUESTA DEL SERVIDOR AL OBSERVER
+            observer.next(res);//Enviamos respuesta al servidor
             observer.complete();
             observer.error('Algo esta mal!!');
           })
         });  
     return observable;
   }
+
+
 
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Loading, LoadingController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 import { PreQuestionServiceProvider } from '../../providers/pre-question-service/pre-question-service';
 /**
  * Generated class for the CrearPreguntaPage page.

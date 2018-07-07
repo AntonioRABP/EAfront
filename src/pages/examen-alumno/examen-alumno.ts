@@ -99,7 +99,7 @@ export class ExamenAlumnoPage {
 		//INI: 0
 		//Establacemos el examen pendiente actual y su duraccion
 
-		let intentosflg = 0;
+		
 		let message = 'El examen durará: ';
 		let duracion;
 		let examenCurrent = this.examenPendingCurrent;
@@ -199,7 +199,7 @@ export class ExamenAlumnoPage {
 	        				if(!value.success){
 	        					console.log("equivocado");
 							    const alertIntento = this.alertCtrl.create({
-							      title: 'Usted ya tomo este examen',
+							      title: 'Supero el numero de intentos',
 							      subTitle: '',
 							      buttons: [
 							        {
@@ -215,7 +215,7 @@ export class ExamenAlumnoPage {
 
 			        			console.log(this.attempt_current);
 			        			//borrar luego
-			        			intentosflg = 1;
+			        			
 			        			console.log(this.preguntas);
 
 								this.duracionExamen=duracion;
