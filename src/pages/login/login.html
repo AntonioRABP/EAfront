@@ -24,7 +24,7 @@
             <ion-input type="password" [(ngModel)]="user.password" name="password" formControlName="password" ></ion-input>
           </ion-item>
           <ion-item *ngIf="!loginForm.valid && loginForm.dirty">
-            <p>Ingrese usuario y contraseña</p>
+            <p>Ingrese correctamente todos los campos</p>
           </ion-item>
           <ion-item>
             <h2 (click)="goReset()">¿Olvidaste tu Contraseña?</h2>

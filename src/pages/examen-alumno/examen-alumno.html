@@ -59,31 +59,6 @@
           </ion-card>
       </div>
             
- <!--       <ion-list >
-          <ion-item>
-            <ion-card>
-              <ion-card-header id='myExam'>
-                  
-              </ion-card-header>
-              <ion-card-content>
-                
-
-                    <p> Tema: </p>                 
-                    <ion-item> Peso preguntas correctas: {{exam_pendiente.correct_points }}</ion-item>
-                    <ion-item> Peso preguntas incorrectas: {{exam_pendiente.error_points }}</ion-item>
-                    <ion-item> Intentos Permitidos: {{exam_pendiente.attempts_allowed }}</ion-item>
-                    <ion-item> Inicio de Examen: {{getFecha(exam_pendiente.start_datetime) }}</ion-item>
-                    <ion-item> Fin de Examen: {{getFecha(exam_pendiente.end_datetime) }}</ion-item>
-                    <ion-item> Duracion: {{getTime(exam_pendiente.duration_time) }}</ion-item>
-
-                  <button id="id_examen" ion-button (click)="rendirExamen(exam_pendiente.id,exam_pendiente.name)">Rendir Examen</button>
-
-              </ion-card-content>
-            </ion-card>
-          </ion-item>
-        </ion-list> -->
-      
-
       <div *ngSwitchCase="'exam-pasados'">
         <ion-list *ngFor="let exam_pasado of exam_pasados">
           <ion-item>

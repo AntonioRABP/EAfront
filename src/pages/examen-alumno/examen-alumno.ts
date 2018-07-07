@@ -2,11 +2,8 @@ import { Component,ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController  } from 'ionic-angular';
 import { ExamenServiceProvider } from '../../providers/examen-service/examen-service';
 import { MenuController } from 'ionic-angular';
+import { TimerPage } from '../timer/timer';
 
-import { TimerPage } from '../timer/timer'
-
-//borrar data fake
-import { DataExamenAlumno } from './data-examen-alumno'
 
 @IonicPage()
 @Component({
@@ -21,7 +18,7 @@ export class ExamenAlumnoPage {
 	inicioExamen;
 	finExamen;
 	endExamen = false; //variable para indicar que el usuario decidio terminar el examen
-	dataExamenAlumno = new DataExamenAlumno();
+
 	//variables globales
 	partExamen = 'Inicio';
 	examenPendingCurrent = {
