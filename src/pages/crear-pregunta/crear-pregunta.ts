@@ -14,9 +14,9 @@ import { PreQuestionServiceProvider } from '../../providers/pre-question-service
   templateUrl: 'crear-pregunta.html',
 })
 export class CrearPreguntaPage {
-  preg_gener = {name: '', header: {text: '', pictures: ['']},
-                statement: {text: '', pictures:[''], alternatives:[{text:'', pictures: ['']},{text:'', pictures: ['']},{text:'', pictures: ['']},{text:'', pictures: ['']},{text:'', pictures: ['']}]},
-                answer: 0, solution: {text:'', pictures:[''],videos:['']}, source:'', pre_evaluation_id:0,
+  preg_gener = {name: '', header: {text: '', pictures: []},
+                statement: {text: '', pictures:[], alternatives:[{text:'', pictures: []},{text:'', pictures: []},{text:'', pictures: []},{text:'', pictures: []},{text:'', pictures: []}]},
+                answer: 0, solution: {text:'', pictures:[],videos:[]}, source:'', pre_evaluation_id:0,
                 topic_id: 0, difficulty_level: 0
               };
   eval_disps = [];
