@@ -29,7 +29,7 @@ export class PreEvaluationServiceProvider {
 
   	//CREAMOS UNA VARIABLE OBSERVABLE QUE GENERA LAS NOTIFICACIONES CONSULTANDO EL BACK
   	var observable = Observable.create( observer => {
-  		this.http.get(urlRest + 'admin/course',{ headers: headers })
+  		this.http.get(urlRest + 'admin/course-period',{ headers: headers })
   			.subscribe(dat=>{
   				let res = dat.json();
   				observer.next(res);

@@ -9,12 +9,12 @@
       <ion-list-header>
         Aspectos generales
       </ion-list-header>
-  <!-------------Definir el curso----------------->
+
       <ion-item>
         <ion-label color="primary">Nombre: </ion-label>
         <ion-input type="text" text-right [(ngModel)]="preg_gener.name"></ion-input>
       </ion-item>
-  <!-------------Definir la pre-evaluacion----------------->
+
       <ion-item>
         <ion-label color="primary">Pre-evaluacion: </ion-label>
         <ion-select [(ngModel)]="preg_gener.pre_evaluation_id">
@@ -23,7 +23,7 @@
           </ion-option>
         </ion-select>
       </ion-item>
-  <!-------------Definir el tema----------------->
+
       <ion-item>
         <ion-label>Tipo de tema:</ion-label>
         <ion-select [(ngModel)]="preg_gener.topic_id">
@@ -33,24 +33,24 @@
           <ion-option value=4>Ciencias</ion-option>  
         </ion-select>
       </ion-item>
-  <!------------Ingresar la pregunta------------->
+
       <ion-item>
         <ion-label color="primary">Pregunta: </ion-label> 
         <ion-textarea rows="1" AutosizeComponent [(ngModel)]="preg_gener.statement.text"></ion-textarea>
       </ion-item>
-  <!-----------Ingresar la solucion-------------->
+
       <ion-item>
         <ion-label color="primary">Solucion: </ion-label> 
         <ion-textarea rows="1" AutosizeComponent [(ngModel)]="preg_gener.solution.text"></ion-textarea>
       </ion-item>
 
-  <!-----------Ingresar la referencia------------>
+  
       <ion-item>
         <ion-label color="primary">Referencia: </ion-label> 
         <ion-input type="text" text-right [(ngModel)]="preg_gener.source"></ion-input>
       </ion-item>
     </ion-list>   
-  <!-----------Definicion de alternativas-------->
+
     <ion-list>
       <ion-list-header>
         Alternativas
@@ -88,7 +88,7 @@
 
     </ion-list>
     <br>
-    <!------------Botones------------------------>
+
     <button ion-button full color="secondary" block (click)="doConfirm()">Registrar pregunta</button>
     <button ion-button full color="danger">Cancelar</button>
     <br>
