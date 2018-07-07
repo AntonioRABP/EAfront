@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController,LoadingController ,MenuController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController, MenuController } from 'ionic-angular';
 import { LoginServiceProvider } from '../../providers/login-service/login-service';
 import { ExamenAlumnoPage } from '../examen-alumno/examen-alumno';
 import { ResetPasswordPage } from '../reset-password/reset-password';
 import { RegisterPage } from '../register/register';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 
 
 @IonicPage()
@@ -15,83 +14,96 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginPage {
 
-  loginForm :FormGroup;
+  loginForm: FormGroup;
 
-	user = {username: '', password: '', rol : ''}; //VALORES PARA EL FORM DE LOGIN
+  //valores para el formulario
+  user = { username: '', password: '', rol: '' }; 
   listExamenes = {};
 
+  //Alerta que se muestra en caso que no ingrese las credenciales correctas
+  alert = this.alertCtrl.create({
+    title: 'Credenciales incorrectas',
+    subTitle: 'Puede que tu usuario y/o contraseña sean incorrectas.',
+    buttons: ['OK']
+  });
 
-  constructor(public navCtrl: NavController, 
-          public menuCtrl: MenuController,
-  				public navParams: NavParams,
-          public serviceLogin: LoginServiceProvider,
-          public alertCtrl: AlertController,
-          public loadingCtrl: LoadingController,
-          public formBuilder : FormBuilder) {
-    this.menuCtrl.enable(false,'MenuStudent');
+
+  constructor(public navCtrl: NavController,
+    public menuCtrl: MenuController,
+    public navParams: NavParams,
+    public serviceLogin: LoginServiceProvider,
+    public alertCtrl: AlertController,
+    public loadingCtrl: LoadingController,
+    public formBuilder: FormBuilder) {
+    this.menuCtrl.enable(false, 'MenuStudent');
     //Validación del formulario
     this.loginForm = formBuilder.group({
-      username : ['',Validators.required],
-      password : ['',Validators.required],
-      rol : ['',Validators.required]
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      rol: ['', Validators.required]
     })
   }
 
 
 
   ionViewDidLoad() {
-   	console.log('Carga LoginPage');
+    console.log('Carga LoginPage');
   }
 
-  isLogin(){
-    if(this.loginForm.valid){
-      console.log("formulario valido")
-      console.log("isLogin Fired")
-      //CONSULTAMOS EL SERVICIO PARA OBTENER LA SESION
-      console.log(this.user)
-      let res = this.serviceLogin.getSessionStudent(this.user);
-      
-      //NOS SUSCRIBIMOS AL SERVICIO
-      res.subscribe(
-        value => {
-          //SI DEVUELVE TRUE ES POR QUE NOS HEMOS LOGUEADO CORRECTAMENTE
-          if (value.success) {
-            console.log("Welcome!");
-            //GUARDAMOS LOS VALORES EN LA BD DEL FRONT
-            window.localStorage.setItem("s-session", value.data.session_id);
-            console.log('Redirigimos a la vista de examenes');
-            this.navCtrl.setRoot(ExamenAlumnoPage);//HomePage);//REDIRIGIMOS AL HOME
-          }else{
-            //SI NO NOS HEMOS LOGUEADO LANZAMOS UNA ALERTA
-            console.log("Contraseña Equivocada");
-            let alert = this.alertCtrl.create({
-              title: 'Sin Acceso! :(',
-              subTitle: 'Puede que tu usuario y/o contraseña sean incorrectas.',
-              buttons: ['OK']
-            });
-            alert.present();
-          }
-  
-        },
-        err => {console.log('Error: ' + err)},//CONTROLAMOS LOS ERRORES
-        () => console.log('this is the end')
-      );
+  isLogin() {
+    //Primero se valida si el formulario es válido
+    if (this.loginForm.valid) {
+      //Si tiene rol de estudiante
+      if (this.user.rol == 'student') {
+        let res = this.serviceLogin.getSessionStudent(this.user);
+        res.subscribe(
+          value => {
+            if (value.success) {
+              window.localStorage.setItem("s-session", value.data.session_id);
+              this.navCtrl.setRoot(ExamenAlumnoPage);
+            } else {
+              this.alert.present();
+            }
+          },
+          err => { console.log('Error: ' + err) },
+          () => console.log('this is the end')
+        );
+      }
+      //Si tiene el rol de profesor 
+      else if (this.user.rol == 'admin') {
+        let res = this.serviceLogin.getSessionAdmin(this.user);
+        res.subscribe(
+          value => {
+            if (value.success) {
+              window.localStorage.setItem("s-session", value.session.id);
+              console.log('Redirigimos a la vista de generar evaluación');
+              this.navCtrl.setRoot(ExamenAlumnoPage);
+            } else {
+              this.alert.present();
+            }
+          },
+          err => { console.log('Error: ' + err) },
+          () => console.log('this is the end')
+        );
+      }
+      else {
+        console.log('Ingresa un rol')
+      }
     }
-    else{
+    else {
       console.log("formulario no válido")
     }
   }
 
-  
-  //Te envía a la vista de Registro
 
-  goRegister(){
+  //Te envía a la vista de Registro
+  goRegister() {
     console.log("goRegister Fired")
     this.navCtrl.setRoot(RegisterPage)
   }
 
   //Te envía a la vista de Recuperar Contraseña
-  goReset(){
+  goReset() {
     this.navCtrl.setRoot(ResetPasswordPage);
   }
 
