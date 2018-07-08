@@ -34,6 +34,7 @@ export class CrearPreguntaPage {
   }
 
   ionViewWillEnter(){
+    /*
     let res = this.preQuestionServiceProvider.getListEvaluation();
 
     res.suscribe(
@@ -46,7 +47,7 @@ export class CrearPreguntaPage {
       },
       err => {console.log('Error: ' + err)},
       () => console.log('Este es el final')
-      );
+      );*/
   }
 
   doConfirm() {

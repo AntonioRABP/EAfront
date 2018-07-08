@@ -28,7 +28,7 @@ import { PreEvaluationServiceProvider } from '../providers/pre-evaluation-servic
 import { RegisterServiceProvider } from '../providers/register-service/register-service';
 import { LogOutServiceProvider } from '../providers/log-out-service/log-out-service';
 import { ResetPasswordServiceProvider } from '../providers/reset-password-service/reset-password-service';
-
+import { PreQuestionServiceProvider } from '../providers/pre-question-service/pre-question-service';
 
 @NgModule({
   declarations: [
@@ -65,6 +65,7 @@ import { ResetPasswordServiceProvider } from '../providers/reset-password-servic
     ResetPasswordPage,
     NewEvaluationPage,
     RegisterPage
+    
   ],
   providers: [
     StatusBar,
@@ -75,7 +76,8 @@ import { ResetPasswordServiceProvider } from '../providers/reset-password-servic
     PreEvaluationServiceProvider,
     RegisterServiceProvider,
     LogOutServiceProvider,
-    ResetPasswordServiceProvider
+    ResetPasswordServiceProvider,
+    PreQuestionServiceProvider
   ]
 })
 export class AppModule {}
