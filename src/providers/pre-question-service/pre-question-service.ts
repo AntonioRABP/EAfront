@@ -29,7 +29,7 @@ export class PreQuestionServiceProvider {
 
   	//CREAMOS UNA VARIABLE OBSERVABLE QUE GENERA LAS NOTIFICACIONES CONSULTANDO EL BACK
   	var observable = Observable.create( observer => {
-  		this.http.get(urlRest + 'admin/pre-evaluation', { headers: headers})
+  		this.http.get(urlRest + 'admin/evaluation', { headers: headers})
   		.subscribe(dat=>{
   			let res = dat.json();
   			observer.next(res);
@@ -40,20 +40,22 @@ export class PreQuestionServiceProvider {
   	return observable;
   };
 
-  setGeneratePreQuestion(preQuestion){
-  	let headers = new Headers();
-  	headers.append('Content-Type','application/json');
+  setGeneratePreQuestion(name_question, name_header, name_statement, name_answer, name_sol, name_source, name_pre_eval, name_topic, name_diff){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('x-session', window.localStorage.getItem('x-session'));
 
   	let data={
-  		name: preQuestion.name,
-  		header: preQuestion.header,
-  		statement: preQuestion.statement,
-  		answer: preQuestion.answer,
-  		solution: preQuestion.solution,
-  		source: preQuestion.source,
-  		pre_evaluation_id: preQuestion.pre_evaluation_id,
-  		topic_id: preQuestion.topic_id,
-  		difficulty_level: preQuestion.difficulty_level
+  		name: name_question,
+      statement: name_statement,
+  		header: name_header,
+  		answer: name_answer,
+  		solution: name_sol,
+      evaluation_id: name_pre_eval,
+      topic_id: name_topic,
+  		
+      source: name_source,
+  		difficulty_level: name_diff
   	};
 
   	return Observable.create(observer => {

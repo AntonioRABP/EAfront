@@ -4,16 +4,21 @@
   </ion-navbar>
 </ion-header>
 
-<form (ngSubmit)="regQuestion()">
-  <ion-content>
-    <ion-list>
-      <ion-list-header>
-        Aspectos generales
-      </ion-list-header>
+<ion-content>
+  <form (ngSubmit)="regQuestion()">
+      <br>
+      <ion-label>
+        ASPECTOS GENERALES
+      </ion-label>
 
       <ion-item>
         <ion-label color="primary">Nombre: </ion-label>
         <ion-input type="text" text-right [(ngModel)]="preg_gener.name" [ngModelOptions]="{standalone: true}"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">Cabecera: </ion-label>
+        <ion-input type="text" text-right [(ngModel)]="preg_gener.header.text" [ngModelOptions]="{standalone: true}"></ion-input>
       </ion-item>
 
       <ion-item>
@@ -37,25 +42,24 @@
 
       <ion-item>
         <ion-label color="primary">Pregunta: </ion-label> 
-        <ion-textarea rows="1" AutosizeComponent [(ngModel)]="preg_gener.statement.text" [ngModelOptions]="{standalone: true}"></ion-textarea>
+        <ion-textarea rows="1" text-right AutosizeComponent [(ngModel)]="preg_gener.statement.text" [ngModelOptions]="{standalone: true}"></ion-textarea>
       </ion-item>
 
       <ion-item>
         <ion-label color="primary">Solucion: </ion-label> 
-        <ion-textarea rows="1" AutosizeComponent [(ngModel)]="preg_gener.solution.text" [ngModelOptions]="{standalone: true}"></ion-textarea>
+        <ion-textarea rows="1" text-right AutosizeComponent [(ngModel)]="preg_gener.solution.text" [ngModelOptions]="{standalone: true}"></ion-textarea>
       </ion-item>
 
   
       <ion-item>
         <ion-label color="primary">Referencia: </ion-label> 
         <ion-input type="text" text-right [(ngModel)]="preg_gener.source" name="first"></ion-input>
-      </ion-item>
-    </ion-list>   
-
-    <ion-list>
-      <ion-list-header>
-        Alternativas
-      </ion-list-header>
+      </ion-item>  
+      <br>
+      <br>
+      <ion-label>
+        ALTERNATIVAS
+      </ion-label>
 
       <ion-item>
         <ion-toggle checked="false" [(ngModel)]="alt_correctas[0]" [ngModelOptions]="{standalone: true}"></ion-toggle>
@@ -87,11 +91,11 @@
         <ion-textarea rows="1" AutosizeComponent [(ngModel)]="preg_gener.statement.alternatives[4].text" [ngModelOptions]="{standalone: true}"></ion-textarea>
       </ion-item>
 
-    </ion-list>
     <br>
 
     <button ion-button full color="secondary" block (click)="doConfirm()">Registrar pregunta</button>
     <button ion-button full color="danger">Cancelar</button>
     <br>
-  </ion-content>
-</form>
+  
+  </form>
+</ion-content>

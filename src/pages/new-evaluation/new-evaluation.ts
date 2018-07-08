@@ -30,7 +30,8 @@ export class NewEvaluationPage {
   			  public navParams: NavParams,
   			  public preEvaluationServiceProvider: PreEvaluationServiceProvider,
   			  public loadingCtrl: LoadingController,
-          public alertCtrl: AlertController){ 
+          public alertCtrl: AlertController
+          ){ 
   }
 
   ionViewDidLoad() {
@@ -40,10 +41,12 @@ export class NewEvaluationPage {
   ionViewWillEnter(){
   	let res = this.preEvaluationServiceProvider.getListCourse();
   
-  	res.suscribe(
+  	res.subscribe(
   		value => {
   			if (value.success){
+          
   				this.curso_disps = value.data;
+          console.log(this.curso_disps);
   			}else{
   				console.log('No se ha podido recuperar los cursos disponibles');
   			}
@@ -57,12 +60,12 @@ export class NewEvaluationPage {
   	var node = document.getElementById(idCurso);
   	let res = this.preEvaluationServiceProvider.getListSubjects(node);
 
-  	res.suscribe(
+  	res.subscribe(
   		value => {
   			if(value.success){
   				this.tema_disps = value.data;
   			}else{
-  				console.log('No se ha podido recuperar los temas por cursos')
+  				console.log('No se ha podido recuperar los temas por cursos');
   			}
   		},
   		err => {console.log('Error: ' + err)},//CONTROLAMOS LOS ERRORES
@@ -80,7 +83,7 @@ export class NewEvaluationPage {
   		this.exam_gener.require_access_code = 0
   	};
 
-  	this.preEvaluationServiceProvider.setGeneratePreEvaluation(this.exam_gener).suscribe(data => {
+  	this.preEvaluationServiceProvider.setGeneratePreEvaluation(this.exam_gener).subscribe(data => {
           if(data.success){
               let alertRegister = this.alertCtrl.create({
                 title: '¡Ha registrado su pregunta!',
@@ -98,4 +101,5 @@ export class NewEvaluationPage {
     });
     this.loading.present();
   }
+  
 }
