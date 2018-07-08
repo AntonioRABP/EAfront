@@ -17,8 +17,7 @@ export class LoginPage {
   loginForm: FormGroup;
 
   //valores para el formulario
-  user = { username: '', password: '', rol: '' }; 
-  listExamenes = {};
+  user = { username: '', password: '', rol: '' };
 
   //Alerta que se muestra en caso que no ingrese las credenciales correctas
   alert = this.alertCtrl.create({
@@ -50,6 +49,7 @@ export class LoginPage {
     console.log('Carga LoginPage');
   }
 
+
   isLogin() {
     //Primero se valida si el formulario es válido
     if (this.loginForm.valid) {
@@ -75,7 +75,7 @@ export class LoginPage {
         res.subscribe(
           value => {
             if (value.success) {
-              window.localStorage.setItem("s-session", value.session.id);
+              window.localStorage.setItem("x-session", value.session.id);
               console.log('Redirigimos a la vista de generar evaluación');
               this.navCtrl.setRoot(ExamenAlumnoPage);
             } else {
