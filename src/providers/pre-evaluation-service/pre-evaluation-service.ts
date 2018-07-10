@@ -32,10 +32,10 @@ export class PreEvaluationServiceProvider {
       this.http.get(urlRest + 'admin/course-period', { headers: headers})
       .subscribe(dat=>{
         let res = dat.json();
+        console.log(res);
         observer.next(res);
         observer.complete();
         observer.error('Algo esta mal!!');
-        console.log(res);
       })
     });
     return observable;

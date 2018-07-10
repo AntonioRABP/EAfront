@@ -18,6 +18,7 @@ import { PreEvaluationServiceProvider } from '../../providers/pre-evaluation-ser
 export class NewEvaluationPage {
   @ViewChild('select') select: Select;
   loading: Loading;
+
   curso_disps = [];
   tema_disps = [];
   isDataAvailable = true;
@@ -48,12 +49,14 @@ export class NewEvaluationPage {
 
   	res.subscribe(
   		value => {
+        //console.log(value)
   			if (value.success){
-  				this.curso_disps = value.data;
+          this.curso_disps = value.courses;
+          console.log(this.curso_disps);
   			}else{
   				console.log('No se ha podido recuperar los cursos disponibles');
-          console.log(typeof value.data);
-          console.log(typeof this.curso_disps);  			
+          console.log(typeof value.courses);
+          console.log(typeof this.curso_disps);		
         }
   		},
   		err => {console.log('Error: ' + err)},//CONTROLAMOS LOS ERRORES
