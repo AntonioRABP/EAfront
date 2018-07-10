@@ -14,13 +14,33 @@
         <ion-input type="text" text-right [(ngModel)]="exam_gener.name" [ngModelOptions]="{standalone: true}"></ion-input>
       </ion-item>
 
+
       <ion-item>
-        <ion-label color="primary">Curso: </ion-label>
-        <ion-select [(ngModel)]="exam_gener.course_id" [ngModelOptions]="{standalone: true}">
-          <ion-option *ngFor="let curso_disp of curso_disps" value="{{curso_disp.id}}">
-            {{curso_disp.name}}
+        <ion-label color="primary">Curso periodo: </ion-label>
+        <ion-select [(ngModel)]="curso_ident" [ngModelOptions]="{standalone: true}" (ionChange)="enlistarTemas()">
+          <ion-option *ngFor="let curso of curso_disps" value="{{curso.id}}">
+            {{curso.period}}
           </ion-option>
         </ion-select>
+      </ion-item>
+
+      <ion-item *ngIf="isVisible">
+        <ion-label color="primary">Tema: </ion-label>
+        <ion-select #select [(ngModel)]="exam_gener.subject" [ngModelOptions]="{standalone: true}">
+          <ion-option *ngFor="let tema_disps of tema_disps" value="{{tema_disps.id}}">
+            {{tema_disps.name}}
+          </ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Fecha de inicio:</ion-label>
+        <ion-datetime displayFormat="DD-MM-YYYY HH:mm:ss" pickerFormat="DD-MM-YYYY HH:mm:ss" [(ngModel)]="exam_gener.start_datetime" [ngModelOptions]="{standalone: true}"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Fecha de fin:</ion-label>
+        <ion-datetime displayFormat="DD-MM-YYYY HH:mm:ss" pickerFormat="DD-MM-YYYY HH:mm:ss" [(ngModel)]="exam_gener.end_datetime" [ngModelOptions]="{standalone: true}"></ion-datetime>
       </ion-item>
 
       <ion-item>
@@ -35,7 +55,7 @@
 
       <ion-item>
           <ion-label color="primary">Puntos en contra </ion-label>
-          <ion-input type="number" [(ngModel)]="exam_gener.error_points" [ngModelOptions]="{standalone: true}" text-right min=-5 max=0 step=0.25></ion-input>
+          <ion-input type="number" [(ngModel)]="exam_gener.error_points" [ngModelOptions]="{standalone: true}" text-right min=0 max=5 step=0.25></ion-input>
       </ion-item>
      
       <ion-item>
@@ -76,7 +96,7 @@
             <ion-checkbox [(ngModel)]="codReq" [ngModelOptions]="{standalone: true}"></ion-checkbox>
       </ion-item>
       <br>
-      <button ion-button full type="submit" color="secondary">Registrar</button>
+      <button ion-button full type="submit" block color="secondary">Registrar</button>
       <button ion-button full color="danger">Cancelar</button>
   </form>
 </ion-content>

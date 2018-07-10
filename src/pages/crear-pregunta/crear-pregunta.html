@@ -25,7 +25,7 @@
         <ion-label color="primary">Pre-evaluacion: </ion-label>
         <ion-select [(ngModel)]="preg_gener.pre_evaluation_id" [ngModelOptions]="{standalone: true}">
           <ion-option *ngFor="let eval_disp of eval_disps" value="{{eval_disp.id}}">
-            {{eval_disp.name}}
+            {{eval_disp.id}}
           </ion-option>
         </ion-select>
       </ion-item>
