@@ -16,6 +16,7 @@ import { PreEvaluationServiceProvider } from '../../providers/pre-evaluation-ser
 })
 export class NewEvaluationPage {
   loading: Loading;
+
   curso_disps = [];
   tema_disps = [];
   exam_gener = {name: '', subject: '', question_count: 0, 
@@ -43,9 +44,9 @@ export class NewEvaluationPage {
   
   	res.subscribe(
   		value => {
+        //console.log(value)
   			if (value.success){
-          
-  				this.curso_disps = value.data;
+          this.curso_disps = value.courses;
           console.log(this.curso_disps);
   			}else{
   				console.log('No se ha podido recuperar los cursos disponibles');

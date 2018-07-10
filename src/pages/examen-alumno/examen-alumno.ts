@@ -74,6 +74,7 @@ export class ExamenAlumnoPage {
 	    res.subscribe(
 	      value => {
 	        if (value.success){
+				console.log("correcto")
 	        	console.log(value.data);
 	        	this.exam_pendientes = value.data;
 	        }else{
