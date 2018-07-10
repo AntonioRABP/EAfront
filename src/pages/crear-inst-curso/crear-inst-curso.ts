@@ -20,7 +20,7 @@ export class CrearInstCursoPage {
 	curso_periodo = {
 		course_id: 0, period: '', teacher_id: 0, start_date: '',
 		end_date: '', state: 40
-	};
+  };
   constructor(public navCtrl: NavController, 
   			  public navParams: NavParams,
   			  public alertCtrl: AlertController,
@@ -36,7 +36,7 @@ export class CrearInstCursoPage {
   	res.subscribe(
       value => {
         if (value.success){
-          this.cursos = value.data;
+          this.usuarios = value.data;
           console.log(this.usuarios);
           console.log('Si se llego a obtener los usuarios')
         }else{
@@ -52,7 +52,7 @@ export class CrearInstCursoPage {
   	res2.subscribe(
       value2 => {
         if (value2.success){
-          this.cursos = value2.data;
+          this.cursos = value2.courses;
           console.log(this.cursos);
           console.log('Si se llego a obtener los cursos')
         }else{
@@ -66,7 +66,7 @@ export class CrearInstCursoPage {
   }
 
   regInstCurso(){
-  	this.instCursoProv.setInstCourse(this.curso_periodo.course_id, this.curso_periodo.period, this.curso_periodo.teacher_id, 
+  	  this.instCursoProv.setInstCourse(this.curso_periodo.course_id, this.curso_periodo.period, this.curso_periodo.teacher_id, 
   									 this.curso_periodo.start_date, this.curso_periodo.end_date, this.curso_periodo.state).subscribe(data => {
   		if(data.success){
           let alertRegister = this.alertCtrl.create({

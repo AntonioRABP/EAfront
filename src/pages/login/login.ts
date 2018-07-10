@@ -5,8 +5,8 @@ import { ExamenAlumnoPage } from '../examen-alumno/examen-alumno';
 import { ResetPasswordPage } from '../reset-password/reset-password';
 import { RegisterPage } from '../register/register';
 //import { CrearPreguntaPage } from '../crear-pregunta/crear-pregunta';
-import { NewEvaluationPage } from '../new-evaluation/new-evaluation';
-//import { CrearInstCursoPage } from '../crear-inst-curso/crear-inst-curso';
+//import { NewEvaluationPage } from '../new-evaluation/new-evaluation';
+import { CrearInstCursoPage } from '../crear-inst-curso/crear-inst-curso';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
@@ -80,7 +80,7 @@ export class LoginPage {
             if (value.success) {
               window.localStorage.setItem("x-session", value.session.id);
               console.log('Redirigimos a la vista de generar evaluación');
-              this.navCtrl.setRoot(NewEvaluationPage);
+              this.navCtrl.setRoot(CrearInstCursoPage);
             } else {
               this.alert.present();
             }

@@ -35,12 +35,12 @@
 
       <ion-item>
         <ion-label>Fecha de inicio:</ion-label>
-        <ion-datetime displayFormat="DD-MM-YYYY HH:mm:ss" pickerFormat="DD-MM-YYYY HH:mm:ss" [(ngModel)]="exam_gener.start_datetime" [ngModelOptions]="{standalone: true}"></ion-datetime>
+        <ion-datetime displayFormat="DD-MM-YYYY HH:mm:ss" pickerFormat="DD-MM-YYYY HH:mm:ss" [(ngModel)]="fecha_ini" [ngModelOptions]="{standalone: true}"></ion-datetime>
       </ion-item>
 
       <ion-item>
         <ion-label>Fecha de fin:</ion-label>
-        <ion-datetime displayFormat="DD-MM-YYYY HH:mm:ss" pickerFormat="DD-MM-YYYY HH:mm:ss" [(ngModel)]="exam_gener.end_datetime" [ngModelOptions]="{standalone: true}"></ion-datetime>
+        <ion-datetime displayFormat="DD-MM-YYYY HH:mm:ss" pickerFormat="DD-MM-YYYY HH:mm:ss" [(ngModel)]="fecha_fin" [ngModelOptions]="{standalone: true}"></ion-datetime>
       </ion-item>
 
       <ion-item>
@@ -100,29 +100,3 @@
       <button ion-button full color="danger">Cancelar</button>
   </form>
 </ion-content>
-<!---
-<ion-content>
-
-
-      <ion-item>
-          <ion-label color="primary">Curso: </ion-label>
-          <ion-select id="cursoSelected" [(ngModel)]="exam_gener.course_id" (ionChange)="enlistarTemas('cursoSelected')" [ngModelOptions]="{standalone: true}">
-            <ion-option *ngFor="let curso_disp of curso_disps" value="{{curso_disp.id}}">
-                {{curso_disp.name}}
-            </ion-option>
-          </ion-select>
-      </ion-item>
-
-      <ion-item>
-          <ion-label color="primary">Tema: </ion-label>
-          <ion-select id="temaSelected" [(ngModel)]="exam_gener.subject">
-            <ion-option *ngFor="let tema_disp of tema_disps" value="{{tema_disp.id}}">
-              value="{{tema_disp.name}}"
-            </ion-option>
-          </ion-select>
-    </ion-item>
-
-
--->
-
-<!---eSTO ES UNA PRUEBA -->
