@@ -74,7 +74,7 @@ export class NewEvaluationPage {
   	res.subscribe(
   		value => {
   			if(value.success){
-  				this.tema_disps = value.topics;
+  				this.tema_disps = value.data;
   			}else{
   				console.log('No se ha podido recuperar los temas por cursos');
   			}
