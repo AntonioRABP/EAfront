@@ -76,7 +76,7 @@ export class ExamenAlumnoPage {
 	        if (value.success){
 				console.log("correcto")
 	        	console.log(value.data);
-	        	this.exam_pendientes = value.data;
+				this.exam_pendientes = value.data;
 	        }else{
 	        	console.log('No se ha podido recuperar los examenes pendientes del alumno.');
 	        }
@@ -457,8 +457,9 @@ export class ExamenAlumnoPage {
 	}
   
   	getFecha(horadia) {
-    	let format = new Date(horadia);
-    	return this.addo(format.getUTCFullYear()) + "-" + this.addo(format.getUTCMonth()) + "-" + this.addo(format.getUTCDate());
+		let format = new Date(horadia);
+		const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio","Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    	return this.addo(this.addo( format.getUTCDate() + " de " + this.addo(monthNames[format.getUTCMonth()]) + " del " +format.getUTCFullYear()) );
 	}
 	getMinute(inputSeconds: number) {
 		var sec_num = parseInt(inputSeconds.toString(), 10);
@@ -467,7 +468,6 @@ export class ExamenAlumnoPage {
 		return this.addo(minutes) + ":" + this.addo(seconds);
 	}
   
-
   	addo(comp) {
     	return (((comp + "").length == 1) ? "0" + comp : comp);
  	}

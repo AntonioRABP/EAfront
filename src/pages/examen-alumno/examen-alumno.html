@@ -54,6 +54,15 @@
                   <h2>{{getTime(exam_pendiente.duration_time) }}  minutos</h2>
                   <p>Duración</p>
                 </ion-item>
+                <ion-item>
+                  <ion-icon name="trending-up" item-start large></ion-icon>
+                  <h2>{{getFecha(exam_pendiente.start_datetime)}}</h2>
+                  <p>Inicio del exámen</p>
+                </ion-item>                <ion-item>
+                  <ion-icon name="trending-down" item-start large></ion-icon>
+                  <h2>{{ getFecha(exam_pendiente.end_datetime)}}</h2>
+                  <p>Final del exámen</p>
+                </ion-item>
                 <button id="id_examen" block outline ion-button color="primary" (click)="rendirExamen(exam_pendiente.id,exam_pendiente.name)">Rendir Examen</button>
               </ion-card-content>
           </ion-card>
@@ -119,12 +128,12 @@
             
           </ion-item>
           </ion-card-content>
-
+          <!--Vistas para mirar el resultado
           <div>
             <button ion-button color="light" icon-only><ion-icon name="ios-arrow-back"></ion-icon></button>
             <button ion-button color="light" icon-only><ion-icon name="ios-arrow-forward" ></ion-icon></button>
           </div>
-
+          -->
         </ion-card>
         <button ion-button (click)="verResultados()">Terminar Examen</button>
 

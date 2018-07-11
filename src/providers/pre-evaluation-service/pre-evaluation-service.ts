@@ -36,7 +36,7 @@ export class PreEvaluationServiceProvider {
         observer.next(res);
         observer.complete();
         observer.error('Algo esta mal!!');
-      })
+        })
     });
     return observable;
   };
@@ -48,8 +48,8 @@ export class PreEvaluationServiceProvider {
 
   	//CREAMOS UNA VARIABLE OBSERVABLE QUE GENERARA LAS NOTIFICACIONES CONSULTANDO EL BACK
   	var observable = Observable.create( observer => {
-  		this.http.get(urlRest + 'admin/course/' +id+ '/topics',{ headers: headers})
-//      this.http.get(urlRest + 'admin/topic',{ headers: headers})
+//  		this.http.get(urlRest + 'admin/course/' +id+ '/topics',{ headers: headers})
+      this.http.get(urlRest + 'admin/topic',{ headers: headers})
   			.subscribe(dat => {
   				let res = dat.json();
   				observer.next(res);
@@ -60,7 +60,6 @@ export class PreEvaluationServiceProvider {
           console.log('*****************');
   			})
   	});
-
   	return observable;
   };
 
@@ -72,7 +71,7 @@ export class PreEvaluationServiceProvider {
     headers.append('x-session', window.localStorage.getItem('x-session'));
 
     let data = {
-      course_period_id: curso_id,
+      course_id: curso_id,
       name: nombre_examen,
       subject: tema_examen,
       start_datetime: fecha_inicio,
@@ -95,7 +94,7 @@ export class PreEvaluationServiceProvider {
     };
 
     return Observable.create(observer => {
-      this.http.post(urlRest + 'admin/evaluation', JSON.stringify(data), { headers: headers })
+      this.http.post(urlRest + 'admin/pre-evaluation', JSON.stringify(data), { headers: headers })
         .subscribe(dat => {
           observer.next(dat.json());
           observer.complete();
