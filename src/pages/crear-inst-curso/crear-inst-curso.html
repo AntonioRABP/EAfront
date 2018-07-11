@@ -5,10 +5,15 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-title text-center>Crear curso-seccion</ion-title>
-  </ion-navbar>
-</ion-header>
+	<ion-navbar color="primary">
+		<button ion-button menuToggle> 
+			<ion-icon name="menu"></ion-icon>
+		</button>
+	  <ion-title text-center>
+		  Crear Curso
+	  </ion-title>
+	</ion-navbar>
+  </ion-header>
 
 <ion-content padding>
 	<form (ngSubmit)="regInstCurso()">
@@ -59,6 +64,6 @@
 		</ion-list>
 		<br>
 		<button ion-button full type="submit" block color="secondary">Registrar curso</button>
-      <button ion-button full color="danger">Cancelar</button>
+      	<button ion-button full color="danger">Cancelar</button>
 	</form>
 </ion-content>

@@ -1,5 +1,6 @@
 import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, Loading, LoadingController, AlertController, Select } from 'ionic-angular';
+import { MenuController } from 'ionic-angular';
 import { PreEvaluationServiceProvider } from '../../providers/pre-evaluation-service/pre-evaluation-service';
 
 /**
@@ -38,8 +39,11 @@ export class NewEvaluationPage {
   			  public preEvaluationServiceProvider: PreEvaluationServiceProvider,
   			  public loadingCtrl: LoadingController,
           public alertCtrl: AlertController,
-          public cdr: ChangeDetectorRef
+          public cdr: ChangeDetectorRef,
+          public menuCtrl: MenuController
           ){ 
+            this.menuCtrl.enable(false,'MenuStudent');
+            this.menuCtrl.enable(true,'MenuTeacher');
   }
 
   ionViewDidLoad() {

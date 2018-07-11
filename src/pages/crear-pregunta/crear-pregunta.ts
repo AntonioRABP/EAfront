@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
+import { MenuController } from 'ionic-angular';
 import { PreQuestionServiceProvider } from '../../providers/pre-question-service/pre-question-service';
 /**
  * Generated class for the CrearPreguntaPage page.
@@ -24,9 +25,12 @@ export class CrearPreguntaPage {
   constructor(public navCtrl: NavController, 
               public alertCtrl: AlertController, 
               public navParams: NavParams,
+              public menuCtrl: MenuController,
               public loadingCtrl: LoadingController,
               public preQuestionServiceProvider: PreQuestionServiceProvider
               ) {
+                this.menuCtrl.enable(false,'MenuStudent');
+                this.menuCtrl.enable(true,'MenuTeacher');
   }
 
   ionViewDidLoad() {

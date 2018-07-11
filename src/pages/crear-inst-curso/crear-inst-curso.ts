@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { MenuController } from 'ionic-angular';
 import { InstanciaCursoProvider } from '../../providers/instancia-curso/instancia-curso';
 
 /**
@@ -24,7 +25,10 @@ export class CrearInstCursoPage {
   constructor(public navCtrl: NavController, 
   			  public navParams: NavParams,
   			  public alertCtrl: AlertController,
-  			  public instCursoProv: InstanciaCursoProvider) {
+          public instCursoProv: InstanciaCursoProvider,
+          public menuCtrl: MenuController) {
+            this.menuCtrl.enable(false,'MenuStudent');
+            this.menuCtrl.enable(true,'MenuTeacher');
   }
 
   ionViewDidLoad() {

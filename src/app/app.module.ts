@@ -17,6 +17,7 @@ import { PerfilEstudiantePage } from '../pages/perfil-estudiante/perfil-estudian
 import { NewEvaluationPage } from '../pages/new-evaluation/new-evaluation';
 import {RegisterPage} from '../pages/register/register';
 import { CrearInstCursoPage } from '../pages/crear-inst-curso/crear-inst-curso';
+import { NewTopicPage } from '../pages/new-topic/new-topic';
 
 import { ExamenProfesorPage } from '../pages/examen-profesor/examen-profesor';
 import { ResetPasswordPage } from '../pages/reset-password/reset-password';
@@ -31,6 +32,7 @@ import { LogOutServiceProvider } from '../providers/log-out-service/log-out-serv
 import { ResetPasswordServiceProvider } from '../providers/reset-password-service/reset-password-service';
 import { PreQuestionServiceProvider } from '../providers/pre-question-service/pre-question-service';
 import { InstanciaCursoProvider } from '../providers/instancia-curso/instancia-curso';
+import { NewTopicProvider } from '../providers/new-topic/new-topic';
 
 
 @NgModule({
@@ -47,7 +49,8 @@ import { InstanciaCursoProvider } from '../providers/instancia-curso/instancia-c
     ResetPasswordPage,
     NewEvaluationPage,
     RegisterPage,
-    CrearInstCursoPage
+    CrearInstCursoPage,
+    NewTopicPage
   ],
   imports: [
     BrowserModule,
@@ -69,7 +72,8 @@ import { InstanciaCursoProvider } from '../providers/instancia-curso/instancia-c
     ResetPasswordPage,
     NewEvaluationPage,
     RegisterPage,
-    CrearInstCursoPage
+    CrearInstCursoPage,
+    NewTopicPage
     
   ],
   providers: [
@@ -83,7 +87,8 @@ import { InstanciaCursoProvider } from '../providers/instancia-curso/instancia-c
     LogOutServiceProvider,
     ResetPasswordServiceProvider,
     PreQuestionServiceProvider,
-    InstanciaCursoProvider
+    InstanciaCursoProvider,
+    NewTopicProvider
   ]
 })
 export class AppModule {}

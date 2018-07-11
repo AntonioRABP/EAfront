@@ -1,6 +1,11 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title text-center>Crear pregunta</ion-title>
+  	<button ion-button menuToggle> 
+  		<ion-icon name="menu"></ion-icon>
+  	</button>
+    <ion-title text-center>
+    	Crear Pregunta
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -22,10 +27,10 @@
       </ion-item>
 
       <ion-item>
-        <ion-label color="primary">Pre-evaluacion: </ion-label>
+        <ion-label color="primary">Evaluacion: </ion-label>
         <ion-select [(ngModel)]="preg_gener.pre_evaluation_id" [ngModelOptions]="{standalone: true}">
           <ion-option *ngFor="let eval_disp of eval_disps" value="{{eval_disp.id}}">
-            {{eval_disp.id}}
+            {{eval_disp.name}}
           </ion-option>
         </ion-select>
       </ion-item>

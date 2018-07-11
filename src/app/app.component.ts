@@ -7,7 +7,10 @@ import { Nav } from 'ionic-angular';
 import { LoginPage } from '../pages/login/login';
 import { ExamenAlumnoPage } from '../pages/examen-alumno/examen-alumno';
 import { PerfilEstudiantePage } from '../pages/perfil-estudiante/perfil-estudiante';
+import { CrearInstCursoPage } from '../pages/crear-inst-curso/crear-inst-curso';
+import { NewTopicPage } from '../pages/new-topic/new-topic';
 import { CrearPreguntaPage } from '../pages/crear-pregunta/crear-pregunta';
+import { NewEvaluationPage } from '../pages/new-evaluation/new-evaluation';
 
 import { LogOutServiceProvider } from '../providers/log-out-service/log-out-service';
 
@@ -43,6 +46,25 @@ export class MyApp {
     this.menuCtrl.close();
   }
 
+  openPageProf1(){
+    this.nav.setRoot(CrearInstCursoPage);
+    this.menuCtrl.close();    
+  }
+
+  openPageProf2(){
+    this.nav.setRoot(NewTopicPage);
+    this.menuCtrl.close();   
+  }
+
+  openPageProf3(){
+    this.nav.setRoot(NewEvaluationPage);
+    this.menuCtrl.close();   
+  }
+
+  openPageProf4(){
+    this.nav.setRoot(CrearPreguntaPage);
+    this.menuCtrl.close();   
+  }
   logout(){
 
     let alert = this.alertCtrl.create({
