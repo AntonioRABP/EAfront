@@ -29,6 +29,7 @@ import { RegisterServiceProvider } from '../providers/register-service/register-
 import { LogOutServiceProvider } from '../providers/log-out-service/log-out-service';
 import { ResetPasswordServiceProvider } from '../providers/reset-password-service/reset-password-service';
 import { PreQuestionServiceProvider } from '../providers/pre-question-service/pre-question-service';
+import { PastExamsProvider } from '../providers/past-exams/past-exams';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { PreQuestionServiceProvider } from '../providers/pre-question-service/pr
     RegisterServiceProvider,
     LogOutServiceProvider,
     ResetPasswordServiceProvider,
-    PreQuestionServiceProvider
+    PreQuestionServiceProvider,
+    PastExamsProvider
   ]
 })
 export class AppModule {}
