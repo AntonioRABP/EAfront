@@ -18,6 +18,7 @@ import { NewEvaluationPage } from '../pages/new-evaluation/new-evaluation';
 import {RegisterPage} from '../pages/register/register';
 import { CrearInstCursoPage } from '../pages/crear-inst-curso/crear-inst-curso';
 import { NewTopicPage } from '../pages/new-topic/new-topic';
+import { RelAlumCursoPage } from '../pages/rel-alum-curso/rel-alum-curso';
 
 import { ExamenProfesorPage } from '../pages/examen-profesor/examen-profesor';
 import { ResetPasswordPage } from '../pages/reset-password/reset-password';
@@ -33,6 +34,7 @@ import { ResetPasswordServiceProvider } from '../providers/reset-password-servic
 import { PreQuestionServiceProvider } from '../providers/pre-question-service/pre-question-service';
 import { InstanciaCursoProvider } from '../providers/instancia-curso/instancia-curso';
 import { NewTopicProvider } from '../providers/new-topic/new-topic';
+import { UserCourseProvider } from '../providers/user-course/user-course';
 
 
 @NgModule({
@@ -50,7 +52,8 @@ import { NewTopicProvider } from '../providers/new-topic/new-topic';
     NewEvaluationPage,
     RegisterPage,
     CrearInstCursoPage,
-    NewTopicPage
+    NewTopicPage,
+    RelAlumCursoPage
   ],
   imports: [
     BrowserModule,
@@ -73,8 +76,8 @@ import { NewTopicProvider } from '../providers/new-topic/new-topic';
     NewEvaluationPage,
     RegisterPage,
     CrearInstCursoPage,
-    NewTopicPage
-    
+    NewTopicPage,
+    RelAlumCursoPage
   ],
   providers: [
     StatusBar,
@@ -88,7 +91,8 @@ import { NewTopicProvider } from '../providers/new-topic/new-topic';
     ResetPasswordServiceProvider,
     PreQuestionServiceProvider,
     InstanciaCursoProvider,
-    NewTopicProvider
+    NewTopicProvider,
+    UserCourseProvider
   ]
 })
 export class AppModule {}

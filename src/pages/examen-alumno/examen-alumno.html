@@ -81,52 +81,49 @@
     <ion-toolbar>
         <timer [timeInSeconds]="duracionExamen"></timer>
     </ion-toolbar>
-    <ion-slides>
+    <ion-slides pager>
       <ion-slide *ngFor="let pregunta of preguntas">
         <ion-card>
-          <ion-card-content>
+          
           <ion-card-header>
             <h1>{{examenPendingCurrent.name}}</h1>
           </ion-card-header>
+          <ion-card-content>
           <br>
-          <h2>{{pregunta.name}}</h2>
+          <h2>{{pregunta.statement.text}}</h2>
           <br>
           <br>
           Marcar las alternativas correctas.
           <br>
           <br>
 
-          <ion-item *ngIf = "!!pregunta.solution['a']">
-            <ion-label text-wrap text-justify>{{pregunta.solution["a"]}}</ion-label>
+          <ion-item *ngIf = "!!pregunta.statement.alternatives[0].text">
+            <ion-label text-wrap text-justify>{{pregunta.statement.alternatives[0].text}}</ion-label>
             <ion-checkbox (ionChange)="updateChoice(pregunta.id,'a')"></ion-checkbox>
           </ion-item>
-          <ion-item  *ngIf = "!!pregunta.solution['b']">
-            <ion-label text-wrap text-justify>{{pregunta.solution["b"]}}</ion-label>
+          <ion-item  *ngIf = "!!pregunta.statement.alternatives[1].text">
+            <ion-label text-wrap text-justify>{{pregunta.statement.alternatives[1].text}}</ion-label>
             <ion-checkbox (ionChange)="updateChoice(pregunta.id,'b')"></ion-checkbox>
           </ion-item>
-          <ion-item *ngIf = "!!pregunta.solution['c']">
-            <ion-label text-wrap text-justify>{{pregunta.solution["c"]}}</ion-label>
+          <ion-item *ngIf = "!!pregunta.statement.alternatives[2].text">
+            <ion-label text-wrap text-justify>{{pregunta.statement.alternatives[2].text}}</ion-label>
             <ion-checkbox (ionChange)="updateChoice(pregunta.id,'c')"></ion-checkbox>
           </ion-item>
-          <ion-item *ngIf = "!!pregunta.solution['d']">
-            <ion-label text-wrap text-justify>{{pregunta.solution["d"]}}</ion-label>
+          <ion-item *ngIf = "!!pregunta.statement.alternatives[3].text">
+            <ion-label text-wrap text-justify>{{pregunta.statement.alternatives[3].text}}</ion-label>
             <ion-checkbox (ionChange)="updateChoice(pregunta.id,'d')"></ion-checkbox>
-            <p>Prueba</p>
           </ion-item>
-          <ion-item *ngIf = "!!pregunta.solution['e']">
-            <ion-label text-wrap text-justify>{{pregunta.solution["e"]}}</ion-label>
+          <ion-item *ngIf = "!!pregunta.statement.alternatives[4].text">
+            <ion-label text-wrap text-justify>{{pregunta.statement.alternatives[4].text}}</ion-label>
             <ion-checkbox (ionChange)="updateChoice(pregunta.id,'e')"></ion-checkbox>
             
           </ion-item>
+          <button ion-button block outline (click)="verResultados()">Terminar Examen</button>
           </ion-card-content>
 
-          <div>
-            <button ion-button color="light" icon-only><ion-icon name="ios-arrow-back"></ion-icon></button>
-            <button ion-button color="light" icon-only><ion-icon name="ios-arrow-forward" ></ion-icon></button>
-          </div>
-
+          
         </ion-card>
-        <button ion-button (click)="verResultados()">Terminar Examen</button>
+        
 
       </ion-slide>
     </ion-slides>
@@ -143,33 +140,6 @@
     <button ion-button color="default" (click)="irExamen()">Ir a Examenes</button>
     <button ion-button color="default" (click)="irExamen()">Ver Solucionario</button>
     
-    <ion-slides>
-
-      <ion-slide *ngFor="let pregunta of preguntas">
-        <ion-card>
-          <ion-card-content>
-          <ion-card-header>
-            {{examenPendingCurrent.name}}
-          </ion-card-header>
-          <br>
-            {{pregunta.name}}
-          <br>
-          
-          <ion-item>
-            <ion-icon name="checkmark"></ion-icon>
-            Esta es la respuestas
-          </ion-item>
-          <br>
-          <ion-item>
-            <ion-label text-wrap text-justify>Rpta: Aqui se ingresa el verdadero</ion-label>
-          </ion-item>
-
-          </ion-card-content>
-        </ion-card>
-
-
-      </ion-slide>
-    </ion-slides>
 
   </div>
 </div>
