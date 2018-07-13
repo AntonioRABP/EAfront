@@ -69,9 +69,6 @@ export class NewEvaluationPage {
   }
   
   enlistarTemas(){
-    console.log('----------------------------------');
-    console.log(this.curso_disps);
-    console.log('----------------------------------');
     var curso_id = 0;
     var found = false;
     var i = 0;
@@ -79,13 +76,8 @@ export class NewEvaluationPage {
       if (Number(this.curso_ident) == Number(this.curso_disps[i].id)){
         found = true;
         curso_id = Number(this.curso_disps[i].course_id);
-      } else {
-        i = i + 1;
-      }
-    }
-    console.log('**********************************');
-    console.log(curso_id);
-    console.log('**********************************');  
+      } 
+    } 
   	let res = this.preEvaluationServiceProvider.getListSubjects(curso_id);
 
   	res.subscribe(
