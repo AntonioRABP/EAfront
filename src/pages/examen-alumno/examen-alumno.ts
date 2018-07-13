@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController  } from 'ionic-ang
 import { ExamenServiceProvider } from '../../providers/examen-service/examen-service';
 import { MenuController } from 'ionic-angular';
 import { TimerPage } from '../timer/timer';
+import { PastExamsProvider } from '../../providers/past-exams/past-exams';
 
 
 @IonicPage()
@@ -56,6 +57,7 @@ export class ExamenAlumnoPage {
 	constructor(public navCtrl: NavController, 
 		public navParams: NavParams,
 		public examenServiceProvider: ExamenServiceProvider,
+		public pastExamenProvider: PastExamsProvider,
 		public menuCtrl: MenuController,
 		private alertCtrl: AlertController) {
   	this.menuCtrl.enable(true,'MenuStudent');
@@ -82,7 +84,24 @@ export class ExamenAlumnoPage {
 	      },
 	      err => {console.log('Error: ' + err)},//CONTROLAMOS LOS ERRORES
 	      () => console.log('this is the end')
-	    );
+		);
+		
+		let res2 = this.pastExamenProvider.getPastExams();
+
+		res2.subscribe(
+			value => {
+			  if (value.success){
+				  this.exam_pasados = value.data;
+				  console.log(this.exam_pasados);
+			  }else{
+				  console.log('No se ha podido recuperar los examenes pendientes del alumno.');
+			  }
+			},
+			err => {console.log('Error: ' + err)},//CONTROLAMOS LOS ERRORES
+			() => console.log('this is the end')
+		  );
+
+
 	}
 
 	//FUNCIONES PARA VISTA DE EXAMENES
