@@ -90,8 +90,8 @@ export class NewEvaluationPage {
     var res = this.fecha_ini.substring(0,10);
     var tas = this.fecha_ini.substring(11,19);
     this.exam_gener.start_datetime = res + ' ' + tas;
-    var res = this.fecha_fin.substring(0,10);
-    var tas = this.fecha_fin.substring(11,19);
+    //var res = this.fecha_fin.substring(0,10);
+    //var tas = this.fecha_fin.substring(11,19);
     this.exam_gener.end_datetime = res + ' ' + tas;
 
     this.exam_gener.course_period_id = Number(this.curso_ident);
