@@ -21,6 +21,7 @@ export class NewEvaluationPage {
   loading: Loading;
 
   curso_disps = [];
+  curso = {id:0, course_id:0, period:'', teacher_id:0, start_date:'', end_date:'',};
   tema_disps = [];
   isDataAvailable = true;
   exam_gener = {course_period_id: 0, name: '', subject: '', start_datetime: '', end_datetime: '', questions_count: 0,  
@@ -68,8 +69,24 @@ export class NewEvaluationPage {
   }
   
   enlistarTemas(){
-    console.log(this.curso_ident);
-  	let res = this.preEvaluationServiceProvider.getListSubjects(Number(this.curso_ident));
+    console.log('----------------------------------');
+    console.log(this.curso_disps);
+    console.log('----------------------------------');
+    var curso_id = 0;
+    var found = false;
+    var i = 0;
+    for (i; found == false ; i++){
+      if (Number(this.curso_ident) == Number(this.curso_disps[i].id)){
+        found = true;
+        curso_id = Number(this.curso_disps[i].course_id);
+      } else {
+        i = i + 1;
+      }
+    }
+    console.log('**********************************');
+    console.log(curso_id);
+    console.log('**********************************');  
+  	let res = this.preEvaluationServiceProvider.getListSubjects(curso_id);
 
   	res.subscribe(
   		value => {
