@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { MenuController } from 'ionic-angular';
 import { UserCourseProvider } from '../../providers/user-course/user-course';
+import { NewTopicPage } from '../new-topic/new-topic';
 /**
  * Generated class for the RelAlumCursoPage page.
  *
@@ -24,7 +25,13 @@ export class RelAlumCursoPage {
   alert = this.alertCtrl.create({
     title: 'Se matricularon alumnos',
     subTitle: 'Regresar a la vista principal ',
-    buttons: ['OK']
+    buttons: [{
+      text : 'OK',
+      role : 'OK',
+      handler : () =>{
+        this.navCtrl.setRoot(NewTopicPage);
+      }
+    }]
   });
 
   alumnos = [];
