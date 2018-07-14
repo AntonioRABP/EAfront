@@ -7,7 +7,8 @@ import { RegisterPage } from '../register/register';
 //import { CrearPreguntaPage } from '../crear-pregunta/crear-pregunta';
 //import { NewEvaluationPage } from '../new-evaluation/new-evaluation';
 //import { CrearInstCursoPage } from '../crear-inst-curso/crear-inst-curso';
-import { NewTopicPage } from '../new-topic/new-topic';
+//import { NewTopicPage } from '../new-topic/new-topic';
+import { RelAlumCursoPage } from '../rel-alum-curso/rel-alum-curso';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
@@ -81,7 +82,7 @@ export class LoginPage {
             if (value.success) {
               window.localStorage.setItem("x-session", value.session.id);
               console.log('Redirigimos a la vista de generar evaluación');
-              this.navCtrl.setRoot(NewTopicPage);
+              this.navCtrl.setRoot(RelAlumCursoPage);
             } else {
               this.alert.present();
             }

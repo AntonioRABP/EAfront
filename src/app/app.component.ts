@@ -11,6 +11,8 @@ import { CrearInstCursoPage } from '../pages/crear-inst-curso/crear-inst-curso';
 import { NewTopicPage } from '../pages/new-topic/new-topic';
 import { CrearPreguntaPage } from '../pages/crear-pregunta/crear-pregunta';
 import { NewEvaluationPage } from '../pages/new-evaluation/new-evaluation';
+import { RelAlumCursoPage } from '../pages/rel-alum-curso/rel-alum-curso';
+
 
 import { LogOutServiceProvider } from '../providers/log-out-service/log-out-service';
 
@@ -63,6 +65,11 @@ export class MyApp {
 
   openPageProf4(){
     this.nav.setRoot(CrearPreguntaPage);
+    this.menuCtrl.close();   
+  }
+
+  openPageProf5(){
+    this.nav.setRoot(RelAlumCursoPage);
     this.menuCtrl.close();   
   }
   logout(){
