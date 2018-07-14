@@ -52,6 +52,8 @@ export class ExamenAlumnoPage {
 	//variables para rendir el examen
 	attempt_current = 0;
 
+	list_attempt =[];
+
 	//variables para el resultado
 	constructor(public navCtrl: NavController, 
 		public navParams: NavParams,
@@ -68,7 +70,7 @@ export class ExamenAlumnoPage {
 	}
 
 	ionViewWillEnter(){
-
+		this.menuCtrl.enable(true,'MenuStudent');
 		let res = this.examenServiceProvider.getListExam();
 
 	    res.subscribe(
@@ -120,6 +122,8 @@ export class ExamenAlumnoPage {
 	      value => {
 	        if(value.success){
 	        	this.preguntas = value.data;
+	        	console.log(value.data);
+	        	
 	        }else{
 	        	console.log('No se ha podido recuperar las preguntas para este examen');
 	        }
@@ -128,7 +132,6 @@ export class ExamenAlumnoPage {
 	      () => console.log('this is the end')
 	    );
 	    //END: 1
-
 		//INI: 2
 		//pedimos confirmacion para que inicie el examen y iniciamos caontador si es el caso
 		let alert = this.alertCtrl.create({
@@ -155,8 +158,9 @@ export class ExamenAlumnoPage {
 						//let b = elemento.solution.b;
 						//let c = elemento.solution.c;
 						//let d = elemento.solution.d;
-						let e = elemento.solution.e;
-
+						let e = elemento.statement.alternatives[4].text;;
+						console.log(elemento.statement.pictures[0]);
+						
 						if( e != null ){
 				    		respuestasCurrent.push({'id': elemento.id, 'answer':elemento.answer, 
 				    			'a': 0, 
@@ -217,6 +221,7 @@ export class ExamenAlumnoPage {
 
 								this.duracionExamen=duracion;
 								this.partExamen = 'Preguntas';
+								this.menuCtrl.enable(false,'MenuStudent');
 	        					console.log(this.duracionExamen);
 
 						        setTimeout((result) => {
@@ -279,6 +284,22 @@ export class ExamenAlumnoPage {
 				this.finalizarExamen(this.attempt_current);	
 				this.partExamen = 'Resultados';
 				this.endExamen = false;
+
+				let res = this.examenServiceProvider.getListExam();
+
+
+				this.examenServiceProvider.getAttempts(this.examenPendingCurrent.id).subscribe(
+					value => {
+				        if (value.success){
+				        	console.log(value.data);
+				        	this.list_attempt = value.data;
+				        }else{
+				        	console.log('No se ha podido recuperar los examenes pendientes del alumno.');
+				        }
+				    },
+				    err => {console.log('Error: ' + err)},//CONTROLAMOS LOS ERRORES
+				      () => console.log('this is the end')
+				    );
 				}
 		}, 1000)
 	}
@@ -397,7 +418,8 @@ export class ExamenAlumnoPage {
 
 		});
 
-		this.nota = (ptos_favor_calc + ptos_contra_calc).toString();
+		this.nota = (ptos_favor_calc - ptos_contra_calc).toString();
+
 		console.log(this.nota);
 
 		for(let j=0;j<registroAnswer.length;j++){
@@ -434,6 +456,7 @@ export class ExamenAlumnoPage {
 	      	{
 	        	text: 'Seguro',
 	        	handler: () => {
+					this.menuCtrl.enable(true,'MenuStudent');
 					this.endExamen = true;
 	          		console.log('Ver resultados');
 	          		console.log(this.respuestas);

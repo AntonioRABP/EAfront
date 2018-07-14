@@ -104,6 +104,7 @@ export class ExamenServiceProvider {
 
  getAttempts(id_evaluation){
     let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
     headers.append('s-session', window.localStorage.getItem('s-session'));
     
     let data = {
@@ -111,13 +112,12 @@ export class ExamenServiceProvider {
     };
 
     return Observable.create(observer => {
-      this.http.post(urlRest + 'student/evaluation/' + id_evaluation + '/attempts',  JSON.stringify(data), { headers: headers })
+      this.http.get(urlRest + 'student/evaluation/' + id_evaluation + '/attempts',   { headers: headers })
         .subscribe(dat => {
           observer.next(dat.json());
           observer.complete();
           observer.error('Algo esta mal en el registro!');
         });
-    
     });
 
  }
@@ -142,10 +142,7 @@ export class ExamenServiceProvider {
         });
     
     });
-
-
  }
-
 }
 
 
