@@ -1,93 +1,107 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title text-center>Generar examen</ion-title>
+  	<button ion-button menuToggle> 
+  		<ion-icon name="menu"></ion-icon>
+  	</button>
+    <ion-title text-center>
+    	Generar Examen
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-<!---
-	<ion-list>
-    	<ion-list-header>
-			Aspectos generales
-		</ion-list-header>
-
-		<ion-item>
-			<ion-label color="primary">Nombre: </ion-label>
-			<ion-input type="text" text-right [(ngModel)]="exam_gener.name"></ion-input>
-		</ion-item>
-
-    	<ion-item>
-      		<ion-label color="primary">Curso: </ion-label>
-      		<ion-select id="cursoSelected" [(ngModel)]="exam_gener.course_id" (ionChange)="enlistarTemas('cursoSelected')">
-        		<ion-option *ngFor="let curso_disp of curso_disps" value="{{curso_disp.id}}">
-          			{{curso_disp.name}}
-        		</ion-option>
-      		</ion-select>
-    	</ion-item>
+  <form (ngSubmit)="generateEvaluation()" padding>
+    
+      <ion-list>Aspectos generales</ion-list>
 
       <ion-item>
-          <ion-label color="primary">Tema: </ion-label>
-          <ion-select id="temaSelected" [(ngModel)]="exam_gener.subject">
-            <ion-option *ngFor="let tema_disp of tema_disps" value="{{tema_disp.id}}">
-              value="{{tema_disp.name}}"
-            </ion-option>
-          </ion-select>
-    </ion-item>
+        <ion-label color="primary">Nombre: </ion-label>
+        <ion-input type="text" text-right [(ngModel)]="exam_gener.name" [ngModelOptions]="{standalone: true}"></ion-input>
+      </ion-item>
+
+
+      <ion-item>
+        <ion-label color="primary">Curso periodo: </ion-label>
+        <ion-select [(ngModel)]="curso_ident" [ngModelOptions]="{standalone: true}" (ionChange)="enlistarTemas()">
+          <ion-option *ngFor="let curso of curso_disps" value="{{curso.id}}">
+            {{curso.period}}
+          </ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item *ngIf="isVisible">
+        <ion-label color="primary">Tema: </ion-label>
+        <ion-select #select [(ngModel)]="exam_gener.subject" [ngModelOptions]="{standalone: true}">
+          <ion-option *ngFor="let tema_disps of tema_disps" value="{{tema_disps.id}}">
+            {{tema_disps.name}}
+          </ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Fecha de inicio:</ion-label>
+        <ion-datetime displayFormat="DD-MM-YYYY HH:mm:ss" pickerFormat="DD-MM-YYYY HH:mm:ss" [(ngModel)]="fecha_ini" [ngModelOptions]="{standalone: true}"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Fecha de fin:</ion-label>
+        <ion-datetime displayFormat="DD-MM-YYYY HH:mm:ss" pickerFormat="DD-MM-YYYY HH:mm:ss" [(ngModel)]="fecha_fin" [ngModelOptions]="{standalone: true}"></ion-datetime>
+      </ion-item>
 
       <ion-item>
           <ion-label color="primary"># Preguntas: </ion-label>
-          <ion-input type="number" [(ngModel)]="exam_gener.questions_count" text-right min=1 max=10></ion-input>    
+          <ion-input type="number" [(ngModel)]="exam_gener.questions_count" [ngModelOptions]="{standalone: true}" text-right min=1 max=10></ion-input>    
       </ion-item>
 
       <ion-item>
           <ion-label color="primary">Puntos a favor </ion-label>
-          <ion-input type="number" [(ngModel)]="exam_gener.correct_points" text-right min=0 max=5 step=0.5></ion-input>
+          <ion-input type="number" [(ngModel)]="exam_gener.correct_points" [ngModelOptions]="{standalone: true}" text-right min=0 max=5 step=0.25></ion-input>
       </ion-item> 
+
       <ion-item>
           <ion-label color="primary">Puntos en contra </ion-label>
-          <ion-input type="number" [(ngModel)]="exam_gener.error_points" text-right min=-2 max=0 step=0.5></ion-input>
+          <ion-input type="number" [(ngModel)]="exam_gener.error_points" [ngModelOptions]="{standalone: true}" text-right min=0 max=5 step=0.25></ion-input>
       </ion-item>
      
       <ion-item>
           <ion-label color="primary">Duracion(min) : </ion-label>
-          <ion-input type="number" [(ngModel)]="duracion_min" text-right min=0></ion-input>
+          <ion-input type="number" [(ngModel)]="duracion_min" [ngModelOptions]="{standalone: true}" text-right min=0></ion-input>
       </ion-item>
      
       <ion-item>
           <ion-label color="primary"># Intentos: </ion-label>
-          <ion-input type="number" [(ngModel)]="exam_gener.attempts_allowed" text-right min=1 max=3 step=1></ion-input>
+          <ion-input type="number" [(ngModel)]="exam_gener.attempts_allowed" [ngModelOptions]="{standalone: true}" text-right min=1 max=3 step=1></ion-input>
       </ion-item>
 
-	  <ion-item>
-        <ion-label>Dificultad</ion-label>
-	      <ion-range min="1" max="3" step="1" snaps="true" [(ngModel)]="exam_gener.difficulty_level" color="dark">
-	        <ion-icon range-left small name="ios-star-outline"></ion-icon>
-	        <ion-icon range-right name="ios-star"></ion-icon>
-	      </ion-range>
-	  </ion-item>
+      <ion-item>
+          <ion-label>Dificultad</ion-label>
+          <ion-range min="1" max="3" step="1" snaps="true" [(ngModel)]="exam_gener.difficulty_level" [ngModelOptions]="{standalone: true}" color="dark">
+            <ion-icon range-left small name="ios-star-outline"></ion-icon>
+            <ion-icon range-right name="ios-star"></ion-icon>
+          </ion-range>
+      </ion-item>
 
-	  <ion-item>
-	  	  <ion-label>Tipo de examen:</ion-label>
-	  	  <ion-select [(ngModel)]="exam_gener.type">
-	  	  	<ion-option value=4>Control de lectura</ion-option>
-	  	  	<ion-option value=5>Examen parcial</ion-option>
-	  	  	<ion-option value=6>Examen final</ion-option>
-	  	  	<ion-option value=7>Examen general</ion-option>
-	  	  </ion-select>
-	  </ion-item>
+      <ion-item>
+          <ion-label>Tipo de examen:</ion-label>
+          <ion-select [(ngModel)]="exam_gener.type" [ngModelOptions]="{standalone: true}">
+            <ion-option value=4>Control de lectura</ion-option>
+            <ion-option value=5>Examen parcial</ion-option>
+            <ion-option value=6>Examen final</ion-option>
+            <ion-option value=7>Examen general</ion-option>
+          </ion-select>
+      </ion-item>
 
-	  <ion-item>
-	  	  <ion-label fixed>Codigo de acceso:</ion-label>
-    	  <ion-input type="text"></ion-input>
-	  </ion-item>
+      <ion-item>
+        <ion-label color="primary">Codigo de acceso: </ion-label>
+        <ion-input type="text" text-right [(ngModel)]="exam_gener.access_code" [ngModelOptions]="{standalone: true}"></ion-input>
+      </ion-item>
 
-	  <ion-item>
-	  	  <ion-label>Codigo requerido</ion-label>
-          <ion-checkbox [(ngModel)]="codReq"></ion-checkbox>
-	  </ion-item>
-	</ion-list>
-  <button ion-button full type="submit" color="secondary">Registrar</button>
-  <button ion-button full color="danger">Cancelar</button>
-  <br>-->
+      <ion-item>
+          <ion-label>Codigo requerido</ion-label>
+            <ion-checkbox [(ngModel)]="codReq" [ngModelOptions]="{standalone: true}"></ion-checkbox>
+      </ion-item>
+      <br>
+      <button ion-button full type="submit" block color="secondary">Registrar</button>
+      <button ion-button full color="danger">Cancelar</button>
+  </form>
 </ion-content>
-

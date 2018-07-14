@@ -8,19 +8,19 @@ import { Observable } from 'rxjs/Observable';
 
 const urlRest = "http://18.188.172.254:3000/";
 /*
-  Generated class for the PreQuestionServiceProvider provider.
+  Generated class for the NewTopicProvider provider.
 
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
 @Injectable()
-export class PreQuestionServiceProvider {
+export class NewTopicProvider {
 
   constructor(public http: Http) {
-    console.log('Hello PreQuestionServiceProvider Provider');
+    console.log('Hello NewTopicProvider Provider');
   }
 
-  getListEvaluation(){
+  getListCourses(){
   	//AGREGAMOS LAS CABECERAS Y PARAMETROS PARA LA CONSULTA
   	let headers = new Headers();
   	headers.append('x-session', window.localStorage.getItem('x-session'));
@@ -29,7 +29,7 @@ export class PreQuestionServiceProvider {
 
   	//CREAMOS UNA VARIABLE OBSERVABLE QUE GENERA LAS NOTIFICACIONES CONSULTANDO EL BACK
   	var observable = Observable.create( observer => {
-  		this.http.get(urlRest + 'admin/evaluation', { headers: headers})
+  		this.http.get(urlRest + 'admin/course', { headers: headers})
   		.subscribe(dat=>{
   			let res = dat.json();
   			observer.next(res);
@@ -40,31 +40,24 @@ export class PreQuestionServiceProvider {
   	return observable;
   };
 
-  setGeneratePreQuestion(name_question, name_header, name_statement, name_answer, name_sol, name_source, name_pre_eval, name_topic, name_diff){
+  setTopic(nombre_tema, curso_id){
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('x-session', window.localStorage.getItem('x-session'));
+    let data={
+			name: nombre_tema,
+			parent_id: null,
+			parents: null,
+      course_id: curso_id
+    };
 
-  	let data={
-  		name: name_question,
-      statement: name_statement,
-  		header: name_header,
-  		answer: name_answer,
-  		solution: name_sol,
-      evaluation_id: name_pre_eval,
-      topic_id: name_topic,
-  		
-      source: name_source,
-  		difficulty_level: name_diff
-  	};
-
-  	return Observable.create(observer => {
-  		this.http.post(urlRest + 'admin/question', JSON.stringify(data), { headers: headers })
+    return Observable.create(observer => {
+  		this.http.post(urlRest + 'admin/topic', JSON.stringify(data), { headers: headers })
   			.subscribe(dat => {
 	          observer.next(dat.json());
 	          observer.complete();
 	          observer.error('Algo esta mal en la creacion de pregunta!');
   			});
   	});
-  }	
+  }
 }

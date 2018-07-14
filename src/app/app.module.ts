@@ -16,6 +16,9 @@ import { ExamenAlumnoPage } from '../pages/examen-alumno/examen-alumno';
 import { PerfilEstudiantePage } from '../pages/perfil-estudiante/perfil-estudiante';
 import { NewEvaluationPage } from '../pages/new-evaluation/new-evaluation';
 import {RegisterPage} from '../pages/register/register';
+import { CrearInstCursoPage } from '../pages/crear-inst-curso/crear-inst-curso';
+import { NewTopicPage } from '../pages/new-topic/new-topic';
+import { RelAlumCursoPage } from '../pages/rel-alum-curso/rel-alum-curso';
 
 import { ExamenProfesorPage } from '../pages/examen-profesor/examen-profesor';
 import { ResetPasswordPage } from '../pages/reset-password/reset-password';
@@ -29,6 +32,10 @@ import { RegisterServiceProvider } from '../providers/register-service/register-
 import { LogOutServiceProvider } from '../providers/log-out-service/log-out-service';
 import { ResetPasswordServiceProvider } from '../providers/reset-password-service/reset-password-service';
 import { PreQuestionServiceProvider } from '../providers/pre-question-service/pre-question-service';
+import { InstanciaCursoProvider } from '../providers/instancia-curso/instancia-curso';
+import { NewTopicProvider } from '../providers/new-topic/new-topic';
+import { UserCourseProvider } from '../providers/user-course/user-course';
+
 
 @NgModule({
   declarations: [
@@ -43,7 +50,10 @@ import { PreQuestionServiceProvider } from '../providers/pre-question-service/pr
     PerfilEstudiantePage,
     ResetPasswordPage,
     NewEvaluationPage,
-    RegisterPage
+    RegisterPage,
+    CrearInstCursoPage,
+    NewTopicPage,
+    RelAlumCursoPage
   ],
   imports: [
     BrowserModule,
@@ -64,8 +74,10 @@ import { PreQuestionServiceProvider } from '../providers/pre-question-service/pr
     PerfilEstudiantePage,
     ResetPasswordPage,
     NewEvaluationPage,
-    RegisterPage
-    
+    RegisterPage,
+    CrearInstCursoPage,
+    NewTopicPage,
+    RelAlumCursoPage
   ],
   providers: [
     StatusBar,
@@ -77,7 +89,10 @@ import { PreQuestionServiceProvider } from '../providers/pre-question-service/pr
     RegisterServiceProvider,
     LogOutServiceProvider,
     ResetPasswordServiceProvider,
-    PreQuestionServiceProvider
+    PreQuestionServiceProvider,
+    InstanciaCursoProvider,
+    NewTopicProvider,
+    UserCourseProvider
   ]
 })
 export class AppModule {}

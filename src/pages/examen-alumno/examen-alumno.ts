@@ -76,6 +76,7 @@ export class ExamenAlumnoPage {
 	    res.subscribe(
 	      value => {
 	        if (value.success){
+				console.log("correcto")
 	        	console.log(value.data);
 	        	this.exam_pendientes = value.data;
 	        }else{
@@ -158,9 +159,8 @@ export class ExamenAlumnoPage {
 						//let b = elemento.solution.b;
 						//let c = elemento.solution.c;
 						//let d = elemento.solution.d;
-						let e = elemento.statement.alternatives[4].text;;
-						console.log(elemento.statement.pictures[0]);
-						
+						let e = elemento.statement.alternatives[4].text;
+
 						if( e != null ){
 				    		respuestasCurrent.push({'id': elemento.id, 'answer':elemento.answer, 
 				    			'a': 0, 
@@ -310,20 +310,26 @@ export class ExamenAlumnoPage {
 				switch(choice){
 					case 'a':
 						elemento.a = (elemento.a == 1 ? 0 : 1);
+						console.log(elemento.a);
 						break;
 					case 'b':
 						elemento.b = (elemento.b == 1 ? 0 : 1);
+						console.log(elemento.b);
 						break;
 					case 'c':
 						elemento.c = (elemento.c == 1 ? 0 : 1);
+						console.log(elemento.c);
 						break;
 					case 'd':
 						elemento.d = (elemento.d == 1 ? 0 : 1);
+						console.log(elemento.d);
 						break;
 					case 'e':
 						elemento.e = (elemento.e == 1 ? 0 : 1);
+						console.log(elemento.e);
 						break;
 				}
+				
     		};
 		});
 		
@@ -356,7 +362,7 @@ export class ExamenAlumnoPage {
 			let respuesta_correcta = '';
 			let notaAnswer = 0;
 
-			if(elemento.e != null){
+			if(!!elemento.e){
 				respuesta_correcta = elemento.answer.toString(2).padStart(5,'0');//convertir answer a binario mas lpad
 				notaAnswer = elemento.a*16+elemento.b*8+elemento.c*4+elemento.d*2+elemento.e;
 			}else{
