@@ -20,11 +20,19 @@ export class RelAlumCursoPage {
   curso_seccion = {id: 0, course_id:0, period:'',
                    teacher_id:0, start_date:'', end_date:'',
                    created_at: '', state: 0};
+  //Alerta que se muestra cuando ingrese a los alumnos
+  alert = this.alertCtrl.create({
+    title: 'Se matricularon alumnos',
+    subTitle: 'Regresar a la vista principal ',
+    buttons: ['OK']
+  });
+
   alumnos = [];
   checkResp = [];
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public menuCtrl: MenuController,
+              public alertCtrl: AlertController,
               public relacion: UserCourseProvider) {
                 this.menuCtrl.enable(false,'MenuStudent');
                 this.menuCtrl.enable(true,'MenuTeacher');
@@ -84,6 +92,7 @@ export class RelAlumCursoPage {
       if (this.checkResp[i] == true){
         this.relacion.setRelAlumCurso(Number(this.curso_seccion.id), Number(this.alumnos[i].id)).subscribe(data => {
           if(data.success){
+            this.alert.present();
             console.log('Se ha registrado al alumno en la seccion');
           }else{
             console.log('No se ha registrado al alumno en la seccion');
