@@ -12,7 +12,7 @@ import { NewTopicPage } from '../pages/new-topic/new-topic';
 import { CrearPreguntaPage } from '../pages/crear-pregunta/crear-pregunta';
 import { NewEvaluationPage } from '../pages/new-evaluation/new-evaluation';
 import { RelAlumCursoPage } from '../pages/rel-alum-curso/rel-alum-curso';
-
+import { NotasProfesorPage } from '../pages/notas-profesor/notas-profesor';
 
 import { LogOutServiceProvider } from '../providers/log-out-service/log-out-service';
 
@@ -70,6 +70,11 @@ export class MyApp {
 
   openPageProf5(){
     this.nav.setRoot(RelAlumCursoPage);
+    this.menuCtrl.close();   
+  }
+
+  openPageProf6(){
+    this.nav.setRoot(NotasProfesorPage);
     this.menuCtrl.close();   
   }
   logout(){
