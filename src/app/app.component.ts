@@ -77,6 +77,44 @@ export class MyApp {
     this.nav.setRoot(NotasProfesorPage);
     this.menuCtrl.close();   
   }
+
+  logOut2(){
+    let alert = this.alertCtrl.create({
+      title: 'Confirmar',
+      message: 'Seguro que desesa salir?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+              console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Salir',
+          handler: () => {
+            console.log('fin de session');
+
+            let res = this.logOutServiceProvider.logOutAdmin();
+
+              res.subscribe(
+                value => {
+                  if (value.success){
+                    console.log(value);
+                  }else{
+                    console.log('No se ha podido salir de session.');
+                  }
+                },
+                err => {console.log('Error: ' + err)},//CONTROLAMOS LOS ERRORES
+                () => console.log('this is the end')
+              );
+              this.nav.setRoot(LoginPage);
+          }
+        }
+      ]
+    });
+    alert.present();      
+  }
   logout(){
 
     let alert = this.alertCtrl.create({

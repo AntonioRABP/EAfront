@@ -109,4 +109,8 @@ export class RelAlumCursoPage {
     }
     
   }
+
+  atrasFunc(){
+    this.inicioCurso = 'Inicio';
+  }
 }
