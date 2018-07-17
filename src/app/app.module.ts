@@ -23,8 +23,10 @@ import { RelAlumCursoPage } from '../pages/rel-alum-curso/rel-alum-curso';
 import { ExamenProfesorPage } from '../pages/examen-profesor/examen-profesor';
 import { ResetPasswordPage } from '../pages/reset-password/reset-password';
 import { TimerPage } from '../pages/timer/timer';
+
 import { RendirExamenAlumnoPage } from '../pages/rendir-examen-alumno/rendir-examen-alumno';
 import { ResultadosExamenAlumnoPage } from '../pages/resultados-examen-alumno/resultados-examen-alumno';
+import { NotasProfesorPage } from '../pages/notas-profesor/notas-profesor';
 
 
 import { LoginServiceProvider } from '../providers/login-service/login-service';
@@ -37,6 +39,7 @@ import { PreQuestionServiceProvider } from '../providers/pre-question-service/pr
 import { InstanciaCursoProvider } from '../providers/instancia-curso/instancia-curso';
 import { NewTopicProvider } from '../providers/new-topic/new-topic';
 import { UserCourseProvider } from '../providers/user-course/user-course';
+import { NotaStudentProvider } from '../providers/nota-student/nota-student';
 
 
 @NgModule({
@@ -57,7 +60,8 @@ import { UserCourseProvider } from '../providers/user-course/user-course';
     NewTopicPage,
     RelAlumCursoPage,
     RendirExamenAlumnoPage,
-    ResultadosExamenAlumnoPage
+    ResultadosExamenAlumnoPage,
+    NotasProfesorPage
   ],
   imports: [
     BrowserModule,
@@ -83,7 +87,8 @@ import { UserCourseProvider } from '../providers/user-course/user-course';
     NewTopicPage,
     RelAlumCursoPage,
     RendirExamenAlumnoPage,
-    ResultadosExamenAlumnoPage
+    ResultadosExamenAlumnoPage,
+    NotasProfesorPage
   ],
   providers: [
     StatusBar,
@@ -98,7 +103,8 @@ import { UserCourseProvider } from '../providers/user-course/user-course';
     PreQuestionServiceProvider,
     InstanciaCursoProvider,
     NewTopicProvider,
-    UserCourseProvider
+    UserCourseProvider,
+    NotaStudentProvider
   ]
 })
 export class AppModule {}

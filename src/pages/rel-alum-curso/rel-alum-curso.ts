@@ -72,7 +72,7 @@ export class RelAlumCursoPage {
     console.log('----------------------');
     console.log(this.curso_seccion);
     console.log('----------------------');
-    let res = this.relacion.getListAlumnos();
+    let res = this.relacion.getListAlumnos(Number(this.curso_seccion.id));
   	res.subscribe(
       value => {
         if (value.success){
@@ -108,5 +108,9 @@ export class RelAlumCursoPage {
       }
     }
     
+  }
+
+  atrasFunc(){
+    this.inicioCurso = 'Inicio';
   }
 }

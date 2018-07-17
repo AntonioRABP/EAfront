@@ -12,7 +12,7 @@ import { NewTopicPage } from '../pages/new-topic/new-topic';
 import { CrearPreguntaPage } from '../pages/crear-pregunta/crear-pregunta';
 import { NewEvaluationPage } from '../pages/new-evaluation/new-evaluation';
 import { RelAlumCursoPage } from '../pages/rel-alum-curso/rel-alum-curso';
-
+import { NotasProfesorPage } from '../pages/notas-profesor/notas-profesor';
 
 import { LogOutServiceProvider } from '../providers/log-out-service/log-out-service';
 
@@ -71,6 +71,49 @@ export class MyApp {
   openPageProf5(){
     this.nav.setRoot(RelAlumCursoPage);
     this.menuCtrl.close();   
+  }
+
+  openPageProf6(){
+    this.nav.setRoot(NotasProfesorPage);
+    this.menuCtrl.close();   
+  }
+
+  logOut2(){
+    let alert = this.alertCtrl.create({
+      title: 'Confirmar',
+      message: 'Seguro que desesa salir?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+              console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Salir',
+          handler: () => {
+            console.log('fin de session');
+
+            let res = this.logOutServiceProvider.logOutAdmin();
+
+              res.subscribe(
+                value => {
+                  if (value.success){
+                    console.log(value);
+                  }else{
+                    console.log('No se ha podido salir de session.');
+                  }
+                },
+                err => {console.log('Error: ' + err)},//CONTROLAMOS LOS ERRORES
+                () => console.log('this is the end')
+              );
+              this.nav.setRoot(LoginPage);
+          }
+        }
+      ]
+    });
+    alert.present();      
   }
   logout(){
 

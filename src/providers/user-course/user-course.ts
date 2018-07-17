@@ -40,7 +40,7 @@ export class UserCourseProvider {
   	return observable;
   };  
 
-  getListAlumnos(){
+  getListAlumnos(course_period_id){
   	//AGREGAMOS LAS CABECERAS Y PARAMETROS PARA LA CONSULTA
   	let headers = new Headers();
   	headers.append('x-session', window.localStorage.getItem('x-session'));
@@ -49,7 +49,7 @@ export class UserCourseProvider {
 
   	//CREAMOS UNA VARIABLE OBSERVABLE QUE GENERA LAS NOTIFICACIONES CONSULTANDO EL BACK
   	var observable = Observable.create( observer => {
-  		this.http.get(urlRest + 'admin/student', { headers: headers})
+  		this.http.get(urlRest + 'admin/course-period/' + course_period_id + '/studentnot', { headers: headers})
   		.subscribe(dat=>{
   			let res = dat.json();
   			observer.next(res);
