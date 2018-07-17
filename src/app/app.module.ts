@@ -23,6 +23,8 @@ import { RelAlumCursoPage } from '../pages/rel-alum-curso/rel-alum-curso';
 import { ExamenProfesorPage } from '../pages/examen-profesor/examen-profesor';
 import { ResetPasswordPage } from '../pages/reset-password/reset-password';
 import { TimerPage } from '../pages/timer/timer';
+import { RendirExamenAlumnoPage } from '../pages/rendir-examen-alumno/rendir-examen-alumno';
+import { ResultadosExamenAlumnoPage } from '../pages/resultados-examen-alumno/resultados-examen-alumno';
 
 
 import { LoginServiceProvider } from '../providers/login-service/login-service';
@@ -53,7 +55,9 @@ import { UserCourseProvider } from '../providers/user-course/user-course';
     RegisterPage,
     CrearInstCursoPage,
     NewTopicPage,
-    RelAlumCursoPage
+    RelAlumCursoPage,
+    RendirExamenAlumnoPage,
+    ResultadosExamenAlumnoPage
   ],
   imports: [
     BrowserModule,
@@ -77,7 +81,9 @@ import { UserCourseProvider } from '../providers/user-course/user-course';
     RegisterPage,
     CrearInstCursoPage,
     NewTopicPage,
-    RelAlumCursoPage
+    RelAlumCursoPage,
+    RendirExamenAlumnoPage,
+    ResultadosExamenAlumnoPage
   ],
   providers: [
     StatusBar,

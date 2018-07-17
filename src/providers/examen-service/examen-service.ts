@@ -121,6 +121,25 @@ export class ExamenServiceProvider {
     });
 
  }
+ getResultExam(id_evaluation){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('s-session', window.localStorage.getItem('s-session'));
+    
+    let data = {
+      evaluation_id: id_evaluation * 1
+    };
+
+    return Observable.create(observer => {
+      this.http.get(urlRest + 'student/evaluation/' + id_evaluation + '/results',   { headers: headers })
+        .subscribe(dat => {
+          observer.next(dat.json());
+          observer.complete();
+          observer.error('Algo esta mal en el registro!');
+        });
+    });
+
+ }
 
  setRespuestas(attempt_id,question_id,answer){
     let headers = new Headers();
