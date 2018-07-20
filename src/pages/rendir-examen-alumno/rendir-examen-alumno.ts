@@ -1,5 +1,5 @@
 import { Component,ViewChild } from '@angular/core';
-import { ToastController ,IonicPage, NavController, NavParams,AlertController,LoadingController, MenuController,Slides  } from 'ionic-angular';
+import { App,Platform,ToastController ,IonicPage, NavController, NavParams,AlertController,LoadingController, MenuController,Slides  } from 'ionic-angular';
 import { ExamenServiceProvider } from '../../providers/examen-service/examen-service';
 import { TimerPage } from '../timer/timer';
 import { ExamenAlumnoPage } from '../examen-alumno/examen-alumno';
@@ -32,19 +32,27 @@ export class RendirExamenAlumnoPage {
 	respuestas = [];
 	attempt_current:number;
 	show : boolean = false;
-  	loading = this.loadingCtrl.create({
+  	loading00 = this.loadingCtrl.create({
+    	content: 'Por favor espere...'
+  	});
+
+  	loading01 = this.loadingCtrl.create({
     	content: 'Por favor espere...'
   	});
 
   	num_diapo:number = 1;
+  	pauPlat;
+  	resPlat;
 
-  constructor(public navCtrl: NavController, 
+  constructor(public platform: Platform,
+  		public navCtrl: NavController, 
 		public navParams: NavParams,
 		public examenServiceProvider: ExamenServiceProvider,
 		public menuCtrl: MenuController,
 		private alertCtrl: AlertController,
 		public loadingCtrl: LoadingController,
-		public toastCtrl: ToastController) {
+		public toastCtrl: ToastController,
+		public app:App) {
   	this.show = false;
 	this.menuCtrl.enable(false,'MenuStudent');
   	this.menuCtrl.enable(false,'MenuTeacher');		
@@ -53,61 +61,115 @@ export class RendirExamenAlumnoPage {
   	this.duracionExamen = navParams.get('duration_time');
   	this.NombreExamen = navParams.get('name');
 
+  	//(<any>window).plugins.preventscreenshot.disable((a) => this.successCallback(a), (b) => this.errorCallback(b));
+
+	this.pauPlat = platform.pause.subscribe(() => {
+
+  		this.endExamen=true;
+    });
+
+   	this.resPlat = platform.resume.subscribe(() => {
+		const alertResultPlt = this.alertCtrl.create({
+	    title: 'El examen fue suspendido',
+	    message: 'No puedes realizar ninguna otra opcion mientras rindes el examen!!!',
+	    buttons: [
+	    	{
+	        	text: 'OK',
+	        	role: 'MaxIntentos'
+	      	}
+			]
+		});
+		alertResultPlt.present();
+    });
+
+    platform.registerBackButtonAction(
+    	()=>{
+    		this.endExamen=true;
+    		/*
+			let alert = this.alertCtrl.create({
+	    	title: 'Salir del examen?',
+	    	message: 'Esta accion terminará el examen',
+	    	buttons: [
+	      	{
+	        	text: 'Cancelar',
+	        	role: 'cancel',
+	        	handler: () => {
+	          		console.log('Se cancelo el inicio de la prueba.');
+	        	}
+	      	},
+	      	{
+	        	text: 'Aceptar',
+	        	handler: () => {
+	        		this.endExamen=true;
+	        	}//end hadler
+	      	}
+	    	
+	    	]
+	  	});
+	  	alert.present();
+		*/
+    	}
+    );
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RendirExamenAlumnoPage');
   }
-  	EnviarRespuestas(){
+  EnviarRespuestas(){
 
 		let intento = this.attempt_current;
 		let registroAnswer = [];
-
+		
 		this.respuestas.forEach(function (elemento, indice, array) {
 			let respuesta_correcta = '';
 			let notaAnswer = 0;
-
-			if(!!elemento.e){
+			
+			if(elemento.e !== null){
 				respuesta_correcta = elemento.answer.toString(2).padStart(5,'0');//convertir answer a binario mas lpad
-				notaAnswer = elemento.a*16+elemento.b*8+elemento.c*4+elemento.d*2+elemento.e;
+				notaAnswer = Number(elemento.a)*16+Number(elemento.b)*8+Number(elemento.c)*4+Number(elemento.d)*2+Number(elemento.e);
 			}else{
 				respuesta_correcta = elemento.answer.toString(2).padStart(4,'0');//convertir answer a binario mas lpad
-				notaAnswer = elemento.a*8+elemento.b*4+elemento.c*2+elemento.d;
+				notaAnswer = Number(elemento.a)*8+Number(elemento.b)*4+Number(elemento.c)*2+Number(elemento.d);
 			}
 			registroAnswer.push({'intento': intento*1, 
 							'answer':elemento.id*1, 
 				    		'notaAnswer': notaAnswer*1
 				    		});
 		});
+		
 		let contador = 0;
 		for(let j=0;j<registroAnswer.length;j++){
-
-			this.examenServiceProvider.setRespuestas(registroAnswer[j]["intento"], 
-				registroAnswer[j]["answer"], 
-				registroAnswer[j]["notaAnswer"]).subscribe(
+			this.examenServiceProvider.setRespuestas(registroAnswer[j]["intento"],registroAnswer[j]["answer"],registroAnswer[j]["notaAnswer"]).subscribe(
 				res => {
 					if(res.success){
 						contador = contador + 1;
-						if(contador == registroAnswer.length){
-							this.finalizarExamen(this.attempt_current);
-							this.loading.dismiss();
-							this.navCtrl.setRoot(ResultadosExamenAlumnoPage,{
-						        												id: this.id
-																			});	        	
-
-						}
 					}
-					console.log(res);
 				},
-				err => {
-					console.log(err);
+				err => {console.log('Error: ' + err)},
+				() => {
+					
+						if(contador == registroAnswer.length){
+					
+					    	this.examenServiceProvider.endExamen(registroAnswer[j]["intento"]).subscribe(
+					    		res => {
+					    			if(res.success){
+					    				this.pauPlat.unsubscribe();
+										this.resPlat.unsubscribe();
+										this.loading01.dismiss();
+										this.navCtrl.setRoot(ResultadosExamenAlumnoPage,{id: this.id});
+									}
+					      		},
+					      		err => {console.log('Error: ' + err)},//CONTROLAMOS LOS ERRORES
+	      						() => console.log('examenServiceProvider.endExamen')
+				    		);
+						}
 				}
 			);
 		}
+  }
 
 
-		return;
-	}
 
   updateChoice(id, choice){
 		this.respuestas.forEach(function (elemento, indice, array) {
@@ -138,15 +200,13 @@ export class RendirExamenAlumnoPage {
     		};
 		});
 		
-		return;
   }
   buildRespuestas(){
 		//construimos el tipo de dato para calcular la nota
 		let respuestasCurrent = []; 
 		this.preguntas.forEach(function (elemento, indice, array) {
 			let e = elemento.statement.alternatives[4].text;
-
-			if( e != null ){
+			if( !!e){
 				respuestasCurrent.push({'id': elemento.id, 'answer':elemento.answer, 
 				    			'a': 0, 
 				    			'b': 0, 
@@ -158,7 +218,7 @@ export class RendirExamenAlumnoPage {
 				    			'res': 0
 				    		});
 			}else{
-							respuestasCurrent.push({'id': elemento.id, 'answer':elemento.answer, 
+				respuestasCurrent.push({'id': elemento.id, 'answer':elemento.answer, 
 				    			'a': 0, 
 				    			'b': 0, 
 				    			'c': 0,
@@ -173,17 +233,6 @@ export class RendirExamenAlumnoPage {
 		});
 		this.respuestas = respuestasCurrent;
   }
-	finalizarExamen(attempt) {
-    
-    	this.examenServiceProvider.endExamen(attempt).subscribe(
-    		data => {
-        	console.log('fin:' + data);
-      		},err => {
-        	console.log(err);
-      		}
-    	);
-    	console.log('end finalizar examen');
-  	}
 
   iniciarExamen(id_examen){
 	this.examenServiceProvider.startExamen(id_examen).subscribe(
@@ -201,7 +250,7 @@ export class RendirExamenAlumnoPage {
 	        				text: 'OK',
 	        				role: 'MaxIntentos',
 	        				handler: () => {
-	        					this.loading.dismiss();
+	        					this.loading00.dismiss();
 	        					this.navCtrl.setRoot(ExamenAlumnoPage);
 	        					console.log('Se cancelo el inicio de la prueba.');
 	        				}
@@ -211,7 +260,7 @@ export class RendirExamenAlumnoPage {
 				alertIntento.present();
 
 			}else{
-				this.loading.dismiss();
+				this.loading00.dismiss();
 				this.attempt_current = value.data["id"];								
 				this.show = true;
 				setTimeout((result) => {
@@ -224,7 +273,7 @@ export class RendirExamenAlumnoPage {
 	        		}
 	    },
 	    err => {console.log('Error: ' + err)},//CONTROLAMOS LOS ERRORES
-	    () => console.log('this is the end')
+	    () => console.log('examenServiceProvider.startExamen')
 	);
   }
   finalizo(){
@@ -233,9 +282,8 @@ export class RendirExamenAlumnoPage {
 				this.finalizo();
 			}
 			else {
-				console.log('fin examen');
 
-				this.loading.present();
+				this.loading01.present();
 				if(!this.endExamen){
 					const alert01 = this.alertCtrl.create({
 				    	title: 'Termino el Examen!',
@@ -250,7 +298,7 @@ export class RendirExamenAlumnoPage {
 		}, 1000)
 	}
   ionViewWillEnter(){
- 		this.loading.present();
+ 		this.loading00.present();
 		let res = this.examenServiceProvider.getAlternative(this.id);
 		
 	    res.subscribe(
@@ -279,9 +327,8 @@ export class RendirExamenAlumnoPage {
 	  		}
 	  	  },
 	      err => {console.log('Error: ' + err)},//CONTROLAMOS LOS ERRORES
-	      () => console.log('this is the end')
+	      () => console.log('examenServiceProvider.getAlternative')
 	    );
-
   }
 
 	verResultados(){
@@ -304,8 +351,7 @@ export class RendirExamenAlumnoPage {
 	      	}
 			]
 	  	});
-	  	alert.present();		
-		
+	  	alert.present();	
 	}
 
 	goPrev(){ this.slides.slidePrev() }

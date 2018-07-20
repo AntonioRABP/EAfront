@@ -90,7 +90,6 @@ export class ExamenServiceProvider {
       attempt_id: id_attempt * 1
     };
 
-    console.log(id_attempt);
     return Observable.create(observer => {
       this.http.post(urlRest + 'student/attempt/' + id_attempt + '/end', JSON.stringify(data), { headers: headers })
         .subscribe(dat => {

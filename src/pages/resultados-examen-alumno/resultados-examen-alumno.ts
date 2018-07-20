@@ -1,5 +1,5 @@
 import { Component,ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams,AlertController } from 'ionic-angular';
+import { ToastController, IonicPage, NavController, NavParams,AlertController, Slides } from 'ionic-angular';
 import { ExamenServiceProvider } from '../../providers/examen-service/examen-service';
 import { MenuController } from 'ionic-angular';
 import { ExamenAlumnoPage } from '../examen-alumno/examen-alumno';
@@ -18,8 +18,10 @@ import { ExamenAlumnoPage } from '../examen-alumno/examen-alumno';
 })
 export class ResultadosExamenAlumnoPage {
 
-  id:number;//id de evaluacion
+  @ViewChild(Slides) slides: Slides;
 
+  id:number;//id de evaluacion
+  showAttempt:boolean = false;
   list_attempt = [];
   nota: '0';
 
@@ -27,7 +29,8 @@ export class ResultadosExamenAlumnoPage {
 		public navParams: NavParams,
 		public examenServiceProvider: ExamenServiceProvider,
 		public menuCtrl: MenuController,
-		private alertCtrl: AlertController) {
+		private alertCtrl: AlertController,
+		public toastCtrl: ToastController) {
 
 	this.menuCtrl.enable(true,'MenuStudent');
   	this.menuCtrl.enable(false,'MenuTeacher');
@@ -36,39 +39,39 @@ export class ResultadosExamenAlumnoPage {
 
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ResultadosExamenAlumnoPage');
-  }
+	ionViewDidLoad() {
+	    console.log('ionViewDidLoad ResultadosExamenAlumnoPage');
+	}
 
-  getAttempt(id_evaluation){
+  	getAttempt(id_evaluation){
+	  	console.log('obtener intentos');
+		this.examenServiceProvider.getAttempts(id_evaluation).subscribe(
+				value => {
+				if (value.success){
+					this.list_attempt = value.data;
+				}else{
+					console.log('No se ha podido recuperar los examenes pendientes del alumno.');
+				}
+			},
+			err => {console.log('Error: ' + err)},//CONTROLAMOS LOS ERRORES
+			() => console.log('this is the end')
+		);
 
-	this.examenServiceProvider.getAttempts(id_evaluation).subscribe(
-			value => {
-			if (value.success){
-				this.list_attempt = value.data;
-			}else{
-				console.log('No se ha podido recuperar los examenes pendientes del alumno.');
-			}
-		},
-		err => {console.log('Error: ' + err)},//CONTROLAMOS LOS ERRORES
-		() => console.log('this is the end')
-	);
+  	}
 
-  }
-
-  getResultExam(id_evaluation){
-
-	this.examenServiceProvider.getResultExam(id_evaluation).subscribe(
-			value => {
-			if (value.success){
-				this.nota = value.data;
-			}else{
-				console.log('No se ha podido recuperar los examenes pendientes del alumno.');
-			}
-		},
-		err => {console.log('Error: ' + err)},//CONTROLAMOS LOS ERRORES
-		() => console.log('this is the end')
-	);
+  	getResultExam(id_evaluation){
+	  	console.log('obtener resultados');
+		this.examenServiceProvider.getResultExam(id_evaluation).subscribe(
+				value => {
+				if (value.success){
+					this.nota = value.data;
+				}else{
+					console.log('No se ha podido recuperar los examenes pendientes del alumno.');
+				}
+			},
+			err => {console.log('Error: ' + err)},//CONTROLAMOS LOS ERRORES
+			() => console.log('this is the end')
+		);
 	}
 
 	ionViewWillEnter(){
@@ -77,6 +80,30 @@ export class ResultadosExamenAlumnoPage {
 	}
 	irExamen(){
 		this.navCtrl.setRoot(ExamenAlumnoPage);
+	}
+
+	goPrev(){ this.slides.slidePrev() }
+	goNext(){ this.slides.slideNext() }
+	changePage(){
+		let first =  this.slides.isBeginning();
+		let last =  this.slides.isEnd();
+
+		if(first){
+			const toast = this.toastCtrl.create({
+	      	message: 'Inicio de Intentos',
+	      	duration: 3000,
+	      	position: 'bottom'
+	    	});
+	    	toast.present();
+		}else if(last){
+
+			const toast = this.toastCtrl.create({
+	      	message: 'Fin de intentos',
+	      	duration: 3000,
+	      	position: 'bottom'
+	    	});
+	    	toast.present();
+		}
 	}
 	getTime(inputSeconds: number) {
 		var sec_num = parseInt(inputSeconds.toString(), 10);

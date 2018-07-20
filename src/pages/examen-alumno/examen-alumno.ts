@@ -38,9 +38,9 @@ export class ExamenAlumnoPage {
 		public menuCtrl: MenuController,
 		private alertCtrl: AlertController,
 		public appCtrl: App) {
-	  	
 	  	this.menuCtrl.enable(true,'MenuStudent');
-  		this.menuCtrl.enable(false,'MenuTeacher');		
+  		this.menuCtrl.enable(false,'MenuTeacher');	
+
 	}
 
 	ionViewDidLoad() {
@@ -68,7 +68,7 @@ export class ExamenAlumnoPage {
 	rendirExamen($id){
 		//INI: 0
 		//Establacemos el examen pendiente actual y su duraccion		
-		let message = 'El examen durará: ';
+		let message = 'Duración ';
 		let examenCurrent = this.examenPendingCurrent;
 		this.exam_pendientes.forEach(function (elemento, indice, array) {
     		if (elemento.id == $id){
@@ -80,8 +80,8 @@ export class ExamenAlumnoPage {
 
 		message = message.concat(this.getMinute(examenCurrent.duration_time),' minutos');
 		let alert = this.alertCtrl.create({
-	    	title: 'Rendir Examen',
-	    	message: message,
+	    	title: message,
+	    	message: 'No podra realizar otras acciones con su móvil, de ser asi se terminará el examen inmediatamente',
 	    	buttons: [
 	      	{
 	        	text: 'Cancelar',

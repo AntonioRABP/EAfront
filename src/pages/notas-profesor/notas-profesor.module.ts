@@ -4,10 +4,8 @@ import { NotasProfesorPage } from './notas-profesor';
 
 @NgModule({
   declarations: [
-    NotasProfesorPage,
   ],
   imports: [
-    IonicPageModule.forChild(NotasProfesorPage),
   ],
 })
 export class NotasProfesorPageModule {}

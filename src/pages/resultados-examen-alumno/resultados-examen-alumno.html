@@ -22,16 +22,21 @@
       <ion-card-content>
         <h4>ESTOS SON TU RESULTADOS:</h4> 
         <h5>NOTA FINAL: {{nota}}</h5>
+        <h6>Se muestra la maxima nota de tus intentos</h6>
         <button float-left block outline  ion-button  color="default" (click)="irExamen()">Ir a Examenes</button>
-        <button float-right block outline  ion-button  color="default" (click)="irExamen()">Ver Intentos</button>
+        <button float-right block outline  ion-button  color="default" (click)="showAttempt=true">Ver Intentos</button>
       </ion-card-content>
     </ion-card>
-              
-              <div *ngIf = "!!list_attempt" ></div>
-              <ion-card *ngFor="let attempt of list_attempt" padding>
+    
+    <div *ngIf=showAttempt>            
+      <div *ngIf = "!!list_attempt" >
+        <ion-card  padding>
+        <ion-slides>
+          <ion-slide *ngFor="let attempt of list_attempt">
+            
               <ion-card-content>
                 <ion-card-title>
-                    Intento {{attempt.attempt_number}}
+                  Intento {{attempt.attempt_number}}
                 </ion-card-title>
 
                 <ion-item>
@@ -45,8 +50,17 @@
                   <h2>{{getTime(attempt.duration_time) }} segundos</h2>
                   <p>Duración</p>
                 </ion-item>
-
+                  <button outline ion-button icon-start (click) = "goPrev()" float-left>
+                    <ion-icon name="ios-arrow-back"></ion-icon>
+                  </button>
+                  <button outline ion-button icon-end (click) = "goNext()" float-right>
+                    <ion-icon name="ios-arrow-forward"></ion-icon>
+                  </button>
               </ion-card-content>
-          </ion-card>
-
+            
+          </ion-slide>
+        </ion-slides>
+        </ion-card>
+      </div>
+    </div>
 </ion-content>
