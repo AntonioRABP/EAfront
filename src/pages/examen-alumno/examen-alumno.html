@@ -10,10 +10,7 @@
 </ion-header>
 
 <ion-content>
-<div [ngSwitch]="partExamen">
-  <div *ngSwitchCase = "'Inicio'">
-
-    <div padding>
+  <div padding>
       <ion-segment [(ngModel)]="examen">
         <ion-segment-button value="exam-pendiente">
           Examenes Pendientes
@@ -22,7 +19,8 @@
           Examenes Pasados
         </ion-segment-button>
       </ion-segment>
-    </div>
+  </div>
+  <div>
     <!--ESTE ES LA VISTA DE EXAMENES-->
     <div [ngSwitch]="examen">
       <div *ngSwitchCase="'exam-pendiente'">
@@ -76,97 +74,4 @@
     </div>
 
   </div>
-  <!--ESTE ES LA VISTA PARA REALIZAR PREGUNTAS-->
-  <div *ngSwitchCase = "'Preguntas'">
-    <div margin-left>
-      <timer [timeInSeconds]="duracionExamen"></timer>
-    </div>
-    <div padding>
-    <ion-slides>
-      <ion-slide *ngFor="let pregunta of preguntas">
-        
-        <ion-card>
-          
-          <ion-card-header>
-            <h1>{{examenPendingCurrent.name}}</h1>
-          </ion-card-header>
-
-          <ion-card-content padding>
-          
-          <ion-item style="align-items: center" *ngIf = "!!pregunta.statement.pictures[0]">
-            <img style="width: 80%; height: 80%; margin: 0 auto;" [src]="pregunta.statement.pictures[0]">
-          </ion-item>
-          <ion-item *ngIf = "!!pregunta.statement.alternatives[0].text">
-            <ion-label text-wrap text-justify>{{pregunta.statement.text}}</ion-label>
-          </ion-item>
-          Marcar las alternativas correctas.
-          <ion-list no-lines>
-            <ion-item *ngIf = "!!pregunta.statement.alternatives[0].text">
-              <ion-label text-wrap text-justify>{{pregunta.statement.alternatives[0].text}}</ion-label> 
-              <ion-checkbox (ionChange)="updateChoice(pregunta.id,'a')"></ion-checkbox>
-            </ion-item>
-            <ion-item  *ngIf = "!!pregunta.statement.alternatives[1].text">
-              <ion-label text-wrap text-justify>{{pregunta.statement.alternatives[1].text}}</ion-label>
-              <ion-checkbox (ionChange)="updateChoice(pregunta.id,'b')"></ion-checkbox>
-            </ion-item>
-            <ion-item *ngIf = "!!pregunta.statement.alternatives[2].text">
-              <ion-label text-wrap text-justify>{{pregunta.statement.alternatives[2].text}}</ion-label>
-              <ion-checkbox (ionChange)="updateChoice(pregunta.id,'c')"></ion-checkbox>
-            </ion-item>
-            <ion-item *ngIf = "!!pregunta.statement.alternatives[3].text">
-              <ion-label text-wrap text-justify>{{pregunta.statement.alternatives[3].text}}</ion-label>
-              <ion-checkbox (ionChange)="updateChoice(pregunta.id,'d')"></ion-checkbox>
-            </ion-item>
-            <ion-item *ngIf = "!!pregunta.statement.alternatives[4].text">
-              <ion-label text-wrap text-justify>{{pregunta.statement.alternatives[4].text}}</ion-label>
-              <ion-checkbox (ionChange)="updateChoice(pregunta.id,'e')"></ion-checkbox>
-            </ion-item>
-          </ion-list>
-          
-          <button block outline ion-button (click)="verResultados()">Terminar Examen</button>
-          </ion-card-content>
-
-        
-        </ion-card>
-
-
-      </ion-slide>
-    </ion-slides>
-    </div>
-
-  </div>
-  <!--Vistas para mirar el resultado-->
-  <div *ngSwitchCase = "'Resultados'">
-    <ion-card>
-      <ion-card-content>
-        <h4>ESTOS SON TU RESULTADOS:</h4> 
-        <h5>NOTA FINAL: {{nota}}</h5>
-        <button block outline  ion-button  color="default" (click)="irExamen()">Ir a Examenes</button>
-      </ion-card-content>
-    </ion-card>
-              
-              <div *ngIf = "!!list_attempt" ></div>
-              <ion-card *ngFor="let attempt of list_attempt" padding>
-              <ion-card-content>
-                <ion-card-title>
-                    Intento {{attempt.attempt_number}}
-                </ion-card-title>
-
-                <ion-item>
-                  <ion-icon name="checkbox-outline" item-start large></ion-icon>
-                  <h2>{{attempt.result }} puntos</h2>
-                  <p>Resultado</p>
-                </ion-item>
-
-                <ion-item>
-                  <ion-icon name="time" item-start large></ion-icon>
-                  <h2>{{getTime(attempt.duration_time) }} segundos</h2>
-                  <p>Duración</p>
-                </ion-item>
-
-              </ion-card-content>
-          </ion-card>
-
-  </div>
-</div>
 </ion-content>

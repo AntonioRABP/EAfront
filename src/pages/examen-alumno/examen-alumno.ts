@@ -1,8 +1,9 @@
 import { Component,ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController  } from 'ionic-angular';
+import { App, IonicPage, NavController, NavParams, AlertController  } from 'ionic-angular';
 import { ExamenServiceProvider } from '../../providers/examen-service/examen-service';
 import { MenuController } from 'ionic-angular';
 import { TimerPage } from '../timer/timer';
+import { RendirExamenAlumnoPage } from '../rendir-examen-alumno/rendir-examen-alumno';
 
 
 @IonicPage()
@@ -12,15 +13,7 @@ import { TimerPage } from '../timer/timer';
 })
 export class ExamenAlumnoPage {
 
-	@ViewChild(TimerPage) timer: TimerPage;
-
-	duracionExamen: number = 0;
-	inicioExamen;
-	finExamen;
-	endExamen = false; //variable para indicar que el usuario decidio terminar el examen
-
 	//variables globales
-	partExamen = 'Inicio';
 	examenPendingCurrent = {
 		id: null,
 		name: '',
@@ -33,35 +26,21 @@ export class ExamenAlumnoPage {
 		duration_time: null
 	};
 
-	nota = '0';
-
 	//variables para el inicio
 	examen = 'exam-pendiente';
 	exam_pendientes = [];
 	exam_pasados = [];
-	respuestas = [];
-
-	//variables para las preguntas
-	nameMyexam = '';
-	preguntas = [];
-	answerA = 0;
-	answerB = 0;
-	answerC = 0;
-	answerD = 0;
-	answerE = 0;
-	//variables para rendir el examen
-	attempt_current = 0;
-
-	list_attempt =[];
 
 	//variables para el resultado
 	constructor(public navCtrl: NavController, 
 		public navParams: NavParams,
 		public examenServiceProvider: ExamenServiceProvider,
 		public menuCtrl: MenuController,
-		private alertCtrl: AlertController) {
-  	this.menuCtrl.enable(true,'MenuStudent');
-  	this.menuCtrl.enable(false,'MenuTeacher');		
+		private alertCtrl: AlertController,
+		public appCtrl: App) {
+	  	this.menuCtrl.enable(true,'MenuStudent');
+  		this.menuCtrl.enable(false,'MenuTeacher');	
+
 	}
 
 	ionViewDidLoad() {
@@ -76,9 +55,7 @@ export class ExamenAlumnoPage {
 	    res.subscribe(
 	      value => {
 	        if (value.success){
-				console.log("correcto")
-	        	console.log(value.data);
-	        	this.exam_pendientes = value.data;
+		    	this.exam_pendientes = value.data;
 	        }else{
 	        	console.log('No se ha podido recuperar los examenes pendientes del alumno.');
 	        }
@@ -88,22 +65,11 @@ export class ExamenAlumnoPage {
 	    );
 	}
 
-	//FUNCIONES PARA VISTA DE EXAMENES
-	irExamen(){
-
-		this.partExamen = 'Inicio';
-	}
-	//FUNCIONES PARA RENDIR EXAMEN
-
 	rendirExamen($id){
 		//INI: 0
-		//Establacemos el examen pendiente actual y su duraccion
-
-		
-		let message = 'El examen durará: ';
-		let duracion;
+		//Establacemos el examen pendiente actual y su duraccion		
+		let message = 'Duración ';
 		let examenCurrent = this.examenPendingCurrent;
-		let respuestasCurrent = [];
 		this.exam_pendientes.forEach(function (elemento, indice, array) {
     		if (elemento.id == $id){
 				examenCurrent = elemento;
@@ -111,33 +77,11 @@ export class ExamenAlumnoPage {
     		};
 		});
     	this.examenPendingCurrent = examenCurrent;
-    	duracion = examenCurrent.duration_time;
-		message = message.concat(this.getMinute(examenCurrent.duration_time),' minutos');
-		//END 0
 
-		//INI: 1
-		//recuperamos las preguntas para el examen que se va rendir
-		let res = this.examenServiceProvider.getAlternative($id);
-		
-	    res.subscribe(
-	      value => {
-	        if(value.success){
-	        	this.preguntas = value.data;
-	        	console.log(value.data);
-	        	
-	        }else{
-	        	console.log('No se ha podido recuperar las preguntas para este examen');
-	        }
-	      },
-	      err => {console.log('Error: ' + err)},//CONTROLAMOS LOS ERRORES
-	      () => console.log('this is the end')
-	    );
-	    //END: 1
-		//INI: 2
-		//pedimos confirmacion para que inicie el examen y iniciamos caontador si es el caso
+		message = message.concat(this.getMinute(examenCurrent.duration_time),' minutos');
 		let alert = this.alertCtrl.create({
-	    	title: 'Rendir Examen',
-	    	message: message,
+	    	title: message,
+	    	message: 'No podra realizar otras acciones con su móvil, de ser asi se terminará el examen inmediatamente',
 	    	buttons: [
 	      	{
 	        	text: 'Cancelar',
@@ -150,95 +94,11 @@ export class ExamenAlumnoPage {
 	        	text: 'Ir a la prueba',
 	        	handler: () => {
 
-			        this.inicioExamen = new Date();
-					this.respuestas = [];
-					//INI: 2.1
-					//construimos el tipo de dato para calcular la nota
-					this.preguntas.forEach(function (elemento, indice, array) {
-						//let a = elemento.solution.a;
-						//let b = elemento.solution.b;
-						//let c = elemento.solution.c;
-						//let d = elemento.solution.d;
-						let e = elemento.statement.alternatives[4].text;
-
-						if( e != null ){
-				    		respuestasCurrent.push({'id': elemento.id, 'answer':elemento.answer, 
-				    			'a': 0, 
-				    			'b': 0, 
-				    			'c': 0,
-				    			'd': 0,
-				    			'e': 0,
-				    			'correct': 0,
-				    			'error':0,
-				    			'res': 0
-				    		});
-						}else{
-							respuestasCurrent.push({'id': elemento.id, 'answer':elemento.answer, 
-				    			'a': 0, 
-				    			'b': 0, 
-				    			'c': 0,
-				    			'd': 0,
-				    			'correct': 0,
-				    			'error':0,
-				    			'res': 0
-				    		});
-						}
-
-			    		return;
+	        		this.navCtrl.setRoot(RendirExamenAlumnoPage,{
+	        			id: examenCurrent.id,
+						duration_time: examenCurrent.duration_time,
+						name: examenCurrent.name
 					});
-			    	this.respuestas = respuestasCurrent;
-			    	
-					//END: 2.1					
-
-			        console.log(this.examenPendingCurrent.id);
-
-			        this.examenServiceProvider.startExamen(this.examenPendingCurrent.id).subscribe(
-			        	value => {
-			        		console.log('inicia examen');
-			        		console.log(value);
-
-	        				if(!value.success){
-	        					console.log("equivocado");
-							    const alertIntento = this.alertCtrl.create({
-							      title: 'Supero el numero de intentos',
-							      subTitle: '',
-							      buttons: [
-							        {
-							          text: 'Ok',
-							        },
-							      ]
-							    });
-							    alertIntento.present();
-
-	        		        }else{
-
-			        			this.attempt_current = value.data["id"];								
-
-			        			console.log(this.attempt_current);
-			        			//borrar luego
-			        			
-			        			console.log(this.preguntas);
-
-								this.duracionExamen=duracion;
-								this.partExamen = 'Preguntas';
-								this.menuCtrl.enable(false,'MenuStudent');
-	        					console.log(this.duracionExamen);
-
-						        setTimeout((result) => {
-						        		//inicia el contador del examen
-						        		console.log('en examen');
-						            	this.timer.startTimer();
-						            	this.finalizo();//vemos si acabo el timer
-						        	},1000);
-
-	        				}
-	      				},
-	      				err => {console.log('Error: ' + err)},//CONTROLAMOS LOS ERRORES
-	      				() => console.log('this is the end')
-			        );
-
-
-
 	        	}//end hadler
 	      	}
 	    	
@@ -248,105 +108,7 @@ export class ExamenAlumnoPage {
 	  	//END 2
 
 	}
-
-  	finalizarExamen(attempt) {
-    
-    	this.examenServiceProvider.endExamen(attempt).subscribe(
-    		data => {
-        	console.log('fin:' + data);
-      		},err => {
-        	console.log(err);
-      		}
-    	);
-    	console.log('end finalizar examen');
-  	}
-
-	finalizo(){
-		setTimeout(() => {
-			if (!this.timer.hasFinished() && !this.endExamen ) {
-				this.finalizo();
-			}
-			else {
-				console.log('fin examen');
-					
-				this.finExamen = new Date();
-
-				if(!this.endExamen){
-					const alert01 = this.alertCtrl.create({
-				    	title: 'Termino el Examen!',
-				    	subTitle: 'Puedes consultar tus notas!',
-				    	buttons: ['OK']
-				    });
-					
-					alert01.present();
-				}
-				this.calcularNota(this.examenPendingCurrent.correct_points,this.examenPendingCurrent.error_points);
-				this.finalizarExamen(this.attempt_current);	
-				this.partExamen = 'Resultados';
-				this.endExamen = false;
-
-				let res = this.examenServiceProvider.getListExam();
-
-
-				this.examenServiceProvider.getAttempts(this.examenPendingCurrent.id).subscribe(
-					value => {
-				        if (value.success){
-				        	console.log(value.data);
-				        	this.list_attempt = value.data;
-				        }else{
-				        	console.log('No se ha podido recuperar los examenes pendientes del alumno.');
-				        }
-				    },
-				    err => {console.log('Error: ' + err)},//CONTROLAMOS LOS ERRORES
-				      () => console.log('this is the end')
-				    );
-				}
-		}, 1000)
-	}
-
-	updateChoice(id, choice){
-		this.respuestas.forEach(function (elemento, indice, array) {
-    		if (elemento.id == id){
-				switch(choice){
-					case 'a':
-						elemento.a = (elemento.a == 1 ? 0 : 1);
-						console.log(elemento.a);
-						break;
-					case 'b':
-						elemento.b = (elemento.b == 1 ? 0 : 1);
-						console.log(elemento.b);
-						break;
-					case 'c':
-						elemento.c = (elemento.c == 1 ? 0 : 1);
-						console.log(elemento.c);
-						break;
-					case 'd':
-						elemento.d = (elemento.d == 1 ? 0 : 1);
-						console.log(elemento.d);
-						break;
-					case 'e':
-						elemento.e = (elemento.e == 1 ? 0 : 1);
-						console.log(elemento.e);
-						break;
-				}
-				
-    		};
-		});
-		
-		return;
-	}
-
-	registroRespuestas(attempt, question, answer){
-		this.examenServiceProvider.setRespuestas(attempt, question, answer).subscribe(
-			res => {
-				console.log(res);
-			},
-			err => {
-				console.log(err);
-			}
-		);
-	}
-
+/*
 	calcularNota(ptos_favor, ptos_contra){
 
 		let intento = this.attempt_current;
@@ -446,33 +208,7 @@ export class ExamenAlumnoPage {
 		return;
 	}
 
-	//FUNCIONES PARA VER RESULTADDOS
-	verResultados(){
-		let alert = this.alertCtrl.create({
-	    	title: 'Confirmar',
-	    	message: 'Seguro que desesa terminar el examen?',
-	    	buttons: [
-	      	{
-	        	text: 'Cancelar',
-	        	role: 'cancel',
-	        	handler: () => {
-	          		console.log('Cancel clicked');
-	        	}
-	      	},
-	      	{
-	        	text: 'Seguro',
-	        	handler: () => {
-					this.menuCtrl.enable(true,'MenuStudent');
-					this.endExamen = true;
-	          		console.log('Ver resultados');
-	          		console.log(this.respuestas);
-	        	}
-	      	}
-	    			]
-	  	});
-	  	alert.present();		
-		
-	}
+*/
 
 	//FORMATEO FECHAS
 
@@ -499,10 +235,5 @@ export class ExamenAlumnoPage {
   	addo(comp) {
     	return (((comp + "").length == 1) ? "0" + comp : comp);
  	}
-
-
-
-
-
 
 }

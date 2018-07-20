@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { NotasProfesorPage } from './notas-profesor';
+import { RendirExamenAlumnoPage } from './rendir-examen-alumno';
 
 @NgModule({
   declarations: [
@@ -8,4 +8,4 @@ import { NotasProfesorPage } from './notas-profesor';
   imports: [
   ],
 })
-export class NotasProfesorPageModule {}
+export class RendirExamenAlumnoPageModule {}

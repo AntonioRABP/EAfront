@@ -90,7 +90,6 @@ export class ExamenServiceProvider {
       attempt_id: id_attempt * 1
     };
 
-    console.log(id_attempt);
     return Observable.create(observer => {
       this.http.post(urlRest + 'student/attempt/' + id_attempt + '/end', JSON.stringify(data), { headers: headers })
         .subscribe(dat => {
@@ -113,6 +112,25 @@ export class ExamenServiceProvider {
 
     return Observable.create(observer => {
       this.http.get(urlRest + 'student/evaluation/' + id_evaluation + '/attempts',   { headers: headers })
+        .subscribe(dat => {
+          observer.next(dat.json());
+          observer.complete();
+          observer.error('Algo esta mal en el registro!');
+        });
+    });
+
+ }
+ getResultExam(id_evaluation){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('s-session', window.localStorage.getItem('s-session'));
+    
+    let data = {
+      evaluation_id: id_evaluation * 1
+    };
+
+    return Observable.create(observer => {
+      this.http.get(urlRest + 'student/evaluation/' + id_evaluation + '/results',   { headers: headers })
         .subscribe(dat => {
           observer.next(dat.json());
           observer.complete();

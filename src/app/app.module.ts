@@ -23,6 +23,9 @@ import { RelAlumCursoPage } from '../pages/rel-alum-curso/rel-alum-curso';
 import { ExamenProfesorPage } from '../pages/examen-profesor/examen-profesor';
 import { ResetPasswordPage } from '../pages/reset-password/reset-password';
 import { TimerPage } from '../pages/timer/timer';
+
+import { RendirExamenAlumnoPage } from '../pages/rendir-examen-alumno/rendir-examen-alumno';
+import { ResultadosExamenAlumnoPage } from '../pages/resultados-examen-alumno/resultados-examen-alumno';
 import { NotasProfesorPage } from '../pages/notas-profesor/notas-profesor';
 
 
@@ -56,6 +59,8 @@ import { NotaStudentProvider } from '../providers/nota-student/nota-student';
     CrearInstCursoPage,
     NewTopicPage,
     RelAlumCursoPage,
+    RendirExamenAlumnoPage,
+    ResultadosExamenAlumnoPage,
     NotasProfesorPage
   ],
   imports: [
@@ -81,6 +86,8 @@ import { NotaStudentProvider } from '../providers/nota-student/nota-student';
     CrearInstCursoPage,
     NewTopicPage,
     RelAlumCursoPage,
+    RendirExamenAlumnoPage,
+    ResultadosExamenAlumnoPage,
     NotasProfesorPage
   ],
   providers: [
