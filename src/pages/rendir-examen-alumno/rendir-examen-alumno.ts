@@ -63,25 +63,6 @@ export class RendirExamenAlumnoPage {
 
   	//(<any>window).plugins.preventscreenshot.disable((a) => this.successCallback(a), (b) => this.errorCallback(b));
 
-	this.pauPlat = platform.pause.subscribe(() => {
-
-  		this.endExamen=true;
-    });
-
-   	this.resPlat = platform.resume.subscribe(() => {
-		const alertResultPlt = this.alertCtrl.create({
-	    title: 'El examen fue suspendido',
-	    message: 'No puedes realizar ninguna otra opcion mientras rindes el examen!!!',
-	    buttons: [
-	    	{
-	        	text: 'OK',
-	        	role: 'MaxIntentos'
-	      	}
-			]
-		});
-		alertResultPlt.present();
-    });
-
     platform.registerBackButtonAction(
     	()=>{
     		this.endExamen=true;
@@ -261,7 +242,25 @@ export class RendirExamenAlumnoPage {
 
 			}else{
 				this.loading00.dismiss();
-				this.attempt_current = value.data["id"];								
+				this.attempt_current = value.data["id"];
+				this.pauPlat = this.platform.pause.subscribe(() => {
+
+			  		this.endExamen=true;
+			    });
+
+			   	this.resPlat = this.platform.resume.subscribe(() => {
+					const alertResultPlt = this.alertCtrl.create({
+				    title: 'El examen fue suspendido',
+				    message: 'No puedes realizar ninguna otra opcion mientras rindes el examen!!!',
+				    buttons: [
+				    	{
+				        	text: 'OK',
+				        	role: 'MaxIntentos'
+				      	}
+						]
+					});
+					alertResultPlt.present();
+			    });							
 				this.show = true;
 				setTimeout((result) => {
 						//inicia el contador del examen

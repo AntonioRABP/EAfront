@@ -58,20 +58,28 @@
       </div>
             
       <div *ngSwitchCase="'exam-pasados'">
-        <ion-list *ngFor="let exam_pasado of exam_pasados">
-          <ion-item>
-            <ion-card>
-              <ion-grid>
-                <ion-row>
-                  <ion-col>{{exam_pasado.nombre}}</ion-col>
-                  <ion-col><button ion-button >Ver nota</button></ion-col>
-                </ion-row>
-              </ion-grid>
-            </ion-card>
-          </ion-item>
-        </ion-list>
+          <ion-card *ngFor="let exam_pasado of exam_pasados">
+              <ion-card-content>
+                <ion-card-title id = 'myExam'>
+                    {{exam_pasado.exam.name}}
+                </ion-card-title>
+                <p>
+                    {{exam_pasado.exam.subject }}
+                </p>
+                <ion-item>
+                  <ion-icon name="checkbox-outline" item-start large></ion-icon>
+                  <h2>{{exam_pasado.final_result }} puntos</h2>
+                  <p>Nota Final</p>
+                </ion-item>
+                <ion-item>
+                    <ion-icon name="md-color-wand" item-start large></ion-icon>
+                    <h2>{{exam_pasado.attempt.attempt_count }} intentos</h2>
+                    <p>Intentos realizados</p>
+                </ion-item>
+                <button id="id_examen" block outline ion-button color="primary" (click)="rendirExamen(exam_pendiente.id,exam_pendiente.name)">Ver intentos</button>
+              </ion-card-content>
+          </ion-card>
       </div>
     </div>
-
   </div>
 </ion-content>
