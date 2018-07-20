@@ -106,7 +106,8 @@ export class NewEvaluationPage {
     this.exam_gener.course_period_id = Number(this.curso_ident);
   	this.exam_gener.duration_time = 60 * this.duracion_min;
   	this.exam_gener.category = 9;
-  	this.exam_gener.is_random = 1;
+    this.exam_gener.is_random = 1;
+    this.exam_gener.correct_points = 20 / Number(this.exam_gener.questions_count);
   	if (this.codReq == true){
   		this.exam_gener.require_access_code = 1
   	}else{

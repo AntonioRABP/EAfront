@@ -60,7 +60,7 @@ export class InstanciaCursoProvider {
   	return observable;
   };
 
-  setInstCourse(curso_id, curso_periodo, curso_teacher, curso_fecha_1, curso_fecha_2, curso_estado){
+  setInstCourse(curso_id, curso_periodo, curso_fecha_1, curso_fecha_2, curso_estado){
   	let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('x-session', window.localStorage.getItem('x-session'));
@@ -68,7 +68,6 @@ export class InstanciaCursoProvider {
     let data={
     	course_id: curso_id,
     	period: curso_periodo,
-    	teacher_id: curso_teacher,
     	start_date: curso_fecha_1,
     	end_date: curso_fecha_2,
     	state: curso_estado

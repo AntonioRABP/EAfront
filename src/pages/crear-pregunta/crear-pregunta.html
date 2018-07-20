@@ -28,8 +28,8 @@
 
       <ion-item>
         <ion-label color="primary">Evaluacion: </ion-label>
-        <ion-select [(ngModel)]="preg_gener.pre_evaluation_id" [ngModelOptions]="{standalone: true}">
-          <ion-option *ngFor="let eval_disp of eval_disps" value="{{eval_disp.id}}">
+        <ion-select [(ngModel)]="eval_disp" [ngModelOptions]="{standalone: true}" (ionChange)="enlistarPreguntas()">
+          <ion-option *ngFor="let eval_disp of eval_disps; let i=index" [value]="{course_period_id:eval_disp.id, questions_count:eval_disp.questions_count}">
             {{eval_disp.name}}
           </ion-option>
         </ion-select>
@@ -99,7 +99,6 @@
     <br>
 
     <button ion-button full color="secondary" block (click)="doConfirm()">Registrar pregunta</button>
-    <button ion-button full color="danger">Cancelar</button>
     <br>
   
   </form>

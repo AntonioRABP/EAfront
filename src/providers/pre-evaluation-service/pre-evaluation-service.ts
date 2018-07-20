@@ -71,7 +71,7 @@ export class PreEvaluationServiceProvider {
     headers.append('x-session', window.localStorage.getItem('x-session'));
 
     let data = {
-      course_id: curso_id,
+      course_period_id: curso_id,
       name: nombre_examen,
       subject: tema_examen,
       start_datetime: fecha_inicio,
@@ -94,7 +94,7 @@ export class PreEvaluationServiceProvider {
     };
 
     return Observable.create(observer => {
-      this.http.post(urlRest + 'admin/pre-evaluation', JSON.stringify(data), { headers: headers })
+      this.http.post(urlRest + 'admin/evaluation', JSON.stringify(data), { headers: headers })
         .subscribe(dat => {
           observer.next(dat.json());
           observer.complete();

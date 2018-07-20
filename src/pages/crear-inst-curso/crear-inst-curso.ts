@@ -19,7 +19,7 @@ export class CrearInstCursoPage {
 	cursos = [];
 	usuarios = [];
 	curso_periodo = {
-		course_id: 0, period: '', teacher_id: 0, start_date: '',
+		course_id: 0, period: '', start_date: '',
 		end_date: '', state: 40
   };
   constructor(public navCtrl: NavController, 
@@ -36,21 +36,6 @@ export class CrearInstCursoPage {
   }
 
   ionViewWillEnter(){
-  	let res = this.instCursoProv.getListUsers();
-  	res.subscribe(
-      value => {
-        if (value.success){
-          this.usuarios = value.data;
-          console.log(this.usuarios);
-          console.log('Si se llego a obtener los usuarios')
-        }else{
-          console.log('No se ha podido recuperar las pre-evaluaciones disponibles');
-          console.log('No pude entrar');
-        }
-      },
-      err => {console.log('Error: ' + err)},
-      () => console.log('Este es el final')
-      );
 
   	let res2 = this.instCursoProv.getListCourses();
   	res2.subscribe(
@@ -70,7 +55,7 @@ export class CrearInstCursoPage {
   }
 
   regInstCurso(){
-  	  this.instCursoProv.setInstCourse(this.curso_periodo.course_id, this.curso_periodo.period, this.curso_periodo.teacher_id, 
+  	  this.instCursoProv.setInstCourse(this.curso_periodo.course_id, this.curso_periodo.period, 
   									 this.curso_periodo.start_date, this.curso_periodo.end_date, this.curso_periodo.state).subscribe(data => {
   		if(data.success){
           let alertRegister = this.alertCtrl.create({

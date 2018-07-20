@@ -40,6 +40,26 @@ export class PreQuestionServiceProvider {
   	return observable;
   };
 
+	getListQuestion(identifier){
+  	//AGREGAMOS LAS CABECERAS Y PARAMETROS PARA LA CONSULTA
+  	let headers = new Headers();
+  	headers.append('x-session', window.localStorage.getItem('x-session'));
+
+  	console.log('pintar var', window.localStorage.getItem('x-session'));
+
+  	//CREAMOS UNA VARIABLE OBSERVABLE QUE GENERA LAS NOTIFICACIONES CONSULTANDO EL BACK
+  	var observable = Observable.create( observer => {
+  		this.http.get(urlRest + 'admin/evaluation/' + identifier + '/questions' , { headers: headers})
+  		.subscribe(dat=>{
+  			let res = dat.json();
+  			observer.next(res);
+  			observer.complete();
+  			observer.error('Algo esta mal!!');
+  		})
+  	});
+  	return observable;
+	};
+	
   setGeneratePreQuestion(name_question, name_header, name_statement, name_answer, name_sol, name_source, name_pre_eval, name_topic, name_diff){
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');

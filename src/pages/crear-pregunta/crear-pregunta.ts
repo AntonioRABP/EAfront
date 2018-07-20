@@ -21,7 +21,9 @@ export class CrearPreguntaPage {
                 topic_id: 0, difficulty_level: 1
               };
   eval_disps = [];
+  eval_disp = {course_period_id: 0, questions_count: 0};
   alt_correctas = [false,false,false,false,false];
+  questions = [];
   constructor(public navCtrl: NavController, 
               public alertCtrl: AlertController, 
               public navParams: NavParams,
@@ -53,43 +55,54 @@ export class CrearPreguntaPage {
       err => {console.log('Error: ' + err)},
       () => console.log('Este es el final')
       );
-
   }
 
   doConfirm() {
-    let confirm = this.alertCtrl.create({
-      title: 'Registrar pregunta?',
-      message: 'Esta usted de acuerdo en registrar esta pregunta en la base de datos?',
-      buttons: [
-        {
-          text: 'Rechazar',
-          handler: () => {
-            console.log('Disagree clicked');
+    this.preg_gener.pre_evaluation_id = Number(this.eval_disp.course_period_id);
+    if ((this.questions.length + 1) <= this.eval_disp.questions_count) {
+      let confirm = this.alertCtrl.create({
+        title: 'Registrar pregunta?',
+        message: '<p>Esta usted de acuerdo en registrar esta pregunta en la base de datos?.</p>',
+        buttons: [
+          {
+            text: 'Rechazar',
+            handler: () => {
+              console.log('Disagree clicked');
+            }
+          },
+          {
+            text: 'Aceptar',
+            handler: () => {
+              console.log('Agree clicked');
+              console.log(this.preg_gener);
+                  this.preQuestionServiceProvider.setGeneratePreQuestion(this.preg_gener.name, JSON.stringify(this.preg_gener.header), JSON.stringify(this.preg_gener.statement),
+                                                            this.preg_gener.answer, JSON.stringify(this.preg_gener.solution), this.preg_gener.source,
+                                                            Number(this.preg_gener.pre_evaluation_id), Number(this.preg_gener.topic_id) ,this.preg_gener.difficulty_level).subscribe(data => {
+                  if(data.success){
+                    this.questions.length = this.questions.length + 1;
+                    let alertRegister = this.alertCtrl.create({
+                      title: 'Pregunta registrada',
+                      message: 'Ha registrado ' + this.questions.length + ' preguntas de ' + this.eval_disp.questions_count,
+                      buttons: ['OK']
+                    });
+                  alertRegister.present();
+                }else{
+                  console.log('No se ha registrado su pregunta y ella no te ama :v');
+                }
+              });
+            }
           }
-        },
-        {
-          text: 'Aceptar',
-          handler: () => {
-            console.log('Agree clicked');
-            console.log(this.preg_gener);
-                this.preQuestionServiceProvider.setGeneratePreQuestion(this.preg_gener.name, JSON.stringify(this.preg_gener.header), JSON.stringify(this.preg_gener.statement),
-                                                           this.preg_gener.answer, JSON.stringify(this.preg_gener.solution), this.preg_gener.source,
-                                                           Number(this.preg_gener.pre_evaluation_id), Number(this.preg_gener.topic_id) ,this.preg_gener.difficulty_level).subscribe(data => {
-                if(data.success){
-                  let alertRegister = this.alertCtrl.create({
-                    title: '¡Ha registrado su pregunta!',
-                    buttons: ['OK']
-                  });
-                alertRegister.present();
-              }else{
-                console.log('No se ha registrado su pregunta y ella no te ama :v');
-              }
-            });
-          }
-        }
-      ]
-    });
-    confirm.present()
+        ]
+      });
+      confirm.present()
+    }else{
+      let noPermitir = this.alertCtrl.create({
+        title: 'Pregunta no registrada',
+        message: 'Se ha alcanzado el numero maximo de preguntas de la evaluacion',
+        buttons: ['OK']
+      });
+      noPermitir.present();
+    }
   }
 
   regQuestion(){
@@ -108,6 +121,25 @@ export class CrearPreguntaPage {
 
     this.preg_gener.answer = num;
 
+  }
+
+  enlistarPreguntas(){
+    let res = this.preQuestionServiceProvider.getListQuestion(Number(this.eval_disp.course_period_id));
+    res.subscribe(
+      value => {
+        if (value.success){
+          this.questions = value.data;
+          console.log('*+++++++++++*');
+          console.log(this.questions);
+          console.log('*+++++++++++*');
+        }else{
+          console.log('No se ha podido recuperar las preguntas disponibles');
+          console.log('No pude entrar');
+        }
+      },
+      err => {console.log('Error: ' + err)},
+      () => console.log('Este es el final')
+      );
   }
 }
 
