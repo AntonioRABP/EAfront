@@ -66,7 +66,7 @@ export class ResultadosExamenAlumnoPage {
 				value => {
 				if (value.success){
 					this.nota = value.data;
-					if(Number(this.nota)>18){
+					if(Number(this.nota)>=18){
 						this.msg = 'Felicitaciones por tu esfuerzo!!!';
 						this.dynamicColor = 'secondary';
 					}else if(Number(this.nota)<10){
