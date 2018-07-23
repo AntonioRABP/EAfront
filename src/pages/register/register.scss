@@ -1,9 +1,6 @@
 page-register {
     .background {
-		width : 100%;
-		height : 100%;
-		background : linear-gradient(10deg,#4E5EFC,#4EE7FC)
-		
+		background-image: url('https://cdn5.ipadizate.es/2017/06/iOS-7-Wallpaper-640x1138.jpg')		
 	}
 
 	.card-header{
@@ -15,7 +12,7 @@ page-register {
 	}
 
 	ion-card.card{
-		background: rgba(232,230,230,0.6px);
+		background: rgba(232,230,230,0.9px);
 		border-radius: 10px;
 	}
 
