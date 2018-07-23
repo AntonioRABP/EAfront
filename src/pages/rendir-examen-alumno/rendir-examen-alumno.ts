@@ -138,7 +138,7 @@ export class RendirExamenAlumnoPage {
 					    				this.pauPlat.unsubscribe();
 										this.resPlat.unsubscribe();
 										this.loading01.dismiss();
-										this.navCtrl.setRoot(ResultadosExamenAlumnoPage,{id: this.id});
+										this.navCtrl.setRoot(ResultadosExamenAlumnoPage,{id: this.id, attempt_current: this.attempt_current});
 									}
 					      		},
 					      		err => {console.log('Error: ' + err)},//CONTROLAMOS LOS ERRORES

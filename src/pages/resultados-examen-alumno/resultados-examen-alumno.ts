@@ -1,5 +1,5 @@
 import { Component,ViewChild } from '@angular/core';
-import { ToastController, IonicPage, NavController, NavParams,AlertController, Slides } from 'ionic-angular';
+import { LoadingController, ToastController, IonicPage, NavController, NavParams,AlertController, Slides } from 'ionic-angular';
 import { ExamenServiceProvider } from '../../providers/examen-service/examen-service';
 import { MenuController } from 'ionic-angular';
 import { ExamenAlumnoPage } from '../examen-alumno/examen-alumno';
@@ -21,11 +21,26 @@ export class ResultadosExamenAlumnoPage {
   @ViewChild(Slides) slides: Slides;
 
   id:number;//id de evaluacion
-  showAttempt:boolean = false;
+  attempt_current:number;//id de attempt
+
+  showResultAttempt : boolean = true;
+  showResultEnd: boolean = false;
+
   list_attempt = [];
   nota: '0';
-  msg = '';
-  dynamicColor = 'dark';
+
+  msgResultAttempt = '';
+  msgResultEnd = '';
+  
+  dynamicColorAttempt = 'dark';
+  dynamicColorEnd = 'dark';
+
+  result:number;
+  question_count:number;
+  answer_correct:number;
+  answer_error:number;
+  answer_blank:number;
+
   constructor(public navCtrl: NavController, 
 		public navParams: NavParams,
 		public examenServiceProvider: ExamenServiceProvider,
@@ -37,28 +52,13 @@ export class ResultadosExamenAlumnoPage {
   	this.menuCtrl.enable(false,'MenuTeacher');
 
   	this.id = navParams.get('id');
+  	this.attempt_current = navParams.get('attempt_current');
 
   }
 
 	ionViewDidLoad() {
 	    console.log('ionViewDidLoad ResultadosExamenAlumnoPage');
 	}
-
-  	getAttempt(id_evaluation){
-	  	console.log('obtener intentos');
-		this.examenServiceProvider.getAttempts(id_evaluation).subscribe(
-				value => {
-				if (value.success){
-					this.list_attempt = value.data;
-				}else{
-					console.log('No se ha podido recuperar los examenes pendientes del alumno.');
-				}
-			},
-			err => {console.log('Error: ' + err)},//CONTROLAMOS LOS ERRORES
-			() => console.log('this is the end')
-		);
-
-  	}
 
   	getResultExam(id_evaluation){
 	  	console.log('obtener resultados');
@@ -67,14 +67,14 @@ export class ResultadosExamenAlumnoPage {
 				if (value.success){
 					this.nota = value.data;
 					if(Number(this.nota)>=18){
-						this.msg = 'Felicitaciones por tu esfuerzo!!!';
-						this.dynamicColor = 'secondary';
+						this.msgResultEnd = 'Felicitaciones por tu esfuerzo!!!';
+						this.dynamicColorEnd = 'secondary';
 					}else if(Number(this.nota)<10){
-						this.msg = 'Sigue esforzandote!!!';
-						this.dynamicColor = 'danger';
+						this.msgResultEnd = 'Sigue esforzandote!!!';
+						this.dynamicColorEnd = 'danger';
 					}else{
-						this.msg = 'Vas por buen camino!!!'
-						this.dynamicColor = 'primary';
+						this.msgResultEnd = 'Vas por buen camino!!!'
+						this.dynamicColorEnd = 'primary';
 					}
 
 				}else{
@@ -86,37 +86,62 @@ export class ResultadosExamenAlumnoPage {
 		);
 	}
 
+	getResultAttempt(id_attempt){
+		console.log('obtener resultado de intentos');
+		this.examenServiceProvider.getResultAttempt(id_attempt).subscribe(
+			value =>{
+				if(value.success){
+					this.result = value.data.result;
+					this.question_count = value.data.question_count;
+					this.answer_correct = value.data.answer_correct;
+					this.answer_error = value.data.answer_error;
+					this.answer_blank = value.data.answer_blank;
+
+					if(Number(this.result)>=18){
+						this.msgResultAttempt = 'Felicitaciones por tu esfuerzo!!!';
+						this.dynamicColorAttempt = 'secondary';
+					}else if(Number(this.result)<10){
+						this.msgResultAttempt = 'Sigue esforzandote!!!';
+						this.dynamicColorAttempt = 'danger';
+					}else{
+						this.msgResultAttempt = 'Vas por buen camino!!!'
+						this.dynamicColorAttempt = 'primary';
+					}
+
+
+				}else{
+					const alert01 = this.alertCtrl.create({
+				    	title: 'No se ha podido establecer conexion!',
+				    	subTitle: 'Puede consultar sus notas en la vista de examenes',
+				    	buttons: ['OK']
+				    });
+					alert01.present();	
+				}
+
+			},
+			err => { console.log('Error: ' + err)},
+			() => console.log('End Get Result Attempt')
+		);
+	}
+
 	ionViewWillEnter(){
+		this.getResultAttempt(this.attempt_current);
 		this.getResultExam(this.id);		
-		this.getAttempt(this.id);
 	}
 	irExamen(){
 		this.navCtrl.setRoot(ExamenAlumnoPage);
 	}
 
-	goPrev(){ this.slides.slidePrev() }
-	goNext(){ this.slides.slideNext() }
-	changePage(){
-		let first =  this.slides.isBeginning();
-		let last =  this.slides.isEnd();
-
-		if(first){
-			const toast = this.toastCtrl.create({
-	      	message: 'Inicio de Intentos',
-	      	duration: 3000,
-	      	position: 'bottom'
-	    	});
-	    	toast.present();
-		}else if(last){
-
-			const toast = this.toastCtrl.create({
-	      	message: 'Fin de intentos',
-	      	duration: 3000,
-	      	position: 'bottom'
-	    	});
-	    	toast.present();
-		}
+	mostrarResultAttempt(){
+		this.showResultAttempt = true;
+  		this.showResultEnd = false;
 	}
+
+	mostrarResultEnd(){
+		this.showResultAttempt = false;
+  		this.showResultEnd = true;
+	}
+
 	getTime(inputSeconds: number) {
 		var sec_num = parseInt(inputSeconds.toString(), 10);
 		var hours = Math.floor(sec_num / 3600);
@@ -135,8 +160,6 @@ export class ResultadosExamenAlumnoPage {
 		var seconds = sec_num - (minutes * 60);
 		return this.addo(minutes) + ":" + this.addo(seconds);
 	}
-  
-
   	addo(comp) {
     	return (((comp + "").length == 1) ? "0" + comp : comp);
  	}
