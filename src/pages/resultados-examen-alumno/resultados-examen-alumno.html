@@ -20,9 +20,12 @@
 
     <ion-card>
       <ion-card-content>
-        <h4>ESTOS SON TU RESULTADOS:</h4> 
-        <h5>NOTA FINAL: {{nota}}</h5>
-        <h6>Se muestra la maxima nota de tus intentos</h6>
+        <div text-center>
+          <h4>NOTA FINAL</h4> 
+          <h1 id="notacss">{{nota}}</h1>
+          <h3 id="msgcss" ion-text [color]="dynamicColor">{{msg}}</h3>
+          <p>Se muestra la maxima nota de tus intentos</p>
+        </div>
         <button float-left block outline  ion-button  color="default" (click)="irExamen()">Ir a Examenes</button>
         <button float-right block outline  ion-button  color="default" (click)="showAttempt=true">Ver Intentos</button>
       </ion-card-content>

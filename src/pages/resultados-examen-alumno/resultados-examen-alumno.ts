@@ -24,7 +24,8 @@ export class ResultadosExamenAlumnoPage {
   showAttempt:boolean = false;
   list_attempt = [];
   nota: '0';
-
+  msg = '';
+  dynamicColor = 'dark';
   constructor(public navCtrl: NavController, 
 		public navParams: NavParams,
 		public examenServiceProvider: ExamenServiceProvider,
@@ -65,6 +66,17 @@ export class ResultadosExamenAlumnoPage {
 				value => {
 				if (value.success){
 					this.nota = value.data;
+					if(Number(this.nota)>18){
+						this.msg = 'Felicitaciones por tu esfuerzo!!!';
+						this.dynamicColor = 'secondary';
+					}else if(Number(this.nota)<10){
+						this.msg = 'Sigue esforzandote!!!';
+						this.dynamicColor = 'danger';
+					}else{
+						this.msg = 'Vas por buen camino!!!'
+						this.dynamicColor = 'primary';
+					}
+
 				}else{
 					console.log('No se ha podido recuperar los examenes pendientes del alumno.');
 				}
