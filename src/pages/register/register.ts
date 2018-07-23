@@ -29,12 +29,13 @@ export class RegisterPage {
                   password : ['',Validators.required],
                   nombre : ['',Validators.required],
                   apellido : ['',Validators.required],
-                  email : ['',[Validators.compose([Validators.required, Validators.email])]]
+                  email : ['',[Validators.compose([Validators.required, Validators.email])]],
+                  access_code: ['',Validators.required]
                 })
 }
 
   //campos para el registro
-  userRegister = {username: '', password: '', nombres: '', apellidos: '', email: ''};
+  userRegister = {username: '', password: '', nombres: '', apellidos: '', email: '', access_code: ''};
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegisterPage');

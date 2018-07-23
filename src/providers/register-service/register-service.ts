@@ -24,7 +24,8 @@ export class RegisterServiceProvider {
       password: datauserregister.password,
       first_name: datauserregister.nombres,
       last_name: datauserregister.apellidos,
-      email: datauserregister.email
+      email: datauserregister.email,
+      access_code: datauserregister.access_code
     };
     console.log('hola')
     return Observable.create(observer => {

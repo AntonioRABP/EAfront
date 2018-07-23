@@ -31,7 +31,7 @@ export class NewEvaluationPage {
                
   duracion_min: number;
   codReq: boolean;
-  curso_ident: string;
+  curso_ident: {curso_periodo_id: 0, curso_id: 0};
   isVisible = false;
   fecha_ini: string;
   fecha_fin: string;
@@ -69,16 +69,7 @@ export class NewEvaluationPage {
   }
   
   enlistarTemas(){
-    var curso_id = 0;
-    var found = false;
-    var i = 0;
-    for (i; found == false ; i++){
-      if (Number(this.curso_ident) == Number(this.curso_disps[i].id)){
-        found = true;
-        curso_id = Number(this.curso_disps[i].course_id);
-      } 
-    } 
-  	let res = this.preEvaluationServiceProvider.getListSubjects(curso_id);
+  	let res = this.preEvaluationServiceProvider.getListSubjects(this.curso_ident.curso_id);
 
   	res.subscribe(
   		value => {
@@ -103,7 +94,7 @@ export class NewEvaluationPage {
     //var tas = this.fecha_fin.substring(11,19);
     this.exam_gener.end_datetime = res + ' ' + tas;
 
-    this.exam_gener.course_period_id = Number(this.curso_ident);
+    this.exam_gener.course_period_id = Number(this.curso_ident.curso_periodo_id);
   	this.exam_gener.duration_time = 60 * this.duracion_min;
   	this.exam_gener.category = 9;
     this.exam_gener.is_random = 1;
@@ -125,6 +116,17 @@ export class NewEvaluationPage {
                 buttons: ['OK']
               });
             alertRegister.present();
+          this.exam_gener.name = '';
+          this.fecha_ini = '';
+          this.fecha_fin = '';
+          this.exam_gener.questions_count = 1;
+          this.exam_gener.error_points = 0;
+          this.duracion_min = 0;
+          this.exam_gener.attempts_allowed = 1;
+          this.exam_gener.difficulty_level = 1;
+          this.exam_gener.type = 7;
+          this.exam_gener.access_code = '';
+          this.codReq = false;
       }
   	});
   }

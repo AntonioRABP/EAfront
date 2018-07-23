@@ -1,0 +1,31 @@
+<!--
+  Generated template for the GenerarCodigoAccesoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="primary">
+  	<button ion-button menuToggle> 
+  		<ion-icon name="menu"></ion-icon>
+  	</button>
+    <ion-title text-center>
+    	Generar codigo de registro
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <form (ngSubmit)="actCodigo()">
+    <ion-label>
+      ASPECTO GENERAL
+    </ion-label>
+    <ion-item>
+      <ion-label color="primary">Codigo de registro: </ion-label>
+      <ion-input type="text" text-right [(ngModel)]="new_cod_access" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <br>
+    <button ion-button full type="submit" block color="secondary">Registrar</button>
+  </form>
+</ion-content>
