@@ -28,6 +28,10 @@
             <ion-label floating>Correo Electrónico</ion-label>
             <ion-input type="email"  [(ngModel)]="userRegister.email" name="email" formControlName="email"></ion-input>
           </ion-item>
+          <ion-item>
+            <ion-label floating>Codigo de registro</ion-label>
+            <ion-input type="text" [(ngModel)]="userRegister.access_code" name="access_code" formControlName="access_code"></ion-input>
+          </ion-item>
           <ion-item *ngIf="!registerForm.valid && registerForm.dirty">
             <p>Todos los campos son obligatorios</p>
           </ion-item>

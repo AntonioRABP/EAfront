@@ -27,6 +27,7 @@ import { TimerPage } from '../pages/timer/timer';
 import { RendirExamenAlumnoPage } from '../pages/rendir-examen-alumno/rendir-examen-alumno';
 import { ResultadosExamenAlumnoPage } from '../pages/resultados-examen-alumno/resultados-examen-alumno';
 import { NotasProfesorPage } from '../pages/notas-profesor/notas-profesor';
+import { GenerarCodigoAccesoPage } from '../pages/generar-codigo-acceso/generar-codigo-acceso';
 
 
 import { LoginServiceProvider } from '../providers/login-service/login-service';
@@ -40,6 +41,7 @@ import { InstanciaCursoProvider } from '../providers/instancia-curso/instancia-c
 import { NewTopicProvider } from '../providers/new-topic/new-topic';
 import { UserCourseProvider } from '../providers/user-course/user-course';
 import { NotaStudentProvider } from '../providers/nota-student/nota-student';
+import { CodigoAccesoProvider } from '../providers/codigo-acceso/codigo-acceso';
 
 
 @NgModule({
@@ -61,7 +63,8 @@ import { NotaStudentProvider } from '../providers/nota-student/nota-student';
     RelAlumCursoPage,
     RendirExamenAlumnoPage,
     ResultadosExamenAlumnoPage,
-    NotasProfesorPage
+    NotasProfesorPage,
+    GenerarCodigoAccesoPage
   ],
   imports: [
     BrowserModule,
@@ -88,7 +91,8 @@ import { NotaStudentProvider } from '../providers/nota-student/nota-student';
     RelAlumCursoPage,
     RendirExamenAlumnoPage,
     ResultadosExamenAlumnoPage,
-    NotasProfesorPage
+    NotasProfesorPage,
+    GenerarCodigoAccesoPage
   ],
   providers: [
     StatusBar,
@@ -104,7 +108,8 @@ import { NotaStudentProvider } from '../providers/nota-student/nota-student';
     InstanciaCursoProvider,
     NewTopicProvider,
     UserCourseProvider,
-    NotaStudentProvider
+    NotaStudentProvider,
+    CodigoAccesoProvider
   ]
 })
 export class AppModule {}

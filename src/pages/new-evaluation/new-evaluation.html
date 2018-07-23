@@ -23,7 +23,7 @@
       <ion-item>
         <ion-label color="primary">Curso periodo: </ion-label>
         <ion-select [(ngModel)]="curso_ident" [ngModelOptions]="{standalone: true}" (ionChange)="enlistarTemas()">
-          <ion-option *ngFor="let curso of curso_disps" value="{{curso.id}}">
+          <ion-option *ngFor="let curso of curso_disps" [value]="{curso_periodo_id: curso.id, curso_id: curso.course_id}">
             {{curso.period}}
           </ion-option>
         </ion-select>

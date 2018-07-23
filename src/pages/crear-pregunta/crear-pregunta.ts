@@ -85,10 +85,22 @@ export class CrearPreguntaPage {
                       message: 'Ha registrado ' + this.questions.length + ' preguntas de ' + this.eval_disp.questions_count,
                       buttons: ['OK']
                     });
-                  alertRegister.present();
-                }else{
-                  console.log('No se ha registrado su pregunta y ella no te ama :v');
-                }
+                    alertRegister.present();
+                    this.preg_gener.name = '';
+                    this.preg_gener.header.text = '';
+                    this.preg_gener.topic_id = 1;
+                    this.preg_gener.statement.text = '';
+                    this.preg_gener.solution.text = '';
+                    this.preg_gener.source = '';
+                    this.preg_gener.statement.alternatives[0].text = '';
+                    this.preg_gener.statement.alternatives[1].text = '';
+                    this.preg_gener.statement.alternatives[2].text = '';
+                    this.preg_gener.statement.alternatives[3].text = '';
+                    this.preg_gener.statement.alternatives[4].text = '';
+                    this.alt_correctas = [false,false,false,false,false];
+                  }else{
+                    console.log('No se ha registrado su pregunta');
+                  }
               });
             }
           }
