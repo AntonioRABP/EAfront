@@ -4,10 +4,9 @@ import { ConsUpdEvPage } from './cons-upd-ev';
 
 @NgModule({
   declarations: [
-    ConsUpdEvPage,
+
   ],
   imports: [
-    IonicPageModule.forChild(ConsUpdEvPage),
   ],
 })
 export class ConsUpdEvPageModule {}
