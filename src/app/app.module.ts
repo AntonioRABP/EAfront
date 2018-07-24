@@ -19,6 +19,7 @@ import {RegisterPage} from '../pages/register/register';
 import { CrearInstCursoPage } from '../pages/crear-inst-curso/crear-inst-curso';
 import { NewTopicPage } from '../pages/new-topic/new-topic';
 import { RelAlumCursoPage } from '../pages/rel-alum-curso/rel-alum-curso';
+import { ConsUpdEvPage } from '../pages/cons-upd-ev/cons-upd-ev';
 
 import { ExamenProfesorPage } from '../pages/examen-profesor/examen-profesor';
 import { ResetPasswordPage } from '../pages/reset-password/reset-password';
@@ -42,6 +43,7 @@ import { NewTopicProvider } from '../providers/new-topic/new-topic';
 import { UserCourseProvider } from '../providers/user-course/user-course';
 import { NotaStudentProvider } from '../providers/nota-student/nota-student';
 import { CodigoAccesoProvider } from '../providers/codigo-acceso/codigo-acceso';
+import { ConsultarActualizarEvaluacionProvider } from '../providers/consultar-actualizar-evaluacion/consultar-actualizar-evaluacion';
 
 
 @NgModule({
@@ -64,7 +66,8 @@ import { CodigoAccesoProvider } from '../providers/codigo-acceso/codigo-acceso';
     RendirExamenAlumnoPage,
     ResultadosExamenAlumnoPage,
     NotasProfesorPage,
-    GenerarCodigoAccesoPage
+    GenerarCodigoAccesoPage,
+    ConsUpdEvPage
   ],
   imports: [
     BrowserModule,
@@ -92,7 +95,8 @@ import { CodigoAccesoProvider } from '../providers/codigo-acceso/codigo-acceso';
     RendirExamenAlumnoPage,
     ResultadosExamenAlumnoPage,
     NotasProfesorPage,
-    GenerarCodigoAccesoPage
+    GenerarCodigoAccesoPage,
+    ConsUpdEvPage
   ],
   providers: [
     StatusBar,
@@ -109,7 +113,8 @@ import { CodigoAccesoProvider } from '../providers/codigo-acceso/codigo-acceso';
     NewTopicProvider,
     UserCourseProvider,
     NotaStudentProvider,
-    CodigoAccesoProvider
+    CodigoAccesoProvider,
+    ConsultarActualizarEvaluacionProvider
   ]
 })
 export class AppModule {}

@@ -14,7 +14,7 @@ import { NewEvaluationPage } from '../pages/new-evaluation/new-evaluation';
 import { RelAlumCursoPage } from '../pages/rel-alum-curso/rel-alum-curso';
 import { NotasProfesorPage } from '../pages/notas-profesor/notas-profesor';
 import { GenerarCodigoAccesoPage } from '../pages/generar-codigo-acceso/generar-codigo-acceso';
-
+import { ConsUpdEvPage } from '../pages/cons-upd-ev/cons-upd-ev';
 import { LogOutServiceProvider } from '../providers/log-out-service/log-out-service';
 
 @Component({
@@ -84,6 +84,11 @@ export class MyApp {
     this.menuCtrl.close();   
   }
 
+  openPageProf8(){
+    this.nav.setRoot(ConsUpdEvPage);
+    this.menuCtrl.close();   
+  }
+  
   logOut2(){
     let alert = this.alertCtrl.create({
       title: 'Confirmar',
