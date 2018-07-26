@@ -98,7 +98,7 @@ export class RendirExamenAlumnoPage {
     console.log('ionViewDidLoad RendirExamenAlumnoPage');
   }
   EnviarRespuestas(){
-
+		console.log('Llegue a enviar las respuestas');
 		let intento = this.attempt_current;
 		let registroAnswer = [];
 		
@@ -118,11 +118,13 @@ export class RendirExamenAlumnoPage {
 				    		'notaAnswer': notaAnswer*1
 				    		});
 		});
-		
+		console.log('Llegue al procesamiento de respuestas');
+		console.log(registroAnswer);
 		let contador = 0;
 		for(let j=0;j<registroAnswer.length;j++){
 			this.examenServiceProvider.setRespuestas(registroAnswer[j]["intento"],registroAnswer[j]["answer"],registroAnswer[j]["notaAnswer"]).subscribe(
 				res => {
+					console.log(res.success);
 					if(res.success){
 						contador = contador + 1;
 					}
@@ -134,10 +136,13 @@ export class RendirExamenAlumnoPage {
 					
 					    	this.examenServiceProvider.endExamen(registroAnswer[j]["intento"]).subscribe(
 					    		res => {
+									
 					    			if(res.success){
 					    				this.pauPlat.unsubscribe();
 										this.resPlat.unsubscribe();
+										console.log('Llego al Loading 01');
 										this.loading01.dismiss();
+										console.log('No llego a pasar el loading 01');
 										this.navCtrl.setRoot(ResultadosExamenAlumnoPage,{id: this.id, attempt_current: this.attempt_current});
 									}
 					      		},
@@ -293,6 +298,7 @@ export class RendirExamenAlumnoPage {
 				}
 				this.endExamen = false;
 				this.EnviarRespuestas();
+				
 			}
 		}, 1000)
 	}

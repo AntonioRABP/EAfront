@@ -111,6 +111,16 @@
                <ion-input disabled={{noActualizar}} type="text" text-right [(ngModel)]="detail_exam.access_code" [ngModelOptions]="{standalone: true}"></ion-input>
             </ion-item>
           </div>
+          
+          <ion-item>
+            <ion-label>Estado de la evaluacion:</ion-label>
+            <ion-select disabled={{noActualizar}} [(ngModel)]="detail_exam.state" [ngModelOptions]="{standalone: true}">
+              <ion-option value=20> En edicion   </ion-option>
+              <ion-option value=21> Habilitado   </ion-option>
+              <ion-option value=22> Inhabilitado </ion-option>
+            </ion-select>
+          </ion-item>
+
         </ion-list>
 
         <div *ngIf="!noActualizar" class="wrapper">

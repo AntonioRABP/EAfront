@@ -26,7 +26,7 @@ export class NewEvaluationPage {
   isDataAvailable = true;
   exam_gener = {course_period_id: 0, name: '', subject: '', start_datetime: '', end_datetime: '', questions_count: 0,  
                 correct_points: 0, error_points: 0, attempts_allowed: 0, duration_time: 0, everyone: 1, 
-                group_access: {}, is_solution_visible: 0,   state: 21, difficulty_level: 0, 
+                group_access: {}, is_solution_visible: 0,   state: 20, difficulty_level: 0, 
                 type: 0, category: 0, is_random: 0, access_code: '', require_access_code: 0};
                
   duracion_min: number;
