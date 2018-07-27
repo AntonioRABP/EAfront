@@ -61,8 +61,6 @@ export class RendirExamenAlumnoPage {
   	this.duracionExamen = navParams.get('duration_time');
   	this.NombreExamen = navParams.get('name');
 
-  	//(<any>window).plugins.preventscreenshot.disable((a) => this.successCallback(a), (b) => this.errorCallback(b));
-
     platform.registerBackButtonAction(
     	()=>{
     		this.endExamen=true;
